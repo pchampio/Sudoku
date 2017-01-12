@@ -24,7 +24,8 @@ require_relative './board.class.rb'
 
 class Solver
 
-  def create_unknown
+  # initialisation des conteneurs des valeurs possibles
+  private def create_unknown
     # les possibles valeurs sur les boxes
     @boxes = {}
     @unknownInBoxes= {}
