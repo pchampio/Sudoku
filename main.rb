@@ -17,32 +17,35 @@ print x.board
 # reduce
 # :easy, :medium, :hard, :extreme
 Generator.reduce(x.board,:extreme)
-print "\n", x.board
+print "\n", x.board, "\n Length ", x.board.usedCells.length
 # solver
 s = Solver.creer(x.board)
-s.solve() # false pour disable l'anim
-print s.board
+s.solveLogic
+# s.solve() # false pour disable l'anim
+puts
+print s.board.complete?, "\n"
+print s
+
 exit
 
 
 planche_base = "
-  _ 9 1   _ _ _   5 _ _
-  _ _ 8   _ _ _   9 7 _
-  _ _ _   _ _ _   _ _ 2
+  _ _ _   _ _ 4   _ _ _
+  _ _ _   _ _ 3   _ _ 9
+  _ 8 _   _ _ 1   _ _ 2
 
-  _ _ _   _ _ _   _ _ _
-  1 5 _   _ _ 7   _ 4 _
-  _ 8 _   _ _ 3   2 _ 9
+  _ _ 4   _ 6 8   _ _ _
+  7 _ _   _ _ _   8 _ _
+  9 _ _   4 _ _   _ 5 6
 
-  7 _ _   9 _ _   3 _ _
-  _ _ _   6 4 _   _ _ _
-  _ 4 2   _ _ _   _ 5 _
-
+  _ 3 _   _ 2 _   _ _ _
+  6 9 _   _ 5 _   _ 2 _
+  _ _ 7   1 _ _   _ _ _
 ".tr("_", "0")
 test = Board.creer(planche_base.delete("\s|\n")
   .split("").reverse.map(&:to_i))
 
 s = Solver.creer(test)
+s.solveLogic
 s.solve() # false pour disable l'anim
-print test
-print s.board
+print s

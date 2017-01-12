@@ -12,10 +12,10 @@
 
 # === Gestion de cases dans une planche de Sudoku
 # === Variables d'instance
-# - +row+	  -> (*LECTURE*) Ligne de la case dans la planche<br>
-# - +col+  	-> (*LECTURE*) Colonne de la case dans la planche<br>
-# - +box+		-> (*LECTURE*) Boxe de la case dans la planche<br>
-# - +value+	-> (*LECTURE* / *ECRITURE*) Valeur de la case (Sudoku) (0==vide)
+# - +row+   -> (*LECTURE*) Ligne de la case dans la planche<br>
+# - +col+   -> (*LECTURE*) Colonne de la case dans la planche<br>
+# - +box+   -> (*LECTURE*) Boxe de la case dans la planche<br>
+# - +value+ -> (*LECTURE* / *ECRITURE*) Valeur de la case (Sudoku) (0==vide)
 
 class Cell
   attr_accessor :value#:nodoc:
@@ -57,6 +57,6 @@ class Cell
   #    Value: 8, Row: 0, Col: 6, Box: 2
   #    Value: 7, Row: 0, Col: 7, Box: 2
   def to_s
-    return "Value: #{@value}, Row: #{@row}, Col: #{@col}, Box: #{@box}\n"
+    return "Value: #{@value}, Row: #{@row}, Col: #{@col}, Box: #{@box}"
   end
 end

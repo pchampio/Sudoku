@@ -81,8 +81,6 @@ class Board
   #    6 4 2   9 7 8   5 3 1
   #    9 7 8   5 3 1   6 4 2
   #    "
-  #
-  #
   #    x = Board.creer(planche_base.delete("\s|\n")
   #      .split("").reverse.map(&:to_i))
   #    print x
@@ -90,6 +88,26 @@ class Board
     new(numbers)
   end
   private_class_method :new
+
+  # Obtenir la Cell a la place coordonne
+  # * *Arguments*    :
+  #   - +i+ -> la ligne
+  #   - +j+ -> la colonne
+  # * *Returns*
+  #   - Cell
+  def cellAt(i,j)
+      @rows[i][j]
+  end
+
+  # iterateur qui loop sur les cases
+  # avec comme information la case, ligne, colonne, boxe
+  def each_with_coord
+    9.times do |i|
+      9.times do |j|
+        yield @rows[i][j], i, j, @rows[i][j].box
+      end
+    end
+  end
 
   # Obtenir les Cell qui sont défini.
   # * *Returns*
@@ -266,6 +284,13 @@ class Board
       end
     end
     true
+  end
+
+  # Vérifie que la planche est Fini.
+  # * *Returns*
+  #   - true/false
+  def complete?
+    valid? and unusedCells.length == 0
   end
 
   # création d'une représentation en chaine de caractères.

@@ -46,17 +46,17 @@ class Generator
 
   # https://en.wikipedia.org/wiki/Sudoku_solving_algorithms
   @@planche_base="
-5 3 4   6 7 8   9 1 2
-6 7 2   1 9 5   3 4 8
-1 9 8   3 4 2   5 6 7
+    5 3 4   6 7 8   9 1 2
+    6 7 2   1 9 5   3 4 8
+    1 9 8   3 4 2   5 6 7
 
-8 5 9   7 6 1   4 2 3
-4 2 6   8 5 3   7 9 1
-7 1 3   9 2 4   8 5 6
+    8 5 9   7 6 1   4 2 3
+    4 2 6   8 5 3   7 9 1
+    7 1 3   9 2 4   8 5 6
 
-9 6 1   5 3 7   2 8 4
-2 8 7   4 1 9   6 3 5
-3 4 5   2 8 6   1 7 9
+    9 6 1   5 3 7   2 8 4
+    2 8 7   4 1 9   6 3 5
+    3 4 5   2 8 6   1 7 9
  "
 
   @@difficulties = {
@@ -73,7 +73,7 @@ class Generator
   end
 
 
-  attr_accessor :board#:nodoc:
+  attr_reader :board#:nodoc:
 
   # Permet de mélanger la planche en permutant les lignes, colonnes, lignes de boxes, colonnes de boxes
   # * *Arguments*    :
@@ -149,7 +149,7 @@ class Generator
     usedCells.sort_by!{|v| -board.possibles(v).length}
 
     # usedCells.each do |usedcell|
-      # print "#{board.possibles(usedcell).length} #{usedcell}"
+    # print "#{board.possibles(usedcell).length} #{usedcell}"
     # end
 
     usedCells.each do |usedcell|
@@ -167,8 +167,7 @@ class Generator
 
         # Crée une instance Solver
         solver = Solver.creer(board)
-
-        if solver.solve
+        if solver.solveLogic
           # Le puzzle est ambigüe si l'on supprime cette case
           usedcell.value = original
           ambiguous = true
@@ -176,13 +175,19 @@ class Generator
         end
 
       end
-      print iterations , " "
 
       # si le puzzle n'est pas ambigüe
       # alors on peur supprimer cette case
       if not ambiguous
         usedcell.value = 0
         iterations -= 1
+        solver = Solver.creer(board)
+        if not solver.solveLogic
+          usedcell.value = original
+          solver = Solver.creer(board)
+          solver.solveLogic
+        end
+
         return board if iterations <= 0
       end
     end
