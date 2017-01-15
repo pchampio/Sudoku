@@ -34,7 +34,6 @@ google-chrome-stable ./coverage/index.html
 ### Documentation
 
 [Online-Doc](https://sudoku.drakirus.xyz/)  
-
 ```
 rdoc
 google-chrome-stable ./doc/index.html
