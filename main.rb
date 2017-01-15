@@ -17,16 +17,26 @@ print x.board
 # reduce
 # :easy, :medium, :hard, :extreme
 Generator.reduce(x.board,:extreme)
-print "\n", x.board, "\n Length ", x.board.usedCells.length
+print "\n", x.board, "\n Length ", x.board.usedCells.length, "\n"
+usedCells = x.board.usedCells
+# Tris les cases par leurs fréquence d'apparition dans la planche
+# Permet d'homogénéiser la planche (ce qui la rend plus dure)
+usedCells.sort_by!{|v| -x.board.sameCellsValue(v).length}
+
+usedCells.each do |usedcell|
+  print "#{x.board.sameCellsValue(usedcell).length} #{usedcell}\n"
+end
+
 # solver
 s = Solver.creer(x.board)
 s.solveLogic
 # s.solve() # false pour disable l'anim
 puts
-print s.board.complete?, "\n"
+# print s.board.complete?, "\n"
 print s
 
-exit
+
+# exit
 
 
 planche_base = "

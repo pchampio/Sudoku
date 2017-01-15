@@ -10,7 +10,7 @@
 #
 
 #:nodoc:
-require_relative './cell.class.rb'
+require_relative './cell_class.rb'
 
 # === Gestion de cases dans une planche de Sudoku
 # === Variables d'instance
@@ -89,6 +89,22 @@ class Board
   end
   private_class_method :new
 
+
+  include Comparable
+  # Méthode de comparaison entre différente instance de Board
+  # * *Arguments*    :
+  #   - +other+ -> autre Board a compare
+  # * *Returns*
+  #   - true/false
+  def ==(other)
+    each_with_coord do |cell,i,j|
+      if cell!=other.cellAt(i,j)
+        return false
+      end
+    end
+    return true
+  end
+
   # Obtenir la Cell a la place coordonne
   # * *Arguments*    :
   #   - +i+ -> la ligne
@@ -129,6 +145,18 @@ class Board
     end
   end
 
+  # Obtenir les Cell de meme value dans la planche
+  # * *Arguments*
+  #   - +Cell+ -> cell (Valeur)
+  # * *Returns*
+  #   - Array of Cell
+  def sameCellsValue(cellArg)
+    @cells.inject([]) do |result, cell|
+      result << cell if cell == cellArg
+      result
+    end
+  end
+
   # Retourne toutes les Cell sur la meme *ligne* *colonne* et *boxe* d'une Cell.
   # * *Arguments*    :
   #   - +cell+ -> Cell du puzzle
@@ -159,19 +187,6 @@ class Board
   #   - Array of numbers
   def possibles(cell)
     ((1..9).to_a - excluded(cell))
-  end
-
-  # Retourne le nombre de Cell nonvide sur la meme *ligne* *colonne* et *boxe*.
-  # * *Arguments*    :
-  #   - +cell+ -> Cell du puzzle
-  # * *Returns*
-  #   - number
-  def linked_lenght(cell)
-    attachment = linked(cell).inject([]) do |result, cellloop|
-      result << cellloop if not cellloop.vide?
-      result
-    end
-    return attachment.length
   end
 
   # Echange 2 lignes d'une planche.
@@ -225,6 +240,7 @@ class Board
   #   - Board
   def swapStack(index1, index2)
     boxesLoop{ |v| swapColumns(index1 * 3 + v, index2 * 3 + v, true) }
+    @board
   end
 
   # Echange 2 groupe de lignes d'une planche.
@@ -235,6 +251,7 @@ class Board
   #   - Board
   def swapBand(index1, index2)
     boxesLoop{ |v| swapRow(index1 * 3 + v, index2 * 3 + v, true) }
+    @board
   end
 
   # Permet de parcourir les boxes. DRY

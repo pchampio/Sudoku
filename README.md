@@ -8,12 +8,25 @@
 
 L3 SPI Réalisation d'une interface à "aides visuelles" à la résolution  d'un Sudoku 
 
-### Exécution
-
+### Installation
 ```
 git clone https://github.com/Drakirus/Sudoku.git
 cd Sudoku
-./main.rb
+gem install bundler
+bundle install --path vendor/bundle
+```
+
+### Exécution
+`bundler exec ruby ./main.rb`
+
+### Tests unitaire
+* Utilisation du Framework [Minitest](https://github.com/seattlerb/minitest) 
+  - [Documentation](http://docs.seattlerb.org/minitest/)
+  - [Exemple](https://github.com/Drakirus/Sudoku/blob/master/test/cell_test.rb)
+
+```
+bundler exec rake
+google-chrome-stable ./coverage/index.html
 ```
 
 ### Documentation

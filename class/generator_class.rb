@@ -10,8 +10,8 @@
 #
 
 #:nodoc:
-require_relative './board.class.rb'
-require_relative './solver.class.rb'
+require_relative './board_class.rb'
+require_relative './solver_class.rb'
 
 # === Génération aléatoire d'une planche de Sudoku
 # === Variables d'instance
@@ -143,13 +143,13 @@ class Generator
     return board if iterations <= 0
     usedCells = board.usedCells
 
-    # Tris des cases par leurs nombre de possibles.
-    # Plus rapide !! car facile de supprimer une case au début
-    # Moins de d'appels à solver.solve car moins de complément
-    usedCells.sort_by!{|v| -board.possibles(v).length}
+    # Tris les cases par leurs fréquence d'apparition dans la planche
+    # Permet d'homogénéiser la planche (ce qui la rend plus dure)
+    usedCells.sort_by!{|v| -board.sameCellsValue(v).length}
+    # usedCells.sort_by!{|v| -board.possibles(v).length}
 
     # usedCells.each do |usedcell|
-    # print "#{board.possibles(usedcell).length} #{usedcell}"
+    # print "#{board.sameCellsValue(usedcell).length} #{usedcell}\n"
     # end
 
     usedCells.each do |usedcell|

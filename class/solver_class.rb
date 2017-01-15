@@ -10,7 +10,7 @@
 #
 
 #:nodoc:
-require_relative './board.class.rb'
+require_relative './board_class.rb'
 
 
 # === Solver d'une planche de Sudoku

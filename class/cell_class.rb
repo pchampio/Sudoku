@@ -38,7 +38,15 @@ class Cell
   end
   private_class_method :new
 
-
+  include Comparable
+  # Méthode de comparaison entre différente instance de Cell
+  # * *Arguments*    :
+  #   - +other+ -> autre Cell a compare
+  # * *Returns*
+  #   - true/false
+  def <=>(other)
+    @value <=> other.value
+  end
   # Connaitre si une Cell n'est pas remplie
   # * *Returns*
   #   - true/false
