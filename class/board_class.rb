@@ -240,7 +240,6 @@ class Board
   #   - Board
   def swapStack(index1, index2)
     boxesLoop{ |v| swapColumns(index1 * 3 + v, index2 * 3 + v, true) }
-    @board
   end
 
   # Echange 2 groupe de lignes d'une planche.
@@ -251,7 +250,6 @@ class Board
   #   - Board
   def swapBand(index1, index2)
     boxesLoop{ |v| swapRow(index1 * 3 + v, index2 * 3 + v, true) }
-    @board
   end
 
   # Permet de parcourir les boxes. DRY
