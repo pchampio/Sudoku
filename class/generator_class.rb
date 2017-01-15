@@ -36,9 +36,9 @@ require_relative './solver_class.rb'
 # - +difficulties+	  -> Rapport du nombre d'iterations a effectuer pour melanger une planche, {:easy, :medium, :hard, :extreme}
 #     @@difficulties = {
 #       :easy => [35,0],
-#       :medium => [81,5],
-#       :hard => [81,10],
-#       :extreme => [81, 15]
+#       :medium => [81,7],
+#       :hard => [81,13],
+#       :extreme => [81, 81]
 #     }
 #
 
@@ -61,8 +61,8 @@ class Generator
 
   @@difficulties = {
     :easy => [35,0],
-    :medium => [81,5],
-    :hard => [81,10],
+    :medium => [81,7],
+    :hard => [81,13],
     :extreme => [81, 81]
   }
 

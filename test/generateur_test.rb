@@ -17,7 +17,7 @@ class TestGenerator < Minitest::Test
 
   def test_reduce
     print "Creation d'une planche reduite\n"
-    Generator.reduce(@gen.board,:extreme)
+    Generator.reduce(@gen.board,:hard)
     assert_equal false, @gen.board.unusedCells == 0
   end
 
