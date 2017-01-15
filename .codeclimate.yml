@@ -28,4 +28,4 @@ ratings:
   paths:
   - "**.rb"
 exclude_paths:
-  - "test/**"
+  - "test/*"

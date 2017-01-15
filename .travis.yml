@@ -2,10 +2,13 @@
 # LuaDist Travis-CI Hook
 #
 
+notifications:
+  email: false
+
 # We assume Ruby environments
 language: Ruby
 rvm:
-  - 2.4
+  - 2.2
 
 before_install:
   - sudo apt-get update -qq
