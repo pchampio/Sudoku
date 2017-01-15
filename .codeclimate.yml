@@ -26,6 +26,6 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "**.rb"
+  - "class/**.rb"
 exclude_paths:
   - "test/*"
