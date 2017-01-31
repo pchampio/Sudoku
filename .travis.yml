@@ -19,12 +19,12 @@ before_install:
 # Install dependencies
 install:
   - sudo apt-get install -y ruby-dev
-  - gem install bundler
-  - bundler install
+  - sudo gem install bundler
+  - bundler install --path vendor/bundle
 
 # Build the module
 script:
-  - rake
+  - bundler exec rake
   - CODECLIMATE_REPO_TOKEN=dcf837f47a43d432f10e70d3dd3764e8ee196e6b9c109f399e2c718ae88b63d7 bundle exec codeclimate-test-reporter
 
 # Only watch the master branch
