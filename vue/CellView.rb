@@ -1,8 +1,7 @@
 require 'gtk2'
 
 class CellView < Gtk::Button
-	@hints
-	@value
+	@cell
 
 	def Initialize(value)
 		super(value)
