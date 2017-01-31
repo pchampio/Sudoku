@@ -1,16 +1,17 @@
 require 'gtk3'
 require_relative '../class/cell_class.rb'
 
-class CellView < Gtk::Button
+class CellView
 	
+	attr_accessor :button
+	attr_accessor :cell
 
 	def initialize(cell)
 		@cell=cell
-		if cell.value==0
-			super(:label=>" ")
+		if(@cell.value==0)
+			@button=Gtk::Button.new(:label=>" ")
 		else
-			super(:label=>cell.value.to_s)
+			@button=Gtk::Button.new(:label=>@cell.value.to_s)
 		end
-		
 	end
 end

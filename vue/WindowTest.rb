@@ -1,6 +1,5 @@
 require 'gtk3'
 require_relative './GrillePanel.rb'
-
 require_relative '../class/board_class.rb'
 
 def on_destroy()
@@ -11,7 +10,7 @@ window = Gtk::Window.new()
 window.set_title('Sudoku')
 window.set_default_size(300,300)
 window.set_resizable(true)
-window.set_window_position(Gtk::Window::CENTER_ALWAYS)
+#window.set_window_position(Gtk::Window::CENTER_ALWAYS)
 
 bQuit = Gtk::Button.new(:label=>"Quitter")
 bQuit.signal_connect('clicked'){on_destroy}
