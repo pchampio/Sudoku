@@ -113,7 +113,7 @@ class Solver
   end
 
 
-  # Complète les trous vide dans une planche (par logique)
+  # Complète les trous vide dans une planche (par logiqu naked Single http://www.sadmansoftware.com/sudoku/nakedsingle.php)
   # * *Returns*
   #   réussite?
   #   - true/false
