@@ -19,7 +19,7 @@ before_install:
 # Install dependencies
 install:
   - sudo apt-get install -y ruby-dev
-  - sudo gem install bundler
+  - gem install bundler
   - bundler install --path vendor/bundle
 
 # Build the module
