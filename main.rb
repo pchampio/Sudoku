@@ -56,6 +56,6 @@ test = Board.creer(planche_base.delete("\s|\n")
   .split("").reverse.map(&:to_i))
 
 s = Solver.creer(test)
-# s.solveLogic
-s.solve() # false pour disable l'anim
+s.solveLogic
+# s.solve() # false pour disable l'anim
 print s

@@ -1,4 +1,4 @@
-require 'gtk2'
+require 'gtk3'
 
 class CellView < Gtk::Button
 	@hints

@@ -1,7 +1,7 @@
-require 'gtk2'
-load 'GrillePanel.rb'
-load '../class/board_class.rb'
-Gtk.init
+require 'gtk3'
+require_relative './GrillePanel.rb'
+
+require_relative '../class/board_class.rb'
 
 def on_destroy()
 	Gtk.main_quit

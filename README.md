@@ -15,7 +15,7 @@ L3 SPI Réalisation d'une interface à "aides visuelles" à la résolution  d'un
 git clone https://github.com/Drakirus/Sudoku.git
 cd Sudoku
 gem install bundler
-bundle install --path vendor/bundle
+bundler install --path vendor/bundle
 ```
 
 ### Exécution
