@@ -13,7 +13,6 @@ rvm:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y build-essential xorg-dev libudev-dev libts-dev libgl1-mesa-dev libglu1-mesa-dev libasound2-dev libpulse-dev libopenal-dev libogg-dev libvorbis-dev libaudiofile-dev libpng12-dev libfreetype6-dev libusb-dev libdbus-1-dev zlib1g-dev libdirectfb-dev
-  - sudo apt-get install -y libgtk-3-0
   - gem update --system
   - gem --version
 
@@ -21,7 +20,7 @@ before_install:
 install:
   - sudo apt-get install -y ruby-dev
   - gem install bundler
-  - gem install
+  - bundler install
 
 # Build the module
 script:
@@ -36,3 +35,4 @@ branches:
 addons:
   code_climate:
     repo_token: dcf837f47a43d432f10e70d3dd3764e8ee196e6b9c109f399e2c718ae88b63d7
+
