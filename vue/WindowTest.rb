@@ -1,5 +1,5 @@
 require 'gtk3'
-require_relative './GrillePanel.rb'
+require_relative './GridPanel.rb'
 require_relative '../class/board_class.rb'
 
 def on_destroy()
@@ -34,7 +34,7 @@ planche_base = "
 
 board = Board.creer(planche_base.delete("\s|\n")
       .split("").reverse.map(&:to_i))
-@grille=GrillePanel.new(board)
+@grille=GridPanel.new(board)
 
 
 window.add(@grille.boardView())
