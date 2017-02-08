@@ -31,14 +31,11 @@ class Menu < Gtk::Window
 
 		optionButton.signal_connect("clicked"){
 		remove(event1)
-		add(optionMode)
+		add(optionMode.new)
 		}
 		add event1
 
 		show_all
-	end
-	def optionMode()
-		return OptionMode.new self
 	end
 end
 
