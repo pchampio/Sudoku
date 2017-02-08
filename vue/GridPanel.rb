@@ -3,9 +3,10 @@ require_relative 'CellView.rb'
 require_relative '../class/board_class.rb'
 require_relative '../class/cell_class.rb'
 
-class GridPanel
+class GridPanel < Gtk::Frame
 
 	def initialize(board)
+		super()		
 		@board=board
 		@boardView=Gtk::Table.new(3,3,true)
 
@@ -21,17 +22,12 @@ class GridPanel
 						@boxView[x][y].attach(cell.button,i,i+1,j,j+1)
 					}
 				}
-				@boardView.attach(@boxView[x][y],x,x+1,y,y+1,nil,nil,3,3)
-				@boxView[x][y].show
+				@boardView.attach(@boxView[x][y],x,x+1,y,y+1,nil,nil,3,3)			
 			}
 		}
-		
-		@boardView.show
+		add(@boardView)
 	end
 
-	def boardView()
-		return @boardView
-	end
 
 end
 
