@@ -5,13 +5,6 @@ class OptionMode < Gtk::Frame
 	def initialize(window)
 		super()
 		@window=window
-		#set_title "Options"
-		#set_default_size 300, 300
-		#set_resizable true
-
-		#signal_connect 'destroy'  do
-		#	Gtk.main_quit			
-		#end
 		init_ui
 	end
 
@@ -28,6 +21,3 @@ class OptionMode < Gtk::Frame
 
 end
 
-#Gtk.init
-##option=OptionMode.new()
-##Gtk.main
