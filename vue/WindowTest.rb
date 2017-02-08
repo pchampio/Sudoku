@@ -5,7 +5,6 @@ require_relative '../class/board_class.rb'
 def on_destroy()
 	Gtk.main_quit
 end
-
 window = Gtk::Window.new()
 window.set_title('Sudoku')
 window.set_default_size(300,300)
@@ -37,7 +36,7 @@ board = Board.creer(planche_base.delete("\s|\n")
 @grille=GridPanel.new(board)
 
 
-window.add(@grille.boardView())
+window.add(@grille)
 window.show_all()
 
 Gtk.main
