@@ -1,5 +1,6 @@
 require 'gtk3'
 require_relative '../vue/OptionMode.rb'
+require_relative '../vue/LibreMode.rb'
 
 class Menu < Gtk::Window
 
@@ -31,7 +32,12 @@ class Menu < Gtk::Window
 
 		optionButton.signal_connect("clicked"){
 		remove(event1)
-		add(optionMode.new)
+		add(OptionMode.new self)
+		}
+
+		freeModeButton.signal_connect("clicked"){
+		remove(event1)
+		add(LibreMode.new self)
 		}
 		add event1
 
