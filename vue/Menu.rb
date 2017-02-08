@@ -4,7 +4,7 @@ class Menu < Gtk::Window
 
 	def initialize()
 		super
-		set_title "Bienvenue Suduko"
+		set_title "Bienvenue Sudoku"
 		set_default_size 300, 300
 		set_resizable true
 
@@ -17,10 +17,17 @@ class Menu < Gtk::Window
 	def init_ui
 		
 
-		event1 = Gtk::EventBox.new
-		label_turial = Gtk::Label.new "Turial", true
-		event1.add(label_turial)
-
+		event1 = Gtk::VBox.new(true,5)
+		label_title = Gtk::Label.new "Sudoku", true
+		tutoButton = Gtk::Button.new "Tuto"
+		arcadeButton = Gtk::Button.new "Arcade"
+		freeModeButton = Gtk::Button.new "Libre"
+		optionButton = Gtk::Button.new "Options"
+		event1.add(label_title)
+		event1.add(tutoButton)
+		event1.add(arcadeButton)
+		event1.add(freeModeButton)
+		event1.add(optionButton)
 		self.add event1
 
 		show_all
