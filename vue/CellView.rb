@@ -1,7 +1,7 @@
 require 'gtk3'
 require_relative '../class/cell_class.rb'
 
-class CellView
+class CellView < Gtk::Frame
 	
 	attr_accessor :button
 	attr_accessor :cell
@@ -14,4 +14,6 @@ class CellView
 			@button=Gtk::Button.new(:label=>@cell.value.to_s)
 		end
 	end
+
+
 end
