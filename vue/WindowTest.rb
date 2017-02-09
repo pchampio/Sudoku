@@ -5,7 +5,6 @@ require_relative '../class/board_class.rb'
 def on_destroy()
 	Gtk.main_quit
 end
-
 window = Gtk::Window.new()
 window.set_title('Sudoku')
 window.set_default_size(300,300)
