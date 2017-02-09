@@ -13,7 +13,7 @@ window.set_resizable(true)
 #window.set_window_position(Gtk::Window::CENTER_ALWAYS)
 
 bQuit = Gtk::Button.new(:label=>"Quitter")
-bQuit.signal_connect('clicked'){on_destroy}
+bQuit.signal_connect('destroy'){on_destroy}
 
 @un = Gtk::Label.new()
 @un.set_text("1")
@@ -37,7 +37,7 @@ board = Board.creer(planche_base.delete("\s|\n")
 @grille=GridPanel.new(board)
 
 
-window.add(@grille.boardView())
+window.add(@grille)
 window.show_all()
 
 Gtk.main
