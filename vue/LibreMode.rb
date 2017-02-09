@@ -4,6 +4,7 @@ require_relative '../class/generator_class.rb'
 require_relative '../vue/GameMode.rb'
 
 class LibreMode < Gtk::Frame
+	@difficulty = 0
 
 	def initialize(window)
 		super()
@@ -11,11 +12,39 @@ class LibreMode < Gtk::Frame
 		@event1 = Gtk::VBox.new(:vertical=>true,:spacing=>5)
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
 		label_difficulty = Gtk::Label.new "Difficulté :", :use_underline => true
+		
+		@event1.add(label_title)
+		
+		difficultyBox =Gtk::HBox.new(:vertical=>true,:spacing=>5).add(label_difficulty)
+		box = Gtk::HBox.new(:vertical=>true,:spacing=>2)
+
+		easyButton = Gtk::RadioButton.new "Facile"
+		easyButton.signal_connect("clicked") { @difficulty= 1 }
+		mediumButton = Gtk::RadioButton.new easyButton,"Normal"
+		mediumButton.signal_connect("clicked") { @difficulty= 2 }
+		difficultyButton = Gtk::RadioButton.new easyButton,"Difficile"
+		difficultyButton.signal_connect("clicked") { @difficulty= 3 }
+		diabolikButton = Gtk::RadioButton.new easyButton,"Diabolique"
+		diabolikButton.signal_connect("clicked") { @difficulty= 4 }
 		begginButton=Gtk::Button.new(:label=>"Commencer")
 		begginButton.signal_connect("clicked"){commencerPartie}
-		@event1.add(label_title)
-		@event1.add(Gtk::VBox.new(:vertical=>true,:spacing=>2).add(label_difficulty))
-		@event1.add(begginButton)
+		menuButton=Gtk::Button.new(:label=>"Retour")
+		menuButton.signal_connect("clicked"){
+			@window.remove self
+			@window.add @window.event1
+		}
+
+
+		difficultyBox.add easyButton
+		difficultyBox.add mediumButton
+		difficultyBox.add difficultyButton
+		difficultyBox.add diabolikButton
+
+		box.add menuButton
+		box.add begginButton
+		
+		@event1.add(difficultyBox)
+		@event1.add box
 			
 		self.add @event1
 
@@ -26,7 +55,19 @@ class LibreMode < Gtk::Frame
 
 		x = Generator.new
 		x.randomize
-		Generator.reduce(x.board,:easy)
+		#puts @difficulty
+		case @difficulty
+		when 1
+			Generator.reduce(x.board,:easy)
+		when 2
+			Generator.reduce(x.board,:medium)
+		when 3
+			Generator.reduce(x.board,:hard)
+		when 4
+			Generator.reduce(x.board,:extreme)
+		else
+			Generator.reduce(x.board,:easy)
+		end
 		
 		@window.remove self		
 		game = GameMode.new(@window,x.board)

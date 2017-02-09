@@ -9,7 +9,7 @@ class GameMode < Gtk::Frame
 		@board=board
 		@window=window
 
-		event1 = Gtk::VBox.new(:vertical=>false,:spacing=>5)
+		event1 = Gtk::VBox.new(:vertical=>true,:spacing=>5)
 		grid = GridPanel.new(@board)
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
 		event1.add(label_title)		
