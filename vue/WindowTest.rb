@@ -12,7 +12,7 @@ window.set_resizable(true)
 #window.set_window_position(Gtk::Window::CENTER_ALWAYS)
 
 bQuit = Gtk::Button.new(:label=>"Quitter")
-bQuit.signal_connect('clicked'){on_destroy}
+bQuit.signal_connect('destroy'){on_destroy}
 
 @un = Gtk::Label.new()
 @un.set_text("1")
