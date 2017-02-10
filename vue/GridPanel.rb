@@ -13,6 +13,7 @@ require 'gtk3'
 require_relative 'CellView.rb'
 require_relative '../class/board_class.rb'
 require_relative '../class/cell_class.rb'
+require_relative '../class/solver_class.rb'
 
 ##class héritant de Gtk::Frame
 #permet d'être ajoutée dans une fenêtre
@@ -28,6 +29,10 @@ class GridPanel < Gtk::Frame
 		super()		
 		@board=board
 		@boardBoxView=Gtk::Table.new(3,3,true)
+
+		@solver = Solver.creer @board
+		@solver.solveLogic
+		@solver.solve
 
 		@boxView=Array.new(3){Array.new(3)}
 

@@ -1,6 +1,8 @@
 require 'gtk3'
 require_relative '../class/board_class.rb'
 require_relative '../vue/GridPanel.rb'
+require_relative '../vue/Numpad.rb'
+require_relative '../class/solver_class.rb'
 
 class GameMode < Gtk::Frame
 
@@ -9,12 +11,17 @@ class GameMode < Gtk::Frame
 		@board=board
 		@window=window
 
-		event1 = Gtk::VBox.new(:vertical=>true,:spacing=>5)
+		event1 = Gtk::Table.new(10,14,true)
 		grid = GridPanel.new(@board)
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
-		event1.add(label_title)		
-		
-		event1.add(grid)
+		numpad = Numpad.new
+
+
+		event1.attach(label_title,0,3,0,1)		
+		event1.attach(grid,0,9,1,9)
+		event1.attach(numpad,10,13,1,4)
+
+
 		self.add(event1)
 		show_all
 	end
