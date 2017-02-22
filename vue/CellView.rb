@@ -34,6 +34,6 @@ class CellView < Gtk::Button
 		end
 		#set_border_width(0)
 		#add(@button)
-		signal_connect("clicked"){}
+		#signal_connect("clicked"){}
 	end
 end
