@@ -18,7 +18,7 @@ class CellView < Gtk::Button
 	##variables
 	attr_accessor :button #c'est le bouton que renvoie la class CellView en guise de case
 	attr_accessor :cell #c'est la case de cell_class.rb
-
+	#attr_accessor :state #peut-être vide, donnée, rempli 
 	##constructeur
 	#param cell : case de la grille de sudoku
 	def initialize(cell)

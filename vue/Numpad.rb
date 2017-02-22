@@ -4,11 +4,13 @@ require_relative '../vue/GameMode.rb'
 
 class Numpad < Gtk::Frame
 	attr_accessor :valeur
+	attr_reader :statut
+
 	def initialize panel
 		super()
 		@panel=panel
 		@valeur=0
-		table = Gtk::Table.new(3,3,true)
+		table = Gtk::Table.new(8,6,true)
 		
 		numButtons=Array.new(3){Array.new(3)}
 
@@ -20,11 +22,17 @@ class Numpad < Gtk::Frame
 				@valeur=val
 				@panel.recupereNumber(@valeur)
 				}
-				table.attach(numButtons[x][y],x,x+1,y,y+1)
-				
+				table.attach(numButtons[x][y],2*x,2*(x+1),2*y,2*(y+1))
 			}
 		}
 
+		buttonPen = Gtk::RadioButton.new "Stylo"
+		buttonPen.signal_connect('clicked'){statut=true}
+		buttonCrayon = Gtk::RadioButton.new buttonPen,"Crayon"
+		buttonCrayon.signal_connect('clicked'){statut=false}
+		table.attach(buttonPen,0,3,7,8)
+		table.attach(buttonCrayon,3,6,7,8)
+		
 		add(table)
 		
 		show_all()

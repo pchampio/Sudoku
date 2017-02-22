@@ -21,7 +21,7 @@ class GameMode < Gtk::Frame
 
 		event1.attach(label_title,0,3,0,1)		
 		event1.attach(grid,0,9,1,9)
-		event1.attach(numpad,10,13,1,4)
+		event1.attach(numpad,10,13,1,5)
 
 		@solver = Solver.creer @board
 		@solver.solveLogic
