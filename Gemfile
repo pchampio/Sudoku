@@ -6,4 +6,5 @@ group :development, :test do
   gem 'simplecov', :require => false, :group => :test
   gem "minitest"
   gem 'minitest-coverage'
+  # gem 'gtk3'
 end

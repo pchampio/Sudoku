@@ -25,6 +25,7 @@ class Cell
   def initialize(row, col, box)
     @row, @col, @box = row, col, box
     @value = 0
+    @origin = false
   end
   # Représentation d'une case
   # * *Arguments*    :
@@ -52,6 +53,19 @@ class Cell
   #   - true/false
   def vide?
     @value == 0
+  end
+
+  # Connaitre si la cell est define lors de la generation
+  # * *Returns*
+  #   - true/false
+  def origin?
+    @origin
+  end
+
+  # Met la case en read only
+  def freeze
+    instance_eval { undef :value= }
+    @origin = true
   end
 
   # Pour debugging

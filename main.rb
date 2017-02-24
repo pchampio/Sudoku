@@ -11,32 +11,43 @@
 #:nodoc:
 Dir[File.dirname(__FILE__) + '/class/*.rb'].each {|file| require file }
 
-# x = Generator.new
-# x.randomize
-# print x.board
-# # reduce
-# # :easy, :medium, :hard, :extreme
-# Generator.reduce(x.board,:extreme)
+x = Generator.new
+x.randomize
+print x.board
+# reduce
+# :easy, :medium, :hard, :extreme
+Generator.reduce(x.board,:easy)
+print x.board
+
+# x.board.freeze
+
+print x.board
+x.board.usedCells[0].value = 90
+
+print x.board
+x.board.unusedCells[0].value = 90
+
+print x.board
+
 # print "\n", x.board, "\n Length ", x.board.usedCells.length, "\n"
 # usedCells = x.board.usedCells
 # # Tris les cases par leurs fréquence d'apparition dans la planche
 # # Permet d'homogénéiser la planche (ce qui la rend plus dure)
 # usedCells.sort_by!{|v| -x.board.sameCellsValue(v).length}
-
 # usedCells.each do |usedcell|
   # print "#{x.board.sameCellsValue(usedcell).length} #{usedcell}\n"
 # end
 
-# # solver
-# s = Solver.creer(x.board)
-# s.solveLogic
-# # s.solve() # false pour disable l'anim
-# puts
-# # print s.board.complete?, "\n"
-# print s
+# solver
+s = Solver.creer(x.board)
+s.solveLogic
+# s.solve() # false pour disable l'anim
+puts
+# print s.board.complete?, "\n"
+print s
 
 
-# exit
+exit
 
 
 planche_base = "

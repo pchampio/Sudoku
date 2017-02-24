@@ -19,4 +19,13 @@ class TestCell < Minitest::Test
   def test_tos
     assert_equal "Value: 0, Row: 0, Col: 5, Box: 6", @cellVide.to_s
   end
+
+  def test_not_freeze
+    assert_equal false, @cell.origin?
+  end
+
+  def test_freeze
+    @cell.freeze
+    assert_equal true, @cell.origin?
+  end
 end

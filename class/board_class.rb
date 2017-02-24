@@ -308,6 +308,14 @@ class Board
     valid? and unusedCells.length == 0
   end
 
+  # Une fois la grille générer les valeurs pas défaut sont inchantable
+  def freeze
+    each_with_coord do |cell|
+      cell.freeze if not cell.vide?
+    end
+    self
+  end
+
   # création d'une représentation en chaine de caractères.
   # * Exemple
   #    1 2 3   4 5 6   7 8 9
