@@ -1,5 +1,7 @@
 require 'gtk3'
-require_relative '../vue/GameMode.rb'
+
+Dir[File.dirname(__FILE__) + '../class/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '*.rb'].each {|file| require file }
 
 
 class Numpad < Gtk::Frame
@@ -18,7 +20,7 @@ class Numpad < Gtk::Frame
 		super()
 		@panel=panel
 		@value=0
-		table = Gtk::Table.new(8,6,true)
+		table = Gtk::Table.new(9,6,true)
 
 		numButtons=Array.new(3){Array.new(3)}
 
@@ -36,11 +38,23 @@ class Numpad < Gtk::Frame
 
 		buttonPen = Gtk::RadioButton.new "Stylo"
 		buttonPen.signal_connect('clicked'){statut=true}
+
+		buttonFullPossibilities = Gtk::Button.new(:label=>"ajouter tous les indices !", :use_underline => true)
+		buttonFullPossibilities.signal_connect('clicked'){
+			0.upto(9) do|x|
+				0.upto(9) do|y|
+					@panel.grid.cellsView[x][y]
+				end
+			end
+		}
+
+
 		buttonCrayon = Gtk::RadioButton.new buttonPen,"Crayon"
 		buttonCrayon.signal_connect('clicked'){statut=false}
+		
 		table.attach(buttonPen,0,3,7,8)
 		table.attach(buttonCrayon,3,6,7,8)
-
+		table.attach(buttonFullPossibilities,0,6,8,9)
 		add(table)
 
 		show_all()

@@ -8,20 +8,21 @@ require_relative '../vue/CellView.rb'
 
 class GameMode < Gtk::Frame
 
+	attr_accessor :grid, :numpad
 	def initialize(window,board)
 		super()
 		@board=board
 		@window=window
 
 		event1 = Gtk::Table.new(10,14,true)
-		grid = GridPanel.new(self,@board)
+		@grid = GridPanel.new(self,@board)
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
-		numpad = Numpad.create self
+		@numpad = Numpad.create self
 
 
 		event1.attach(label_title,0,3,0,1)		
-		event1.attach(grid,0,9,1,9)
-		event1.attach(numpad,10,13,1,5)
+		event1.attach(@grid,0,9,1,9)
+		event1.attach(@numpad,10,13,1,5)
 
 		@solver = Solver.creer @board
 		@solver.solveLogic
