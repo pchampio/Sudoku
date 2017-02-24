@@ -34,8 +34,5 @@ class CellView < Gtk::Button
       # super(:label=>" ¹ ² ³\n ⁴ ⁵ ⁶\n ⁷ ⁸ ⁹",:use_underline => nil)
 
 		end
-		#set_border_width(0)
-		#add(@button)
-		#signal_connect("clicked"){}
 	end
 end
