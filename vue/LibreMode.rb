@@ -12,19 +12,19 @@ class LibreMode < Gtk::Frame
 		@event1 = Gtk::VBox.new(:vertical=>true,:spacing=>5)
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
 		label_difficulty = Gtk::Label.new "Difficulté :", :use_underline => true
-		
+
 		@event1.add(label_title)
-		
+
 		difficultyBox =Gtk::HBox.new(:vertical=>true,:spacing=>5).add(label_difficulty)
 		box = Gtk::HBox.new(:vertical=>true,:spacing=>2)
 
-		easyButton = Gtk::RadioButton.new "Facile"
+		easyButton = Gtk::RadioButton.new :label => "Facile"
 		easyButton.signal_connect("clicked") { @difficulty= 1 }
-		mediumButton = Gtk::RadioButton.new easyButton,"Normal"
+		mediumButton = Gtk::RadioButton.new :label => "Normal", :member => easyButton
 		mediumButton.signal_connect("clicked") { @difficulty= 2 }
-		difficultyButton = Gtk::RadioButton.new easyButton,"Difficile"
+		difficultyButton = Gtk::RadioButton.new :label => "Difficile", :member => easyButton
 		difficultyButton.signal_connect("clicked") { @difficulty= 3 }
-		diabolikButton = Gtk::RadioButton.new easyButton,"Diabolique"
+		diabolikButton = Gtk::RadioButton.new :label => "Diabolique", :member => easyButton
 		diabolikButton.signal_connect("clicked") { @difficulty= 4 }
 		begginButton=Gtk::Button.new(:label=>"Commencer")
 		begginButton.signal_connect("clicked"){commencerPartie}
@@ -42,10 +42,10 @@ class LibreMode < Gtk::Frame
 
 		box.add menuButton
 		box.add begginButton
-		
+
 		@event1.add(difficultyBox)
 		@event1.add box
-			
+
 		self.add @event1
 
 		show_all
@@ -68,8 +68,8 @@ class LibreMode < Gtk::Frame
 		else
 			Generator.reduce(x.board,:easy)
 		end
-		
-		@window.remove self		
+
+		@window.remove self
 		game = GameMode.new(@window,x.board)
 		@window.add(game)
 	end

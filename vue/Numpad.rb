@@ -43,27 +43,23 @@ class Numpad < Gtk::Frame
 		buttonFullPossibilities.signal_connect('clicked'){
       cells = @panel.grid.board.unusedCells
       cells.each do |cell|
-        poss = @panel.grid.board.possibles(cell)
-        # print poss
-        # print
-        x = cell.row
-        y = cell.col
-        @panel.grid.cellsView[x][y].set_label (cell.renderPossibles(poss))
+        possibles = @panel.grid.board.possibles(cell)
+        @panel.grid.cellsView[cell.row][cell.col].set_hints(possibles)
       end
 
 
-		}
+    }
 
 
-		buttonCrayon = Gtk::RadioButton.new buttonPen,"Crayon"
-		buttonCrayon.signal_connect('clicked'){statut=false}
+    buttonCrayon = Gtk::RadioButton.new buttonPen,"Crayon"
+    buttonCrayon.signal_connect('clicked'){statut=false}
 
-		table.attach(buttonPen,0,3,7,8)
-		table.attach(buttonCrayon,3,6,7,8)
-		table.attach(buttonFullPossibilities,0,6,8,9)
-		add(table)
+    table.attach(buttonPen,0,3,7,8)
+    table.attach(buttonCrayon,3,6,7,8)
+    table.attach(buttonFullPossibilities,0,6,8,9)
+    add(table)
 
-		show_all()
-	end
+    show_all()
+  end
 
 end

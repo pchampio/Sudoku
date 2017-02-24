@@ -55,22 +55,6 @@ class Cell
     @value == 0
   end
 
-
-  def renderPossibles(possibles)
-    str = "¹²³⁴⁵⁶⁷⁸⁹"
-    returnStr = ""
-    1.upto(9) do |v|
-      if possibles.include?(v)
-        returnStr += str[v-1]
-        returnStr += " "
-      else
-        returnStr += " "*2
-      end
-      returnStr += "\n" if v == 3 or v == 6
-    end
-    returnStr
-  end
-
   # Connaitre si la cell est define lors de la generation
   # * *Returns*
   #   - true/false

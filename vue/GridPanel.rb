@@ -20,9 +20,9 @@ require_relative '../vue/GameMode.rb'
 #permet d'être ajoutée dans une fenêtre
 class GridPanel < Gtk::Frame
 	##Variables
-	@board #grille de sudoku de board_class.rb
-	@boardBoxView #c'est une gtk::Table qui contient les boxs de la grille de sudoku
-	@boxView#tableau de boxs de la grille
+	## @board #grille de sudoku de board_class.rb
+	## @boardBoxView #c'est une gtk::Table qui contient les boxs de la grille de sudoku
+	## @boxView#tableau de boxs de la grille
 	attr_accessor :cellsView, :board#comporte un tableau de CellView.rb
 	##constructeur
 	#@param : un board de board_class.rb
@@ -31,8 +31,6 @@ class GridPanel < Gtk::Frame
 		@board=board
 		@panel=panel
 		@boardBoxView=Gtk::Table.new(3,3,true)
-
-
 
 		@boxView=Array.new(3){Array.new(3)}
 		@cellsView=Array.new(9){Array.new(9)}
@@ -61,7 +59,3 @@ class GridPanel < Gtk::Frame
 
 
 end
-
-
-
-

@@ -8,16 +8,16 @@ class Menu < Gtk::Window
 		super()
 		set_title "Bienvenue Sudoku"
 		set_default_size 300, 300
-		set_resizable true
+		set_resizable false
 
 		signal_connect 'destroy'  do
-			Gtk.main_quit			
+			Gtk.main_quit
 		end
 		init_ui
 	end
 
 	def init_ui
-		
+
 		@event1 = Gtk::VBox.new(:vertical=>true,:spacing=>5)
 		label_title = Gtk::Label.new "Sudoku", :use_underline => true
 		tutoButton = Gtk::Button.new :label=>"Tuto", :use_underline => true
@@ -46,5 +46,5 @@ class Menu < Gtk::Window
 end
 
 #Gtk.init
-mene=Menu.new()
+Menu.new()
 Gtk.main

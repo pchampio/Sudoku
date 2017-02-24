@@ -24,10 +24,6 @@ class GameMode < Gtk::Frame
 		event1.attach(@grid,0,9,1,9)
 		event1.attach(@numpad,10,13,1,5)
 
-		@solver = Solver.creer @board
-		@solver.solveLogic
-		@solver.solve
-
 		@cellule=@board.cellAt(0,0)
 		self.add(event1)
 		show_all
@@ -41,7 +37,7 @@ class GameMode < Gtk::Frame
 		@number=number
     if(!@cellule.cell.freeze?)
       @cellule.cell.value=@number
-      @cellule.set_label @number.to_s
+      @cellule.set_value @number
     else
       print "La case est freeze\n"
     end
