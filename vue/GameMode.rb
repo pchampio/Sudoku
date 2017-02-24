@@ -16,7 +16,7 @@ class GameMode < Gtk::Frame
 		event1 = Gtk::Table.new(10,14,true)
 		grid = GridPanel.new(self,@board)
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
-		numpad = Numpad.new self
+		numpad = Numpad.create self
 
 
 		event1.attach(label_title,0,3,0,1)		
