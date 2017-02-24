@@ -11,7 +11,7 @@ class Numpad < Gtk::Frame
 		@panel=panel
 		@valeur=0
 		table = Gtk::Table.new(8,6,true)
-		
+
 		numButtons=Array.new(3){Array.new(3)}
 
 		0.upto(2){|y|
@@ -32,9 +32,9 @@ class Numpad < Gtk::Frame
 		buttonCrayon.signal_connect('clicked'){statut=false}
 		table.attach(buttonPen,0,3,7,8)
 		table.attach(buttonCrayon,3,6,7,8)
-		
+
 		add(table)
-		
+
 		show_all()
 	end
 

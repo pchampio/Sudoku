@@ -205,6 +205,7 @@ class Generator
     difficulty = @@difficulties[level]
     reduceLogic!(board,difficulty[0])
     reduireBrut!(board,difficulty[1])
+    board.freeze
   end
 
 end
