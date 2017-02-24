@@ -32,8 +32,5 @@ class CellView < Gtk::Button
 			#@button=Gtk::Button.new(:label=>@cell.value.to_s)
 			super(:label=>@cell.value.to_s,:use_underline => nil)
 		end
-		#set_border_width(0)
-		#add(@button)
-		#signal_connect("clicked"){}
 	end
 end

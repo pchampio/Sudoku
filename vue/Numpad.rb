@@ -3,13 +3,21 @@ require_relative '../vue/GameMode.rb'
 
 
 class Numpad < Gtk::Frame
-	attr_accessor :valeur
-	attr_reader :statut
+	#variables
+	attr_accessor :value #valeur retourner
+	attr_reader :statut #gère l'édition des cases : indice ou valeur
+
+	private_class_method :new
+	
+	#méthode d'instance
+	def Numpad.create panel
+		new(panel)
+	end
 
 	def initialize panel
 		super()
 		@panel=panel
-		@valeur=0
+		@value=0
 		table = Gtk::Table.new(8,6,true)
 		
 		numButtons=Array.new(3){Array.new(3)}
@@ -19,8 +27,8 @@ class Numpad < Gtk::Frame
 				val=x+y*3+1
 				numButtons[x][y]=Gtk::Button.new(:label=>val.to_s, :use_underline => true)
 				numButtons[x][y].signal_connect("clicked"){
-				@valeur=val
-				@panel.recupereNumber(@valeur)
+				@value=val
+				@panel.recupereNumber(@value)
 				}
 				table.attach(numButtons[x][y],2*x,2*(x+1),2*y,2*(y+1))
 			}
