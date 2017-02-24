@@ -21,11 +21,11 @@ class TestCell < Minitest::Test
   end
 
   def test_not_freeze
-    assert_equal false, @cell.origin?
+    assert_equal false, @cell.freeze?
   end
 
   def test_freeze
     @cell.freeze
-    assert_equal true, @cell.origin?
+    assert_equal true, @cell.freeze?
   end
 end

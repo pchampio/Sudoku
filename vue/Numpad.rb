@@ -10,7 +10,7 @@ class Numpad < Gtk::Frame
 	attr_reader :statut #gère l'édition des cases : indice ou valeur
 
 	private_class_method :new
-	
+
 	#méthode d'instance
 	def Numpad.create panel
 		new(panel)
@@ -41,17 +41,23 @@ class Numpad < Gtk::Frame
 
 		buttonFullPossibilities = Gtk::Button.new(:label=>"ajouter tous les indices !", :use_underline => true)
 		buttonFullPossibilities.signal_connect('clicked'){
-			0.upto(9) do|x|
-				0.upto(9) do|y|
-					@panel.grid.cellsView[x][y]
-				end
-			end
+      cells = @panel.grid.board.unusedCells
+      cells.each do |cell|
+        poss = @panel.grid.board.possibles(cell)
+        # print poss
+        # print
+        x = cell.row
+        y = cell.col
+        @panel.grid.cellsView[x][y].set_label (cell.renderPossibles(poss))
+      end
+
+
 		}
 
 
 		buttonCrayon = Gtk::RadioButton.new buttonPen,"Crayon"
 		buttonCrayon.signal_connect('clicked'){statut=false}
-		
+
 		table.attach(buttonPen,0,3,7,8)
 		table.attach(buttonCrayon,3,6,7,8)
 		table.attach(buttonFullPossibilities,0,6,8,9)

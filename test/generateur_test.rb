@@ -19,7 +19,7 @@ class TestGenerator < Minitest::Test
     print "Creation d'une planche reduite\n"
     Generator.reduce(@gen.board,:hard)
     assert_equal false, @gen.board.unusedCells == 0
-    assert_equal @gen.board.usedCells.first.origin?, true
+    assert_equal @gen.board.usedCells.first.freeze?, true
   end
 
 end

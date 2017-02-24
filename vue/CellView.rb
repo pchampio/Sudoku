@@ -31,7 +31,6 @@ class CellView < Gtk::Button
 		else
 			#@button=Gtk::Button.new(:label=>@cell.value.to_s)
       super(:label=>@cell.value.to_s,:use_underline => nil)
-      # super(:label=>" ¹ ² ³\n ⁴ ⁵ ⁶\n ⁷ ⁸ ⁹",:use_underline => nil)
 
 		end
 	end

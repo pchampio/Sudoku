@@ -301,7 +301,7 @@ class Board
     true
   end
 
-  # Vérifie que la planche est Fini.
+  # Vérifie que la planche est Fini et valide (VICTOIRE).
   # * *Returns*
   #   - true/false
   def complete?

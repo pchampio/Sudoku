@@ -20,7 +20,7 @@ class GameMode < Gtk::Frame
 		@numpad = Numpad.create self
 
 
-		event1.attach(label_title,0,3,0,1)		
+		event1.attach(label_title,0,3,0,1)
 		event1.attach(@grid,0,9,1,9)
 		event1.attach(@numpad,10,13,1,5)
 
@@ -32,27 +32,19 @@ class GameMode < Gtk::Frame
 		self.add(event1)
 		show_all
 	end
-	
+
 	def recupereCell(cellule)
 		@cellule=cellule
 	end
 
 	def recupereNumber(number)
 		@number=number
-		if(@cellule.cell.value==0)
-			#puts @cellule.cell.row
-			#puts @cellule.cell.col
-			#puts @solver.board.cellAt(@cellule.cell.row , @cellule.cell.col).value
-			if(@solver.board.cellAt(@cellule.cell.row , @cellule.cell.col).value==@number)
-				@cellule.cell.value=@number
-				@cellule.set_label @number.to_s
-			else
-				puts "nombre pas valide"
-			end
-		else
-			puts "case déjà remplie"
-		end
-
+    if(!@cellule.cell.freeze?)
+      @cellule.cell.value=@number
+      @cellule.set_label @number.to_s
+    else
+      print "La case est freeze\n"
+    end
 	end
 
 end

@@ -18,14 +18,14 @@
 # - +value+ -> (*LECTURE* / *ECRITURE*) Valeur de la case (Sudoku) (0==vide)
 
 class Cell
-  attr_accessor :value#:nodoc:
+  attr_accessor :value, :possibles#:nodoc:
   attr_reader :row, :col, :box#:nodoc:
 
   # Chaque case connait sa propre valeur et sa position dans la planche
   def initialize(row, col, box)
     @row, @col, @box = row, col, box
     @value = 0
-    @origin = false
+    @freeze = false
   end
   # Représentation d'une case
   # * *Arguments*    :
@@ -55,17 +55,33 @@ class Cell
     @value == 0
   end
 
+
+  def renderPossibles(possibles)
+    str = "¹²³⁴⁵⁶⁷⁸⁹"
+    returnStr = ""
+    1.upto(9) do |v|
+      if possibles.include?(v)
+        returnStr += str[v-1]
+        returnStr += " "
+      else
+        returnStr += " "*2
+      end
+      returnStr += "\n" if v == 3 or v == 6
+    end
+    returnStr
+  end
+
   # Connaitre si la cell est define lors de la generation
   # * *Returns*
   #   - true/false
-  def origin?
-    @origin
+  def freeze?
+    @freeze
   end
 
   # Met la case en read only
   def freeze
     instance_eval { undef :value= }
-    @origin = true
+    @freeze = true
   end
 
   # Pour debugging
