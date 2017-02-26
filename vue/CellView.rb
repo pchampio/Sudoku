@@ -51,9 +51,9 @@ class CellView < Gtk::Button
         str += "<span font_family=\"Lucida Console\" >#{v}</span>" if v != 1
 
       else
-        str += "<span font_family=\"Lucida Console\">#{" "}</span>"
+        str += "<span font_family=\"Lucida Console\"> </span>"
       end
-      str += "<span >#{" "}</span>"
+      str += "<span > </span>"
     end
     str += "</small>"
     @label.set_markup(str)

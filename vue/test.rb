@@ -8,7 +8,7 @@ class App < Gtk::Window
 		set_resizable true
 
 		signal_connect 'destroy'  do
-			Gtk.main_quit			
+			Gtk.main_quit
 		end
 		init_ui
 	end
@@ -31,5 +31,5 @@ class App < Gtk::Window
 		end
 end
 
-a = App.new
+App.new
 Gtk.main()

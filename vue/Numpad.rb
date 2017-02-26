@@ -5,42 +5,42 @@ Dir[File.dirname(__FILE__) + '*.rb'].each {|file| require file }
 
 
 class Numpad < Gtk::Frame
-	#variables
-	attr_accessor :value #valeur retourner
-	attr_reader :statut #gère l'édition des cases : indice ou valeur
+  #variables
+  attr_accessor :value #valeur retourner
+  attr_reader :statut #gère l'édition des cases : indice ou valeur
 
-	private_class_method :new
+  private_class_method :new
 
-	#méthode d'instance
-	def Numpad.create panel
-		new(panel)
-	end
+  #méthode d'instance
+  def Numpad.create panel
+    new(panel)
+  end
 
-	def initialize panel
-		super()
-		@panel=panel
-		@value=0
-		table = Gtk::Table.new(9,6,true)
+  def initialize panel
+    super()
+    @panel=panel
+    @value=0
+    table = Gtk::Table.new(9,6,true)
 
-		numButtons=Array.new(3){Array.new(3)}
+    numButtons=Array.new(3){Array.new(3)}
 
-		0.upto(2){|y|
-			0.upto(2){|x|
-				val=x+y*3+1
-				numButtons[x][y]=Gtk::Button.new(:label=>val.to_s, :use_underline => true)
-				numButtons[x][y].signal_connect("clicked"){
-				@value=val
-				@panel.recupereNumber(@value)
-				}
-				table.attach(numButtons[x][y],2*x,2*(x+1),2*y,2*(y+1))
-			}
-		}
+    0.upto(2){|y|
+      0.upto(2){|x|
+        val=x+y*3+1
+        numButtons[x][y]=Gtk::Button.new(:label=>val.to_s, :use_underline => true)
+        numButtons[x][y].signal_connect("clicked"){
+          @value=val
+          @panel.recupereNumber(@value)
+        }
+        table.attach(numButtons[x][y],2*x,2*(x+1),2*y,2*(y+1))
+      }
+    }
 
-		buttonPen = Gtk::RadioButton.new "Stylo"
-		buttonPen.signal_connect('clicked'){statut=true}
+    buttonPen = Gtk::RadioButton.new "Stylo"
+    buttonPen.signal_connect('clicked'){@statut=true}
 
-		buttonFullPossibilities = Gtk::Button.new(:label=>"ajouter tous les indices !", :use_underline => true)
-		buttonFullPossibilities.signal_connect('clicked'){
+    buttonFullPossibilities = Gtk::Button.new(:label=>"ajouter tous les indices !", :use_underline => true)
+    buttonFullPossibilities.signal_connect('clicked'){
       cells = @panel.grid.board.unusedCells
       cells.each do |cell|
         possibles = @panel.grid.board.possibles(cell)
@@ -52,7 +52,7 @@ class Numpad < Gtk::Frame
 
 
     buttonCrayon = Gtk::RadioButton.new buttonPen,"Crayon"
-    buttonCrayon.signal_connect('clicked'){statut=false}
+    buttonCrayon.signal_connect('clicked'){@statut=false}
 
     table.attach(buttonPen,0,3,7,8)
     table.attach(buttonCrayon,3,6,7,8)
