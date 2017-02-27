@@ -1,12 +1,12 @@
 require 'gtk3'
 require_relative '../class/board_class.rb'
 require_relative '../class/cell_class.rb'
-require_relative '../vue/GridPanel.rb'
-require_relative '../vue/Numpad.rb'
+require_relative '../vue/component_board.rb'
+require_relative '../vue/component_numpad.rb'
 require_relative '../class/solver_class.rb'
-require_relative '../vue/CellView.rb'
+require_relative '../vue/component_cell.rb'
 
-class GameMode < Gtk::Frame
+class FreeModeGame < Gtk::Frame
 
 	attr_accessor :grid, :numpad
 	def initialize(window,board)
@@ -15,9 +15,9 @@ class GameMode < Gtk::Frame
 		@window=window
 
 		event1 = Gtk::Table.new(10,14,true)
-		@grid = GridPanel.new(self,@board)
+		@grid = BoardComponent.new(self,@board)
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
-		@numpad = Numpad.create self
+		@numpad = NumpadComponent.create self
 
 
 		event1.attach(label_title,0,3,0,1)

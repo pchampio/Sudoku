@@ -4,7 +4,7 @@ Dir[File.dirname(__FILE__) + '../class/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '*.rb'].each {|file| require file }
 
 
-class Numpad < Gtk::Frame
+class NumpadComponent < Gtk::Frame
   #variables
   attr_accessor :value #valeur retourner
   attr_reader :statut #gère l'édition des cases : indice ou valeur
@@ -12,7 +12,7 @@ class Numpad < Gtk::Frame
   private_class_method :new
 
   #méthode d'instance
-  def Numpad.create panel
+  def NumpadComponent.create panel
     new(panel)
   end
 

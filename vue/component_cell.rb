@@ -12,7 +12,7 @@
 require 'gtk3'
 require_relative '../class/cell_class.rb'
 ##class CellView héritant (pour l'instant) de la classe Button
-class CellView < Gtk::Button
+class CellComponent < Gtk::Button
   ##choix à faire : button, frame or widget ?
 
   ##variables

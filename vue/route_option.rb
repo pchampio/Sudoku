@@ -1,6 +1,6 @@
 require 'gtk3'
 
-class OptionMode < Gtk::Frame
+class Option < Gtk::Frame
 
 	def initialize(window)
 		super()

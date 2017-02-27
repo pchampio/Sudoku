@@ -1,9 +1,9 @@
 require 'gtk3'
 require_relative '../class/board_class.rb'
 require_relative '../class/generator_class.rb'
-require_relative '../vue/GameMode.rb'
+require_relative '../vue/route_libre_game.rb'
 
-class LibreMode < Gtk::Frame
+class FreeModeChoice < Gtk::Frame
 	@difficulty = 0
 
 	def initialize(window)
@@ -70,7 +70,7 @@ class LibreMode < Gtk::Frame
 		end
 
 		@window.remove self
-		game = GameMode.new(@window,x.board)
+		game = FreeModeGame.new(@window,x.board)
 		@window.add(game)
 	end
 

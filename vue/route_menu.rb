@@ -1,9 +1,11 @@
 require 'gtk3'
-require_relative '../vue/OptionMode.rb'
-require_relative '../vue/LibreMode.rb'
+require_relative '../vue/route_option.rb'
+require_relative '../vue/route_libre_choix.rb'
 
 class Menu < Gtk::Window
+
 	attr_accessor :event1
+
 	def initialize()
 		super()
 		set_title "Bienvenue Sudoku"
@@ -32,12 +34,12 @@ class Menu < Gtk::Window
 
 		optionButton.signal_connect("clicked"){
 		remove(@event1)
-		add(OptionMode.new self)
+		add(Option.new self)
 		}
 
 		freeModeButton.signal_connect("clicked"){
 		remove(@event1)
-		add(LibreMode.new self)
+		add(FreeModeChoice.new self)
 		}
 		add @event1
 
