@@ -36,7 +36,7 @@ class NumpadComponent < Gtk::Frame
       }
     }
 
-    buttonPen = Gtk::RadioButton.new "Stylo"
+    buttonPen = Gtk::RadioButton.new :label => "Stylo"
     buttonPen.signal_connect('clicked'){@statut=true}
 
 
@@ -52,7 +52,8 @@ class NumpadComponent < Gtk::Frame
     }
 
 
-    buttonCrayon = Gtk::RadioButton.new buttonPen,"Crayon"
+    buttonCrayon = Gtk::RadioButton.new :label => "Crayon"
+    buttonCrayon.join_group(buttonPen)
     buttonCrayon.signal_connect('clicked'){@statut=false}
 
     buttonGomme = Gtk::Button.new(:label=>"gomme", :use_underline => true)
