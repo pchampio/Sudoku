@@ -11,6 +11,7 @@
 
 #:nodoc:
 require_relative './cell_class.rb'
+require 'yaml'
 
 # === Gestion de cases dans une planche de Sudoku
 # === Variables d'instance
@@ -345,5 +346,25 @@ class Board
       output += "\n" if index % 3 == 2
     end
     return output
+  end
+
+  def serialized(nameFic)
+    # file = File.open(nameFic, "w+")
+    # puts("Coucou je serialize")
+    # jsonSave = YAML::dump(self)
+    # file.write(jsonSave)
+    # file.close
+
+    File.open(nameFic, "w+") do |f| 
+      YAML.dump(self, f)
+    end
+  end
+
+  def self.unserialized(nameFic)
+    # file = File.open(nameFic, "r")
+    # jsonSave = file.read
+    # data = JSON.parse(json)
+    # self = data
+    return YAML.load_file(nameFic)
   end
 end

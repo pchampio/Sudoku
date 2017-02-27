@@ -14,18 +14,21 @@ Dir[File.dirname(__FILE__) + '/class/*.rb'].each {|file| require file }
 x = Generator.new
 x.randomize
 print x.board
+
+# x.board.serialized("toto.yml")
+
+# board = Board.unserialized("toto.yml")
+# puts( "COUCU3")
+# print board
+# exit
+
+
 # reduce
 # :easy, :medium, :hard, :extreme
 Generator.reduce(x.board,:easy)
 print x.board
 
 # x.board.freeze
-
-print x.board
-x.board.usedCells[0].value = 90
-
-print x.board
-x.board.unusedCells[0].value = 90
 
 print x.board
 
