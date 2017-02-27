@@ -1,0 +1,13 @@
+current directory: /Users/weibinwang/Workspace/Sudoku/Sudoku/vendor/bundler/ruby/2.4.0/gems/json-2.0.3/ext/json
+/Users/weibinwang/.rvm/rubies/ruby-2.4.0-rc1/bin/ruby -r ./siteconf20170225-13078-u0vr8y.rb extconf.rb
+creating Makefile
+
+current directory: /Users/weibinwang/Workspace/Sudoku/Sudoku/vendor/bundler/ruby/2.4.0/gems/json-2.0.3/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/weibinwang/Workspace/Sudoku/Sudoku/vendor/bundler/ruby/2.4.0/gems/json-2.0.3/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/weibinwang/Workspace/Sudoku/Sudoku/vendor/bundler/ruby/2.4.0/gems/json-2.0.3/ext/json
+make "DESTDIR=" install

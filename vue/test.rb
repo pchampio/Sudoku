@@ -1,4 +1,4 @@
-require 'gtk2'
+require 'gtk3'
 
 class App < Gtk::Window
 	def initialize
@@ -14,16 +14,16 @@ class App < Gtk::Window
 	end
 
 		def init_ui
-			vbox = Gtk::VBox.new(false, 10)
-			button1 = Gtk::Button.new("backgroud is blue")
-			button1.modify_bg(Gtk::STATE_NORMAL,Gdk::Color.new(0,0,65532))
+			vbox = Gtk::Box.new :vertical, 10
+			button1 = Gtk::Button.new :label=>"backgroud is blue"
+			button1.override_background_color Gtk::StateType::NORMAL,Gdk::Color.new(0,0,65532)
 			#button1.signal_connect('clicked') do
 			#		button1.modify_bg(Gtk::STATE_NORMAL,Gdk::Color.new(0,65532,0))
 			#end
-			button1.modify_bg Gtk::STATE_SELECTED, Gdk::Color.new(0,65532,0)
-			button1.modify_bg(Gtk::STATE_PRELIGHT, Gdk::Color.new(0,65532,0))
-			button2 = Gtk::Button.new("text is green", false)
-			button2.child.modify_fg Gtk::STATE_NORMAL, Gdk::Color.new(0,65532,0)
+			button1.override_backgroud_color Gtk::StateType::SELECTED, Gdk::Color.new(0,65532,0)
+			button1.override_backgroud_color(Gtk::StateType::PRELIGHT, Gdk::Color.new(0,65532,0))
+			button2 = Gtk::Button.new :label=>"text is green" 
+			button2.child.override_color Gtk::StateType::NORMAL, Gdk::Color.new(0,65532,0)
 			vbox.add(button1)
 			vbox.add(button2)
 			add(vbox)
