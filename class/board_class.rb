@@ -348,6 +348,9 @@ class Board
     return output
   end
 
+  # Serialize une planche.
+  # * *Arguments*    :
+  #   - +nameFic+  -> le nom du fichier pour la sauvegarde
   def serialized(nameFic)
     # file = File.open(nameFic, "w+")
     # puts("Coucou je serialize")
@@ -360,6 +363,11 @@ class Board
     end
   end
 
+  # Serialize une planche.
+  # * *Arguments*    :
+  #   - +nameFic+  -> le nom du fichier pour la sauvegarde
+  # * *Returns*      :
+  #   - le fichier chargé et convertit en langage machine
   def self.unserialized(nameFic)
     # file = File.open(nameFic, "r")
     # jsonSave = file.read
