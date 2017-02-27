@@ -32,6 +32,7 @@ class BoardComponent < Gtk::Frame
 		@panel=panel
 		@boardBoxView=Gtk::Table.new(3,3,true)
 
+
 		@boxView=Array.new(3){Array.new(3)}
 		@cellsView=Array.new(9){Array.new(9)}
 
@@ -50,7 +51,9 @@ class BoardComponent < Gtk::Frame
 						}
 					}
 				}
-				@boardBoxView.attach(Gtk::Frame.new().add(@boxView[x][y]),x,x+1,y,y+1,nil,nil,3,3)
+				tmp = Gtk::Frame.new()
+				tmp.add(@boxView[x][y])
+				@boardBoxView.attach(tmp,x,x+1,y,y+1,nil,nil,3,3)
 
 			}
 		}
