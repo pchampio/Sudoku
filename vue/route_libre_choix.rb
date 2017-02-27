@@ -53,24 +53,22 @@ class FreeModeChoice < Gtk::Frame
 
 	def commencerPartie()
 
-		x = Generator.new
-		x.randomize
-		#puts @difficulty
+		gameGen = Generator.new
 		case @difficulty
 		when 1
-			Generator.reduce(x.board,:easy)
+      gameGen.generate(:easy)
 		when 2
-			Generator.reduce(x.board,:medium)
+      gameGen.generate(:medium)
 		when 3
-			Generator.reduce(x.board,:hard)
+      gameGen.generate(:hard)
 		when 4
-			Generator.reduce(x.board,:extreme)
+      gameGen.generate(:extreme)
 		else
-			Generator.reduce(x.board,:easy)
+      gameGen.generate(:easy)
 		end
 
 		@window.remove self
-		game = FreeModeGame.new(@window,x.board)
+		game = FreeModeGame.new(@window, gameGen.board)
 		@window.add(game)
 	end
 
