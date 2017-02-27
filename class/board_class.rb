@@ -229,7 +229,7 @@ class Board
       conteneur[index1][x].value = conteneur[index2][x].value
       conteneur[index2][x].value = temp
     end
-    self
+    return self
   end
 
   # Echange 2 groupe de colonnes d'une planche.
@@ -313,7 +313,7 @@ class Board
     each_with_coord do |cell|
       cell.freeze if not cell.vide?
     end
-    self
+    return self
   end
 
   # création d'une représentation en chaine de caractères.
