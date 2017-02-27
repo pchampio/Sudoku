@@ -21,6 +21,9 @@ class CellView < Gtk::Button
   #attr_accessor :state #peut-être vide, donnée, rempli
   ##constructeur
   #param cell : case de la grille de sudoku
+
+
+  # https://developer.gnome.org/pango/stable/PangoMarkupFormat.html
   def initialize(cell)
 
     super()
@@ -33,7 +36,7 @@ class CellView < Gtk::Button
       @label.set_markup("\n\n")
       self.add(@label)
     else
-      @label.set_markup("<span size=\"larger\"><b>#{@cell.value}</b></span>")
+      @label.set_markup("<span font='19.5' ><b>#{@cell.value}</b></span>")
       self.add(@label)
     end
   end
@@ -45,7 +48,6 @@ class CellView < Gtk::Button
     1.upto(9) do |v|
       str += "\n" if v == 4 or v == 7
       if possibles.include?(v)
-        # https://developer.gnome.org/pango/stable/PangoMarkupFormat.html
         str += "<span  font_family=\"Lucida Console\" color=\"red\" background=\"#757779\">#{v}</span>" if v == 1
         # c'est moche mais c'est pour la demo
         str += "<span font_family=\"Lucida Console\" >#{v}</span>" if v != 1
@@ -68,6 +70,6 @@ class CellView < Gtk::Button
   end
 
   def set_value(v)
-    @label.set_markup("<big>#{v}</big>")
+    @label.set_markup("<span font='19.5' >#{v}</span>")
   end
 end
