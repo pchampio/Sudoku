@@ -141,4 +141,13 @@ class TestBoard < Minitest::Test
     assert_equal "_____4________3__9_8___1__2__4_68___7_____8__9__4___56_3__2____69__5__2___71_____", @boardVide.to_s.delete("\s|\n")
   end
 
+  def test_serialized
+
+    @board.serialized("toto.yml")
+
+    boardSortie = Board.unserialized("toto.yml")
+
+    assert_equal true, @board==board_result
+  end
+
 end
