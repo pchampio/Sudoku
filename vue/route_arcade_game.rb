@@ -5,8 +5,9 @@ require_relative '../vue/component_board.rb'
 require_relative '../vue/component_numpad.rb'
 require_relative '../class/solver_class.rb'
 require_relative '../vue/component_cell.rb'
-
-class FreeModeGame < Gtk::Frame
+#t=Time.now permet de calculer le temps mis par l'utilisateur pour résoudre le sudoku
+#(t-=Time.now).to_i c'est l'affichage du temps mis en seconde pour résoudre le sudoku;
+class ArcadeModeGame < Gtk::Frame
 
 	attr_accessor :grid, :numpad
 	def initialize(window,board)
@@ -16,7 +17,7 @@ class FreeModeGame < Gtk::Frame
 
 		event1 = Gtk::Table.new(10,14,true)
 		@grid = BoardComponent.new(self,@board)
-		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
+		label_title = Gtk::Label.new "Arcade", :use_underline => true
 		@numpad = NumpadComponent.create self
 
 
@@ -35,18 +36,12 @@ class FreeModeGame < Gtk::Frame
 
 	def recupereNumber(number)
 		@number=number
-    	if(!@cellule.cell.freeze?)
-      		@cellule.set_value @number
-    	else
-      		print "La case est freeze\n"
-    	end
+    if(!@cellule.cell.freeze?)
+      @cellule.cell.value=@number
+      @cellule.set_value @number
+    else
+      print "La case est freeze\n"
+    end
 	end
-	def gommer()
-		@number=0
-    	if(!@cellule.cell.freeze?)
-      		@cellule.set_value 0
-    	else
-      		print "La case est freeze\n"
-    	end
-	end
-end	
+
+end

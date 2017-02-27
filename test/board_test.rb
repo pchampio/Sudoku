@@ -143,11 +143,14 @@ class TestBoard < Minitest::Test
 
   def test_serialized
 
-    @board.serialized("toto.yml")
+    testFile = " toto.yml"
+    @board.serialized(testFile)
 
-    boardSortie = Board.unserialized("toto.yml")
+    boardSortie = Board.unserialized(testFile)
 
-    assert_equal true, @board==board_result
+    assert_equal true, @board==boardSortie
+    File.delete(testFile)
+
   end
 
 end

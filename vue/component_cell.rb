@@ -70,6 +70,11 @@ class CellComponent < Gtk::Button
   end
 
   def set_value(v)
-    @label.set_markup("<span font='19.5' >#{v}</span>")
+    @cell.value=v
+    if(v!=0)
+      @label.set_markup("<span font='19.5' >"+v.to_s+"</span>")
+    else
+      @label.set_markup("")
+    end
   end
 end
