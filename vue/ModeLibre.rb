@@ -1,5 +1,5 @@
 require 'gtk3'
-require_relative './GridPanel.rb'
+require_relative './BoardView.rb'
 require_relative '../class/board_class.rb'
 
 class ModeLibre < Gtk::Window
@@ -45,7 +45,7 @@ class ModeLibre < Gtk::Window
     ".tr("_", "0")
     board = Board.creer(planche_base.delete("\s|\n")
       .split("").reverse.map(&:to_i))
-    @grille=GridPanel.new(board)
+    @grille=BoardView.new(board)
     return @grille
   end
 
