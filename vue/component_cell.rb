@@ -30,13 +30,14 @@ class CellComponent < Gtk::Button
     @cell=cell
     @label = Gtk::Label.new
     @label.wrap = false
-    @label.width_chars = 7
+    @fontSize = 10
+    @label.width_chars = @fontSize / 2.4
 
     if(@cell.value==0)
-      @label.set_markup("\n\n")
+      @label.set_markup("<span font='#{@fontSize}' >\n</span>")
       self.add(@label)
     else
-      @label.set_markup("<span font='19.5' ><b>#{@cell.value}</b></span>")
+      @label.set_markup("<span font='#{@fontSize}' ><b>#{@cell.value}</b></span>")
       self.add(@label)
     end
   end
@@ -72,7 +73,7 @@ class CellComponent < Gtk::Button
   def set_value(v)
     @cell.value=v
     if(v!=0)
-      @label.set_markup("<span font='19.5' >"+v.to_s+"</span>")
+      @label.set_markup("<span font='#{@fontSize}' >"+v.to_s+"</span>")
     else
       @label.set_markup("")
     end
