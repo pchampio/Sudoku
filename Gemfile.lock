@@ -1,0 +1,62 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    atk (3.1.1)
+      glib2 (= 3.1.1)
+    cairo (1.15.5)
+      pkg-config (>= 1.1.5)
+    cairo-gobject (3.1.1)
+      cairo
+      glib2 (= 3.1.1)
+    codeclimate-test-reporter (1.0.4)
+      simplecov
+    docile (1.1.5)
+    gdk3 (3.1.1)
+      cairo-gobject (= 3.1.1)
+      gdk_pixbuf2 (= 3.1.1)
+      gobject-introspection (= 3.1.1)
+      pango (= 3.1.1)
+    gdk_pixbuf2 (3.1.1)
+      gio2 (= 3.1.1)
+    gio2 (3.1.1)
+      glib2 (= 3.1.1)
+      gobject-introspection (= 3.1.1)
+    glib2 (3.1.1)
+      pkg-config
+    gobject-introspection (3.1.1)
+      glib2 (= 3.1.1)
+    gtk3 (3.1.1)
+      atk (= 3.1.1)
+      gdk3 (= 3.1.1)
+      gdk_pixbuf2 (= 3.1.1)
+      gio2 (= 3.1.1)
+      glib2 (= 3.1.1)
+      gobject-introspection (= 3.1.1)
+      pango (= 3.1.1)
+    json (2.0.3)
+    minitest (5.10.1)
+    minitest-coverage (1.0.0.b1)
+    pango (3.1.1)
+      cairo (>= 1.14.0)
+      glib2 (= 3.1.1)
+    pkg-config (1.1.7)
+    rake (12.0.0)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  codeclimate-test-reporter (~> 1.0.0)
+  gtk3
+  minitest
+  minitest-coverage
+  rake
+  simplecov
+
+BUNDLED WITH
+   1.13.7
