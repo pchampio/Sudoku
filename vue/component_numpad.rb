@@ -36,7 +36,7 @@ class NumpadComponent < Gtk::Frame
       }
     }
 
-    buttonPen = Gtk::RadioButton.new "Stylo"
+    buttonPen = Gtk::RadioButton.new :label => "Stylo"
     buttonPen.signal_connect('clicked'){@statut=true}
 
     buttonFullPossibilities = Gtk::Button.new(:label=>"ajouter tous les indices !", :use_underline => true)
@@ -51,7 +51,8 @@ class NumpadComponent < Gtk::Frame
     }
 
 
-    buttonCrayon = Gtk::RadioButton.new buttonPen,"Crayon"
+    buttonCrayon = Gtk::RadioButton.new :label => "Crayon"
+    buttonCrayon.join_group(buttonPen)
     buttonCrayon.signal_connect('clicked'){@statut=false}
 
     table.attach(buttonPen,0,3,7,8)
