@@ -106,7 +106,7 @@ class Generator
         @board.swapStack(index1, index2)
       end
     end
-    self
+    return self
   end
 
   # Méthode qui obtient toutes les valeurs possibles pour une cellule particulière, s'il n'y a qu'une seul<br>
@@ -127,7 +127,7 @@ class Generator
         iterations -= 1
       end
     end
-    board
+    return board
   end
 
 
