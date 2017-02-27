@@ -1,6 +1,6 @@
 require 'gtk3'
 require_relative '../vue/OptionMode.rb'
-require_relative '../vue/LibreMode.rb'
+require_relative '../vue/FreeMode.rb'
 
 class Menu < Gtk::Window
 	attr_accessor :event1
@@ -37,7 +37,7 @@ class Menu < Gtk::Window
 
 		freeModeButton.signal_connect("clicked"){
 		remove(@event1)
-		add(LibreMode.new self)
+		add(FreeMode.new self)
 		}
 		add @event1
 
