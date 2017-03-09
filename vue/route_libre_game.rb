@@ -49,4 +49,4 @@ class FreeModeGame < Gtk::Frame
       		print "La case est freeze\n"
     	end
 	end
-end	
+end

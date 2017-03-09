@@ -57,7 +57,7 @@ class BoardComponent < Gtk::Frame
 
 			}
 		}
-		add(@boardBoxView)
+    self.add(@boardBoxView)
 	end
 
 

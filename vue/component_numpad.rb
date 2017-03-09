@@ -27,7 +27,12 @@ class NumpadComponent < Gtk::Frame
     0.upto(2){|y|
       0.upto(2){|x|
         val=x+y*3+1
-        numButtons[x][y]=Gtk::Button.new(:label=>val.to_s, :use_underline => true)
+        numButtons[x][y]=Gtk::Button.new
+        label = Gtk::Label.new
+
+        label.set_markup("<span font='18' ><b>#{val.to_s}</b></span>")
+        numButtons[x][y].add(label)
+
         numButtons[x][y].signal_connect("clicked"){
           @value=val
           @panel.recupereNumber(@value)
@@ -40,7 +45,7 @@ class NumpadComponent < Gtk::Frame
     buttonPen.signal_connect('clicked'){@statut=true}
 
 
-    buttonFullPossibilities = Gtk::Button.new(:label=>"ajouter tous les indices !", :use_underline => true)
+    buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les indices !", :use_underline => true)
     buttonFullPossibilities.signal_connect('clicked'){
       cells = @panel.grid.board.unusedCells
       cells.each do |cell|
@@ -65,7 +70,7 @@ class NumpadComponent < Gtk::Frame
     table.attach(buttonCrayon,2,4,7,8)
     table.attach(buttonGomme,4,6,7,8)
     table.attach(buttonFullPossibilities,0,6,8,9)
-    add(table)
+    self.add(table)
 
     show_all()
   end

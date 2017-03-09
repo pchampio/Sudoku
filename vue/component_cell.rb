@@ -30,11 +30,11 @@ class CellComponent < Gtk::Button
     @cell=cell
     @label = Gtk::Label.new
     @label.wrap = false
-    @fontSize = 10
-    @label.width_chars = @fontSize / 2.4
+    @fontSize = 18
+    # @label.width_chars = 2
 
     if(@cell.value==0)
-      @label.set_markup("<span font='#{@fontSize}' >\n</span>")
+      @label.set_markup("<span font='#{@fontSize - 8}' >\n\n</span>")
       self.add(@label)
     else
       @label.set_markup("<span font='#{@fontSize}' ><b>#{@cell.value}</b></span>")
@@ -45,20 +45,21 @@ class CellComponent < Gtk::Button
   def set_hints(possibles)
     # Monospace Fonts !!!!
     @possibles = possibles
-    str = "<small>"
+    str = "<span  font='10'>"
     1.upto(9) do |v|
       str += "\n" if v == 4 or v == 7
       if possibles.include?(v)
-        str += "<span  font_family=\"Lucida Console\" color=\"red\" background=\"#757779\">#{v}</span>" if v == 1
+        # str += "<span  font_family=\"Monaco\" color=\"red\" background=\"#757779\">#{v}</span>"
         # c'est moche mais c'est pour la demo
-        str += "<span font_family=\"Lucida Console\" >#{v}</span>" if v != 1
+
+        str += "<span font_family=\"Monaco\" >#{v}</span>"
 
       else
-        str += "<span font_family=\"Lucida Console\"> </span>"
+        str += "<span font_family=\"Monaco\"> </span>"
       end
-      str += "<span > </span>"
+      str += "<span font_family=\"Monaco\"> </span>"
     end
-    str += "</small>"
+    str += "</span>"
     @label.set_markup(str)
   end
 

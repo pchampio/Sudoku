@@ -19,7 +19,7 @@ class Menu < Gtk::Window
 	end
 
 	def init_ui
-		#https://lazka.github.io/pgi-docs/Gtk-3.0/classes/Box.html
+		# https://lazka.github.io/pgi-docs/Gtk-3.0/classes/Box.html
 		@event1 = Gtk::Box.new(:vertical,5)
 		@event1.set_homogeneous("r")
 		label_title = Gtk::Label.new "Sudoku", :use_underline => true
