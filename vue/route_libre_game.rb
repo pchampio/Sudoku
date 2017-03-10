@@ -30,13 +30,18 @@ class FreeModeGame < Gtk::Frame
 	end
 
 	def recupereCell(cellule)
+		if(!@cellule==nil)
+			@cellule.set_color :default
+		end
 		@cellule=cellule
+		@cellule.set_color :red
 	end
 
 	def recupereNumber(number)
 		@number=number
     	if(!@cellule.cell.freeze?)
       		@cellule.set_value @number
+      		@cellule.set_color :default
     	else
       		print "La case est freeze\n"
     	end
