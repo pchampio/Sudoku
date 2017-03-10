@@ -9,14 +9,17 @@ class FreeModeChoice < Gtk::Frame
 	def initialize(window)
 		super()
 		@window=window
-		@event1 = Gtk::VBox.new(:vertical=>true,:spacing=>5)
+		@event1 = Gtk::Box.new(:vertical,5)
+		@event1.set_homogeneous("r")
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
 		label_difficulty = Gtk::Label.new "Difficulté :", :use_underline => true
 
 		@event1.add(label_title)
 
-		difficultyBox =Gtk::HBox.new(:vertical=>true,:spacing=>5).add(label_difficulty)
-		box = Gtk::HBox.new(:vertical=>true,:spacing=>2)
+		difficultyBox =Gtk::Box.new(:horizontal,5).add(label_difficulty)
+		difficultyBox.set_homogeneous("r")
+		box = Gtk::Box.new(:horizontal,2)
+		box.set_homogeneous("r")
 
 		easyButton = Gtk::RadioButton.new :label => "Facile"
 		easyButton.signal_connect("clicked") { @difficulty= 1 }
@@ -53,24 +56,22 @@ class FreeModeChoice < Gtk::Frame
 
 	def commencerPartie()
 
-		x = Generator.new
-		x.randomize
-		#puts @difficulty
+		gameGen = Generator.new
 		case @difficulty
 		when 1
-			Generator.reduce(x.board,:easy)
+      gameGen.generate(:easy)
 		when 2
-			Generator.reduce(x.board,:medium)
+      gameGen.generate(:medium)
 		when 3
-			Generator.reduce(x.board,:hard)
+      gameGen.generate(:hard)
 		when 4
-			Generator.reduce(x.board,:extreme)
+      gameGen.generate(:extreme)
 		else
-			Generator.reduce(x.board,:easy)
+      gameGen.generate(:easy)
 		end
 
 		@window.remove self
-		game = FreeModeGame.new(@window,x.board)
+		game = FreeModeGame.new(@window, gameGen.board)
 		@window.add(game)
 	end
 

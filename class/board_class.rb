@@ -358,7 +358,7 @@ class Board
     # file.write(jsonSave)
     # file.close
 
-    File.open(nameFic, "w+") do |f| 
+    File.open(nameFic, "w+") do |f|
       YAML.dump(self, f)
     end
   end

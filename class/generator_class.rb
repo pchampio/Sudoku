@@ -208,4 +208,18 @@ class Generator
     board.freeze
   end
 
+  # Permet de supprimer des cases d'une planche en fonction d'un niveau
+  #    :easy, :medium, :hard, :extreme
+  # * *Arguments*    :
+  #   - +level+  -> le niveau de la planche
+  # * *Returns*
+  #   - Board
+  def generate(level=:medium)
+    self.randomize
+    difficulty = @@difficulties[level]
+    Generator.reduceLogic!(@board,difficulty[0])
+    Generator.reduireBrut!(@board,difficulty[1])
+    @board.freeze
+  end
+
 end

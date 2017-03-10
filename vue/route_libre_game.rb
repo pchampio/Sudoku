@@ -35,12 +35,18 @@ class FreeModeGame < Gtk::Frame
 
 	def recupereNumber(number)
 		@number=number
-    if(!@cellule.cell.freeze?)
-      @cellule.cell.value=@number
-      @cellule.set_value @number
-    else
-      print "La case est freeze\n"
-    end
+    	if(!@cellule.cell.freeze?)
+      		@cellule.set_value @number
+    	else
+      		print "La case est freeze\n"
+    	end
 	end
-
+	def gommer()
+		@number=0
+    	if(!@cellule.cell.freeze?)
+      		@cellule.set_value 0
+    	else
+      		print "La case est freeze\n"
+    	end
+	end
 end
