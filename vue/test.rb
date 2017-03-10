@@ -53,19 +53,19 @@ class App < Gtk::Window
 			end
 		end
 
-		def simple_css
+		def simple_css()
 			css = <<-EOT
 					#App{
 						background-color: #ffcc33;
 					}
 					#GtkButton1{
 						background: #9933ff;
-						
+						border-radius: 15px;
 						color: #ff3333;
 						padding: 12px 4px;
 					}
 					#GtkButton2{
-						background: #3366ff;
+						background: green;
 						/*color: #33ffcc;*/
 						padding: 20px 6px;
 					}
@@ -78,9 +78,6 @@ class App < Gtk::Window
 			EOT
 			css_provider = Gtk::CssProvider.new
 			css_provider.load :data=>css
-			style_context = Gtk::StyleContext.new
-
-			style_context.add_provider css_provider, GLib::MAXUINT
 			return css_provider
 		end
 end

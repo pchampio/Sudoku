@@ -30,7 +30,7 @@ class CellComponent < Gtk::Button
     @cell=cell
     @label = Gtk::Label.new
     @label.wrap = false
-    @fontSize = 18
+    @fontSize = 11
     # @label.width_chars = 2
 
     if(@cell.value==0)
