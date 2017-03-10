@@ -27,6 +27,7 @@ class CellComponent < Gtk::Button
   def initialize(cell)
 
     super()
+    self.set_name "cell"
     @cell=cell
     @label = Gtk::Label.new
     @label.wrap = false
@@ -69,6 +70,45 @@ class CellComponent < Gtk::Button
 
   def delPossible(i)
     set_hints((@possibles - [i]))
+  end
+
+	def set_color(color)
+  		if(color==:red) 
+  			css=<<-EOT
+  				#cell{
+  				background:red;
+  			}
+  			EOT
+  		elsif(color==:blue)
+  		css=<<-EOT
+  		#cell{	
+  			background:blue;
+  		}
+  		EOT
+  		elsif(color==:green) 
+  			css=<<-EOT
+  			#cell{
+  				background:green;
+  			}
+  			EOT
+  		elsif(color==:default)
+  			css=<<-EOT
+  			#cell{
+  				background:none;
+  			}
+  			EOT
+  		end	
+  		css_provider = Gtk::CssProvider.new
+  		css_provider.load :data=>css
+  		apply_css(self,css_provider)	
+	end
+  def apply_css(widget,provider)
+  	widget.style_context.add_provider provider,GLib::MAXUINT
+  	if(widget.is_a?(Gtk::Container))
+  		widget.each_all do |child|
+  			apply_css(child,provider)
+  		end
+  	end
   end
 
   def set_value(v)
