@@ -9,6 +9,7 @@ require_relative '../vue/component_cell.rb'
 class FreeModeGame < Gtk::Frame
 
 	attr_accessor :grid, :numpad
+	@celluleavant = nil
 	def initialize(window,board)
 		super()
 		@board=board
@@ -30,11 +31,13 @@ class FreeModeGame < Gtk::Frame
 	end
 
 	def recupereCell(cellule)
-		if(!@cellule==nil)
-			@cellule.set_color :default
+		if(@celluleavant!=cellule && @celluleavant != nil)
+			@celluleavant.set_color :default
 		end
 		@cellule=cellule
 		@cellule.set_color :red
+
+		@celluleavant = @cellule
 	end
 
 	def recupereNumber(number)
