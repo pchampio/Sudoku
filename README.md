@@ -10,16 +10,7 @@
 
 L3 SPI Réalisation d'une interface à "aides visuelles" à la résolution  d'un Sudoku 
 
-### Installation
-```
-git clone https://github.com/Drakirus/Sudoku.git
-cd Sudoku
-# Utilisation de Rvm recommandé
-gem install bundler
-bundler install --path vendor/bundle
-```
-
-### Rvm Installation
+### recommandé: Rvm Installation
 ```
 curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 curl -L get.rvm.io | bash -s stable
@@ -30,8 +21,17 @@ rvm install ruby-2.4.0
 rvm 2.4.0
 ```
 
+### Installation  
+```
+git clone https://github.com/Drakirus/Sudoku.git
+cd Sudoku
+# Utilisation de Rvm recommandé
+gem install bundler
+bundler install --path vendor/bundle
+```
+
 ### Exécution
-`bundler exec ruby ./main.rb`
+`bundler exec ruby ./Start.rb`
 
 ### Tests unitaire
 * Utilisation du Framework [Minitest](https://github.com/seattlerb/minitest) 
