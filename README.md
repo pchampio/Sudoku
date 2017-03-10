@@ -14,7 +14,20 @@ L3 SPI Réalisation d'une interface à "aides visuelles" à la résolution  d'un
 ```
 git clone https://github.com/Drakirus/Sudoku.git
 cd Sudoku
+
+# Using RVM 
+
+curl -L get.rvm.io | bash -s stable
+source ~/.rvm/scripts/rvm
+
+rvm autolibs disable
+rvm requirements
+rvm install ruby
+rvm 2.4.0
 gem install bundler
+
+# End RVM
+
 bundler install --path vendor/bundle
 ```
 
