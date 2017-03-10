@@ -6,7 +6,7 @@ class Option < Gtk::Frame
 		super()
 		@window=window
 		
-		event1 = Gtk::VBox.new(true,5)
+		event1 = Gtk::Box.new(:vertical,5)
 		label_title = Gtk::Label.new "Options", :use_underline => true
 		event1.add(label_title)
 
