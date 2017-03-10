@@ -15,15 +15,17 @@ class FreeModeGame < Gtk::Frame
 		@board=board
 		@window=window
 
-		event1 = Gtk::Table.new(10,14,true)
+		event1 = Gtk::Box.new(:vertical,2)
+		event2 = Gtk::Box.new(:horizontal,2)
 		@grid = BoardComponent.new(self,@board)
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
 		@numpad = NumpadComponent.create self
 
 
-		event1.attach(label_title,0,3,0,1)
-		event1.attach(@grid,0,9,1,9)
-		event1.attach(@numpad,10,13,1,5)
+		event1.add(label_title)
+		event1.add(event2)
+		event2.add(@grid)
+		event2.add(@numpad)
 
 		@cellule=@board.cellAt(0,0)
 		self.add(event1)
