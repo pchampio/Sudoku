@@ -25,7 +25,7 @@ curl -L get.rvm.io | bash -s stable
 source ~/.rvm/scripts/rvm
 rvm autolibs disable
 rvm requirements
-rvm install ruby
+rvm install ruby-2.4.0
 rvm 2.4.0
 ```
 
