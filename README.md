@@ -21,6 +21,7 @@ bundler install --path vendor/bundle
 
 ### Rvm Installation
 ```
+curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 curl -L get.rvm.io | bash -s stable
 source ~/.rvm/scripts/rvm
 rvm autolibs disable
