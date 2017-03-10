@@ -1,46 +1,64 @@
-require 'gtk2'
+require "gtk3"
 
-def area_event(area, e)
-      if Gdk::EventButton === e
-             colorsel_d = Gtk::ColorSelectionDialog.new("Choisir une couleur de fond pour votre PiCross")
-             color = area.modifier_style.bg(Gtk::STATE_NORMAL)
-             colorsel = colorsel_d.colorsel
-             colorsel.previous_color = color
-             colorsel.current_color = color
+class MyButton < Gtk::Button
+  type_register
 
-             colorsel.has_palette = true
-             colorsel.has_opacity_control = true
-             colorsel.signal_connect("color_changed") do |w|
-                     ncolor = w.current_color
-                     area.modify_bg(Gtk::STATE_NORMAL, ncolor)
-             end
-             unless colorsel_d.run == Gtk::ColorSelectionDialog::RESPONSE_OK
-                     area.modify_bg(Gtk::STATE_NORMAL, color)
-             end
-             colorsel_d.destroy
-             true
-     else
-             false
-     end
+  def initialize(label = nil)
+    # When type_register() is used.
+    # super is equivalent to GLib::Object#initialize.
+    super("label" => label)
+  end
+
+  install_style_property(GLib::Param::Int.new("foo", # name
+                                              "Foo", # nick
+                                              "FOO", # blurb
+                                              0,     # min
+                                              100,   # max
+                                              5,     # default
+                                              GLib::Param::READABLE |
+                                              GLib::Param::WRITABLE)) do |pspec, str|
+    p pspec, str
+    str.to_i + 10  # return the converted value.
+  end
+
+  install_style_property(GLib::Param::Enum.new("bar", # name
+                                               "Bar", # nick
+                                               "BAR", # blurb
+                                               GLib::Type["GdkCursorType"], # Enum type
+                                               Gdk::CursorType::ARROW, # default
+                                               GLib::Param::READABLE |
+                                               GLib::Param::WRITABLE)) do |pspec, str|
+    p pspec, str
+    if str.strip! == "boat"
+      Gdk::Cursor::BOAT
+    else
+      pspec.default
+    end
+  end
 end
 
-window = Gtk::Window.new
-window.title = "Double cliquez sur la fenêtre pour changer la couleur du Picross"
-window.resizable = true
+provider = Gtk::CssProvider.new
+provider.load(:data => File.read("css_button.css"))
 
-window.signal_connect("delete_event") do
-     Gtk.main_quit
-     true
-end
 
-box = Gtk::DrawingArea.new
-box.modify_bg(Gtk::STATE_NORMAL, Gdk::Color.new(0, 0, 65535))
+display = Gdk::Display.default
+screen = display.default_screen
+Gtk::StyleContext.add_provider_for_screen(screen, provider, Gtk::StyleProvider::PRIORITY_USER)
 
-window.set_size_request(700, 500)
-box.set_events(Gdk::Event::BUTTON_PRESS_MASK)
-box.signal_connect("event") {|w, e| area_event(w, e)}
+win = Gtk::Window.new("Custom style properties")
+b = MyButton.new("Hello")
+b.signal_connect("clicked") { Gtk.main_quit }
 
-window.add(box)
-window.show_all
+p MyButton.style_properties
+
+win.set_default_size(100, 100)
+win.add(b)
+win.show_all
+win.signal_connect("destroy") { Gtk.main_quit }
+
+# You need to call them after "Gtk::Widget#show"
+# (Or in expose event).
+p b.style_get_property("foo")
+p b.style_get_property("bar")
 
 Gtk.main
