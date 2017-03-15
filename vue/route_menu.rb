@@ -8,7 +8,7 @@ class Menu < Gtk::Window
 
 	def initialize()
 		super()
-		set_title "Bienvenue Sudoku"
+		set_title "Sudoku"
 		set_default_size 300, 300
 		set_resizable false
 		set_window_position Gtk::WindowPosition::CENTER

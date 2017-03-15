@@ -9,13 +9,12 @@ class FreeModeChoice < Gtk::Frame
 	def initialize(window)
 		super()
 		@window=window
-		window.set_window_position Gtk::WindowPosition::CENTER
+		@window.set_window_position Gtk::WindowPosition::CENTER
+		@window.set_title "Sudoku (Choix de la difficulté)"
 		@event1 = Gtk::Box.new(:vertical,5)
 		@event1.set_homogeneous("r")
-		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
 		label_difficulty = Gtk::Label.new "Difficulté :", :use_underline => true
 
-		@event1.add(label_title)
 
 		difficultyBox =Gtk::Box.new(:horizontal,5).add(label_difficulty)
 		difficultyBox.set_homogeneous("r")

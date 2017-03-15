@@ -15,17 +15,16 @@ class FreeModeGame < Gtk::Frame
 		super()
 		@board=board
 		@window=window
+		@window.set_title "Sudoku (Jeu Libre)"
 		@window.set_window_position Gtk::WindowPosition::CENTER
 		@word=nil
 
 		@event1 = Gtk::Box.new(:vertical,2)
 		event2 = Gtk::Box.new(:horizontal,2)
 		@grid = BoardComponent.new(self,@board)
-		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
 		@numpad = NumpadComponent.create self
 
 
-		@event1.add(label_title)
 		@event1.add(event2)
 		event2.add(@grid)
 		event2.add(@numpad)
