@@ -37,22 +37,10 @@ class Option < Gtk::Frame
 			@window.add @window.event1
 		}
 
-<<<<<<< HEAD
-		picker = Gtk::ColorButton.new
-		print picker
-		picker.signal_connect("color-set"){
-			
-			puts picker.color
-
-		}
-
-		box.add picker
-=======
 		box.add(label_background)
 		box.add bgpicker
 		box.add label_selected_cell
 		box.add scpicker
->>>>>>> 2351d46c28c67845019c946b669b945476cee5ec
 		box.add menuButton
 		self.add box
 
