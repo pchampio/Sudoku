@@ -34,13 +34,13 @@ class Menu < Gtk::Window
 		@event1.add(optionButton)
 
 		optionButton.signal_connect("clicked"){
-		remove(@event1)
-		add(Option.new self)
+			remove(@event1)
+			add(Option.new self)
 		}
 
 		freeModeButton.signal_connect("clicked"){
-		remove(@event1)
-		add(FreeModeChoice.new self)
+			remove(@event1)
+			add(FreeModeChoice.new self)
 		}
 		add @event1
 
