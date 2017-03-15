@@ -52,9 +52,10 @@ class NumpadComponent < Gtk::Frame
         possibles = @panel.grid.board.possibles(cell)
         @panel.grid.cellsView[cell.row][cell.col].set_hints(possibles)
       end
-
-
     }
+
+    #CHANGER L'ETAT D'UN BOUTON
+    buttonFullPossibilities.set_sensitive(false)
 
 
     buttonCrayon = Gtk::RadioButton.new :label => "Crayon"

@@ -11,7 +11,6 @@ class Menu < Gtk::Window
 		set_title "Bienvenue Sudoku"
 		set_default_size 300, 300
 		set_resizable false
-		set_window_position Gtk::Window::Position::CENTER
 		signal_connect 'destroy'  do
 			Gtk.main_quit
 		end

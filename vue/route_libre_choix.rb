@@ -9,7 +9,7 @@ class FreeModeChoice < Gtk::Frame
 	def initialize(window)
 		super()
 		@window=window
-		window.set_window_position Gtk::Window::Position::CENTER
+		window.set_window_position Gtk::WindowPosition::CENTER
 		@event1 = Gtk::Box.new(:vertical,5)
 		@event1.set_homogeneous("r")
 		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true

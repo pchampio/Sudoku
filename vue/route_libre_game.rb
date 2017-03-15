@@ -15,7 +15,7 @@ class FreeModeGame < Gtk::Frame
 		super()
 		@board=board
 		@window=window
-		@window.set_window_position Gtk::Window::Position::CENTER
+		@window.set_window_position Gtk::WindowPosition::CENTER
 		@word=nil
 
 		@event1 = Gtk::Box.new(:vertical,2)

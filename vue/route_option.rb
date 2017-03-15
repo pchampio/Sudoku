@@ -6,13 +6,14 @@ class Option < Gtk::Frame
 	def initialize(window)
 		super()
 		@window=window
+		window.set_window_position Gtk::WindowPosition::CENTER
 
-		@event1 = Gtk::Box.new(:vertical,5)
+		@event1 = Gtk::Box.new(:vertical,2)
 		@event1.set_homogeneous("r")
 		label_title = Gtk::Label.new "Options", :use_underline => true
 		@event1.add(label_title)
 
-		box = Gtk::Box.new(:horizontal,2)
+		box = Gtk::Box.new(:vertical,2)
 		box.set_homogeneous("r")
 
 		menuButton=Gtk::Button.new(:label=>"Retour")
@@ -21,14 +22,14 @@ class Option < Gtk::Frame
 			@window.add @window.event1
 		}
 
-		changeColorButton = Gtk::Button.new :label=>"Changer les couleurs", :use_underline => true
-		changeColorButton.signal_connect("clicked"){
-			remove(event1)
-			add(Preference.new self)
+		picker = Gtk::ColorButton.new
+		print picker
+		picker.signal_connect("color-set"){
+			puts picker.color
 		}
 
+		box.add picker
 		box.add menuButton
-		box.add(changeColorButton)
 		@event1.add box
 		self.add @event1
 

@@ -5,6 +5,7 @@ class Preference < Gtk::Frame
 	def initialize(window)
 		super()
 		@window=window
+		window.set_window_position Gtk::WindowPosition::CENTER
 		
 		event1 = Gtk::Box.new(:vertical,5)
 		label_title = Gtk::Label.new "Changer les couleurs", :use_underline => true
