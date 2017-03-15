@@ -37,11 +37,11 @@ class FreeModeGame < Gtk::Frame
 
 	def recupereCell(cellule)
 		if(@celluleavant!=cellule && @celluleavant != nil)
-			@celluleavant.set_color Gdk::Color.new(30000, 0, 0)
+      @cellule.reset_color
 		end
 		@cellule=cellule
 
-        @cellule.set_color Gdk::Color.new(12000, 12000, 0)
+    @cellule.set_color Gdk::Color.new(112, 117, 128)
 
 		@celluleavant = @cellule
 	end
@@ -50,7 +50,7 @@ class FreeModeGame < Gtk::Frame
 		@number=number
     	if(!@cellule.cell.freeze?)
       		@cellule.set_value @number
-			@cellule.set_color Gdk::Color.new(65000, 0, 0)
+      # @cellule.set_color Gdk::Color.new(112, 117, 128)
     	else
       		print "La case est freeze\n"
     	end

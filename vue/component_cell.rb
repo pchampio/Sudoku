@@ -78,10 +78,10 @@ class CellComponent < Gtk::Button
   end
 
 	def set_color(color)
-    puts color
-    red = (color.red / 65535.0) * 255.0
-    green = (color.green / 65535.0) * 255.0
-    blue = (color.blue / 65535.0) * 255.0
+    red = color.red
+    green = color.green
+    blue = color.blue
+
 			css=<<-EOT
 				#cell{
 				background: rgb(#{red},#{green},#{blue});
@@ -91,6 +91,18 @@ class CellComponent < Gtk::Button
   		css_provider.load :data=>css
   		apply_css(self,css_provider)
 	end
+
+  def reset_color
+      css=<<-EOT
+        #cell{
+        background: #444A58;
+      }
+      EOT
+  		css_provider = Gtk::CssProvider.new
+      css_provider.load :data=>css
+  		apply_css(self,css_provider)
+  end
+
   def apply_css(widget,provider)
   	widget.style_context.add_provider provider,GLib::MAXUINT
   	if(widget.is_a?(Gtk::Container))
