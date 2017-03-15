@@ -20,6 +20,7 @@ class NumpadComponent < Gtk::Frame
     super()
     @panel=panel
     @value=0
+    @statut=true
     table = Gtk::Table.new(9,6,true)
 
     numButtons=Array.new(3){Array.new(3)}
