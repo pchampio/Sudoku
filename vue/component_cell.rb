@@ -76,7 +76,6 @@ class CellComponent < Gtk::Button
   def delPossible(i)
     set_hints((@possibles - [i]))
   end
-
 	def set_color(color)
     puts color
     red = (color.red / 65535.0) * 255.0
@@ -98,6 +97,10 @@ class CellComponent < Gtk::Button
   			apply_css(child,provider)
   		end
   	end
+  end
+  
+  def isPossible?(i)
+    return @possibles.include?(i)
   end
 
   def set_value(v)

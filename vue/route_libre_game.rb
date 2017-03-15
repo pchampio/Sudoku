@@ -52,8 +52,11 @@ class FreeModeGame < Gtk::Frame
       			@cellule.set_value @number
 				@cellule.set_color Gdk::Color.new(65000, 0, 0)
 			else
-				@cellule.addPossible(@number)
-				
+				if(not @cellule.isPossible?(@number))
+					@cellule.addPossible(@number)
+				else
+					@cellule.delPossible(@number)
+				end
         	end
     	else
       		print "La case est freeze\n"

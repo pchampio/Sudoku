@@ -1,5 +1,6 @@
 require 'gtk3'
 
+
 class Option < Gtk::Frame
 
 	def initialize(window)
