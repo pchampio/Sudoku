@@ -31,7 +31,7 @@ class CellComponent < Gtk::Button
     @cell=cell
     @label = Gtk::Label.new
     @label.wrap = false
-
+    @possibles = []
     # Grand format actuel
     @fontSize = 18
     # @label.width_chars = 2
