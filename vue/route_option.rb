@@ -1,5 +1,5 @@
 require 'gtk3'
-require_relative '../vue/route_preference.rb'
+#require_relative '../vue/route_preference.rb'
 
 class Option < Gtk::Frame
 
