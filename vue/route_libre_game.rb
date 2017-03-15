@@ -48,10 +48,8 @@ class FreeModeGame < Gtk::Frame
 	def recupereNumber(number)
 		@number=number
     	if(!@cellule.cell.freeze?)
-<<<<<<< HEAD
       		@cellule.set_value @number
-      # @cellule.set_color Gdk::Color.new(112, 117, 128)
-=======
+      		#@cellule.set_color Gdk::Color.new(112, 117, 128)
       		if(@numpad.statut)
       			@cellule.set_value @number
 				@cellule.set_color Gdk::Color.new(65000, 0, 0)
@@ -62,7 +60,6 @@ class FreeModeGame < Gtk::Frame
 					@cellule.delPossible(@number)
 				end
         	end
->>>>>>> c2e898b38c871d58fbbcc9c9547157753590d792
     	else
       		print "La case est freeze\n"
     	end

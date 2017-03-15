@@ -1,4 +1,5 @@
 require 'gtk3'
+require_relative 'serialisable.rb'
 
 
 class Option < Gtk::Frame
@@ -29,7 +30,9 @@ class Option < Gtk::Frame
 		picker = Gtk::ColorButton.new
 		print picker
 		picker.signal_connect("color-set"){
+			
 			puts picker.color
+
 		}
 
 		box.add picker
