@@ -1,9 +1,9 @@
 require 'gtk3'
-require_relative 'serialisable.rb'
-
+require_relative './serialisable.rb'
+require_relative '../board_class.rb'
 
 class Option < Gtk::Frame
-
+	@@nom_fic = "sauvegarde"
 	def initialize(window)
 		super()
 		@window=window
@@ -13,26 +13,31 @@ class Option < Gtk::Frame
 		box = Gtk::Box.new(:vertical,10)
 		box.set_homogeneous("r")
 
+		scpicker = Gtk::ColorButton.new
+		bgpicker = Gtk::ColorButton.new
 
 		label_background = Gtk::Label.new "Couleur Fond de Grille :", :use_underline => true
 
-		bgpicker = Gtk::ColorButton.new
+		
 		print bgpicker
 		bgpicker.signal_connect("color-set"){
+			Serialisable.setBackgroundColor(bgpicker.color)
 			puts bgpicker.color
 		}
 
 
 		label_selected_cell = Gtk::Label.new "Case selectionnée :", :use_underline => true
 
-		scpicker = Gtk::ColorButton.new
+		
 		print scpicker
-		bgpicker.signal_connect("color-set"){
+		scpicker.signal_connect("color-set"){
+			Serialisable.setSelectColor(scpicker.color)
 			puts scpicker.color
 		}
 
 		menuButton=Gtk::Button.new(:label=>"Retour")
 		menuButton.signal_connect("clicked"){
+			serialized(@@nom_fic)
 			@window.remove self
 			@window.add @window.event1
 		}
