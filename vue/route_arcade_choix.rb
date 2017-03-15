@@ -44,10 +44,10 @@ class ArcadeModeChoice < Gtk::Frame
 	def commencerPartie()
 
 		gameGen = Generator.new
-		#@difficulty va êtrre égale à la valeur du score du joueur
-		#f = File.new("saved.txt", "r")
-		 
-		@difficulty=1
+		#@difficulty va être égale à la valeur du score du joueur
+		
+		@difficulty=gestion_etoiles()
+		puts("\n"+@difficulty+"\n")
 		case @difficulty
 		when 1
       gameGen.generate(:easy)
@@ -64,6 +64,27 @@ class ArcadeModeChoice < Gtk::Frame
 		@window.remove self
 		game = ArcadeModeGame.new(@window, gameGen.board)
 		@window.add(game)
+	end
+	
+	def gestion_etoiles()
+		begin#test si le fichier existe
+			f = File.open("./vue/score_saved/saved.txt","r+t")
+		rescue#sinon
+			puts "Probleme pour trouver le fichier, score =0"
+			begin#test si le dossier contenant le fichier existe
+				File::new("./vue/score_saved/saved.txt", "w+t")
+			rescue#sinon on le fait, puis on fait le fichier
+				Dir::mkdir("./vue/score_saved", 0777)
+				File::new("./vue/score_saved/saved.txt", "w+t")
+			ensure#et on met 0 dedans
+			f=File.open("./vue/score_saved/saved.txt","w+t")
+			f.print("0")
+			end
+			
+		end
+		f = File.open("./vue/score_saved/saved.txt","rt")
+		score=f.read
+		return score
 	end
 
 end

@@ -1,6 +1,6 @@
 
 #t=Time.now permet de calculer le temps mis par l'utilisateur pour résoudre le sudoku
-#(t-=Time.now).to_i c'est l'affichage du temps mis en seconde pour résoudre le sudoku;
+#(t-=Time.now).to_i; c'est l'affichage du temps mis en seconde pour résoudre le sudoku
 require 'gtk3'
 require 'yaml'
 require_relative '../class/board_class.rb'
@@ -18,7 +18,7 @@ class ArcadeModeGame < Gtk::Frame
 		super()
 		@board=board
 		@window=window
-		@window.set_window_position Gtk::Window::Position::CENTER
+		@window.set_window_position Gtk::WindowPosition::CENTER
 		@word=nil
 
 		@event1 = Gtk::Box.new(:vertical,2)
