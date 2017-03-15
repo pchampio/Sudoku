@@ -31,10 +31,13 @@ class CellComponent < Gtk::Button
     @cell=cell
     @label = Gtk::Label.new
     @label.wrap = false
-    @fontSize = 11
-    # @label.width_chars = 2
 
+    # Grand format actuel
+    @fontSize = 18
+    # @label.width_chars = 2
     if(@cell.value==0)
+
+                                                  # Grand format actuel
       @label.set_markup("<span font='#{@fontSize - 8}' >\n\n</span>")
       self.add(@label)
     else
@@ -46,6 +49,8 @@ class CellComponent < Gtk::Button
   def set_hints(possibles)
     # Monospace Fonts !!!!
     @possibles = possibles
+
+                      # Grand format actuel
     str = "<span  font='10'>"
     1.upto(9) do |v|
       str += "\n" if v == 4 or v == 7
@@ -73,34 +78,18 @@ class CellComponent < Gtk::Button
   end
 
 	def set_color(color)
-  		if(color==:red) 
-  			css=<<-EOT
-  				#cell{
-  				background:red;
-  			}
-  			EOT
-  		elsif(color==:blue)
-  		css=<<-EOT
-  		#cell{	
-  			background:blue;
-  		}
-  		EOT
-  		elsif(color==:green) 
-  			css=<<-EOT
-  			#cell{
-  				background:green;
-  			}
-  			EOT
-  		elsif(color==:default)
-  			css=<<-EOT
-  			#cell{
-  				background:none;
-  			}
-  			EOT
-  		end	
+    puts color
+    red = (color.red / 65535.0) * 255.0
+    green = (color.green / 65535.0) * 255.0
+    blue = (color.blue / 65535.0) * 255.0
+			css=<<-EOT
+				#cell{
+				background: rgb(#{red},#{green},#{blue});
+			}
+			EOT
   		css_provider = Gtk::CssProvider.new
   		css_provider.load :data=>css
-  		apply_css(self,css_provider)	
+  		apply_css(self,css_provider)
 	end
   def apply_css(widget,provider)
   	widget.style_context.add_provider provider,GLib::MAXUINT

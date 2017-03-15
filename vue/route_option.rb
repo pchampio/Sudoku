@@ -1,4 +1,5 @@
 require 'gtk3'
+require_relative '../vue/route_preference.rb'
 
 class Option < Gtk::Frame
 
@@ -20,7 +21,14 @@ class Option < Gtk::Frame
 			@window.add @window.event1
 		}
 
+		changeColorButton = Gtk::Button.new :label=>"Changer les couleurs", :use_underline => true
+		changeColorButton.signal_connect("clicked"){
+			remove(event1)
+			add(Preference.new self)
+		}
+
 		box.add menuButton
+		box.add(changeColorButton)
 		@event1.add box
 		self.add @event1
 
