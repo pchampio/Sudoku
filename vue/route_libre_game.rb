@@ -6,12 +6,20 @@ require_relative '../vue/component_board.rb'
 require_relative '../vue/component_numpad.rb'
 require_relative '../class/solver_class.rb'
 require_relative '../vue/component_cell.rb'
+require_relative './serialisable.rb'
+
 
 class FreeModeGame < Gtk::Frame
 
 	attr_accessor :grid, :numpad
 	@celluleavant = nil
 	def initialize(window,board)
+
+
+		trucmuche = Serialisable.getBackgroundColor()
+		print trucmuche
+
+
 		super()
 		@board=board
 		@window=window

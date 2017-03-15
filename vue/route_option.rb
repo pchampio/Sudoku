@@ -1,9 +1,8 @@
 require 'gtk3'
 require_relative './serialisable.rb'
-require_relative '../board_class.rb'
 
 class Option < Gtk::Frame
-	@@nom_fic = "sauvegarde"
+	@@nom_fic = "sauvegarde.yml"
 	def initialize(window)
 		super()
 		@window=window
@@ -37,7 +36,7 @@ class Option < Gtk::Frame
 
 		menuButton=Gtk::Button.new(:label=>"Retour")
 		menuButton.signal_connect("clicked"){
-			serialized(@@nom_fic)
+			Serialisable.serialized(@@nom_fic)
 			@window.remove self
 			@window.add @window.event1
 		}

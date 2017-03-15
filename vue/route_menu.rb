@@ -3,6 +3,7 @@ require 'gtk3'
 require_relative '../vue/route_option.rb'
 require_relative '../vue/route_libre_choix.rb'
 require_relative './route_arcade_choix.rb'
+require_relative './serialisable.rb'
 
 class Menu < Gtk::Window
 
@@ -17,6 +18,10 @@ class Menu < Gtk::Window
 		signal_connect 'destroy'  do
 			Gtk.main_quit
 		end
+
+		Serialisable.unserialized("sauvegarde.yml")
+		#trucmuche = Serialisable.getBackgroundColor()
+
 		init_ui
 	end
 
