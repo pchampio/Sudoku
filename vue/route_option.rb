@@ -9,16 +9,26 @@ class Option < Gtk::Frame
 		@window.set_title "Sudoku (Options)"
 		@window.set_window_position Gtk::WindowPosition::CENTER
 
-		@event1 = Gtk::Box.new(:vertical,2)
-		@event1.set_homogeneous("r")
-
-		label_title = Gtk::Label.new "Choix de couleur :", :use_underline => true
-		@event1.add(label_title)
-
-
-
-		box = Gtk::Box.new(:vertical,2)
+		box = Gtk::Box.new(:vertical,10)
 		box.set_homogeneous("r")
+
+
+		label_background = Gtk::Label.new "Couleur Fond de Grille :", :use_underline => true
+
+		bgpicker = Gtk::ColorButton.new
+		print bgpicker
+		bgpicker.signal_connect("color-set"){
+			puts bgpicker.color
+		}
+
+
+		label_selected_cell = Gtk::Label.new "Case selectionnée :", :use_underline => true
+
+		scpicker = Gtk::ColorButton.new
+		print scpicker
+		bgpicker.signal_connect("color-set"){
+			puts scpicker.color
+		}
 
 		menuButton=Gtk::Button.new(:label=>"Retour")
 		menuButton.signal_connect("clicked"){
@@ -26,16 +36,12 @@ class Option < Gtk::Frame
 			@window.add @window.event1
 		}
 
-		picker = Gtk::ColorButton.new
-		print picker
-		picker.signal_connect("color-set"){
-			puts picker.color
-		}
-
-		box.add picker
+		box.add(label_background)
+		box.add bgpicker
+		box.add label_selected_cell
+		box.add scpicker
 		box.add menuButton
-		@event1.add box
-		self.add @event1
+		self.add box
 
 		show_all
 	end
