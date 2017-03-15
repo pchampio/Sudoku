@@ -15,17 +15,16 @@ class FreeModeGame < Gtk::Frame
 		super()
 		@board=board
 		@window=window
-		@window.set_window_position Gtk::Window::Position::CENTER
+		@window.set_title "Sudoku (Jeu Libre)"
+		@window.set_window_position Gtk::WindowPosition::CENTER
 		@word=nil
 
 		@event1 = Gtk::Box.new(:vertical,2)
 		event2 = Gtk::Box.new(:horizontal,2)
 		@grid = BoardComponent.new(self,@board)
-		label_title = Gtk::Label.new "Jeu Libre", :use_underline => true
 		@numpad = NumpadComponent.create self
 
 
-		@event1.add(label_title)
 		@event1.add(event2)
 		event2.add(@grid)
 		event2.add(@numpad)
@@ -49,8 +48,21 @@ class FreeModeGame < Gtk::Frame
 	def recupereNumber(number)
 		@number=number
     	if(!@cellule.cell.freeze?)
+<<<<<<< HEAD
       		@cellule.set_value @number
       # @cellule.set_color Gdk::Color.new(112, 117, 128)
+=======
+      		if(@numpad.statut)
+      			@cellule.set_value @number
+				@cellule.set_color Gdk::Color.new(65000, 0, 0)
+			else
+				if(not @cellule.isPossible?(@number))
+					@cellule.addPossible(@number)
+				else
+					@cellule.delPossible(@number)
+				end
+        	end
+>>>>>>> c2e898b38c871d58fbbcc9c9547157753590d792
     	else
       		print "La case est freeze\n"
     	end

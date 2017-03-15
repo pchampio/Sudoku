@@ -31,7 +31,7 @@ class CellComponent < Gtk::Button
     @cell=cell
     @label = Gtk::Label.new
     @label.wrap = false
-
+    @possibles = []
     # Grand format actuel
     @fontSize = 18
     # @label.width_chars = 2
@@ -76,7 +76,6 @@ class CellComponent < Gtk::Button
   def delPossible(i)
     set_hints((@possibles - [i]))
   end
-
 	def set_color(color)
     red = color.red
     green = color.green
@@ -110,6 +109,10 @@ class CellComponent < Gtk::Button
   			apply_css(child,provider)
   		end
   	end
+  end
+
+  def isPossible?(i)
+    return @possibles.include?(i)
   end
 
   def set_value(v)
