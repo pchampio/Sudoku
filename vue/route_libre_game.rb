@@ -36,38 +36,38 @@ class FreeModeGame < Gtk::Frame
 
 	def recupereCell(cellule)
 		if(@celluleavant!=cellule && @celluleavant != nil)
-			@celluleavant.set_color Gdk::Color.new(30000, 0, 0)
+      @cellule.reset_color
 		end
 		@cellule=cellule
 
-        @cellule.set_color Gdk::Color.new(12000, 12000, 0)
+    @cellule.set_color Gdk::Color.new(112, 117, 128)
 
 		@celluleavant = @cellule
 	end
 
-	def recupereNumber(number)
-		@number=number
-    	if(!@cellule.cell.freeze?)
-      		if(@numpad.statut)
-      			@cellule.set_value @number
-				@cellule.set_color Gdk::Color.new(65000, 0, 0)
-			else
-				if(not @cellule.isPossible?(@number))
-					@cellule.addPossible(@number)
-				else
-					@cellule.delPossible(@number)
-				end
-        	end
-    	else
-      		print "La case est freeze\n"
-    	end
-	end
-	def gommer()
-		@number=0
-    	if(!@cellule.cell.freeze?)
-      		@cellule.set_value 0
-    	else
-      		print "La case est freeze\n"
-    	end
-	end
+  def recupereNumber(number)
+    @number=number
+    if(!@cellule.cell.freeze?)
+      if(@numpad.statut)
+        @cellule.set_value @number
+        # @cellule.set_color Gdk::Color.new(65000, 0, 0)
+      else
+        if(not @cellule.isPossible?(@number))
+          @cellule.addPossible(@number)
+        else
+          @cellule.delPossible(@number)
+        end
+      end
+    else
+      print "La case est freeze\n"
+    end
+  end
+  def gommer()
+    @number=0
+    if(!@cellule.cell.freeze?)
+      @cellule.set_value 0
+    else
+      print "La case est freeze\n"
+    end
+  end
 end

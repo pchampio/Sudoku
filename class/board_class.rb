@@ -306,7 +306,7 @@ class Board
   # * *Returns*
   #   - true/false
   def complete?
-    valid? and unusedCells.length == 0
+     unusedCells.length == 0 and valid?
   end
 
   # Une fois la grille générer les valeurs pas défaut sont inchantable
