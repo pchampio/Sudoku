@@ -68,7 +68,7 @@ class NumpadComponent < Gtk::Frame
 
     table.attach(buttonPen,0,2,7,8)
     table.attach(buttonCrayon,2,4,7,8)
-    table.attach(buttonGomme,4,6,7,8)
+    table.attach(buttonGomme,0,6,6,7)
     table.attach(buttonFullPossibilities,0,6,8,9)
     self.add(table)
 
