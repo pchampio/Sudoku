@@ -50,7 +50,7 @@ class FreeModeGame < Gtk::Frame
     if(!@cellule.cell.freeze?)
       if(@numpad.statut)
         @cellule.set_value @number
-        @cellule.set_color Gdk::Color.new(65000, 0, 0)
+        # @cellule.set_color Gdk::Color.new(65000, 0, 0)
       else
         if(not @cellule.isPossible?(@number))
           @cellule.addPossible(@number)
