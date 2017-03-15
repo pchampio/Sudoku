@@ -73,31 +73,15 @@ class CellComponent < Gtk::Button
   end
 
 	def set_color(color)
-  		if(color==:red) 
-  			css=<<-EOT
-  				#cell{
-  				background:red;
-  			}
-  			EOT
-  		elsif(color==:blue)
-  		css=<<-EOT
-  		#cell{	
-  			background:blue;
-  		}
-  		EOT
-  		elsif(color==:green) 
-  			css=<<-EOT
-  			#cell{
-  				background:green;
-  			}
-  			EOT
-  		elsif(color==:default)
-  			css=<<-EOT
-  			#cell{
-  				background:none;
-  			}
-  			EOT
-  		end	
+    puts color
+    red = (color.red / 65535.0) * 255.0
+    green = (color.green / 65535.0) * 255.0
+    blue = (color.blue / 65535.0) * 255.0
+			css=<<-EOT
+				#cell{
+				background: rgb(#{red},#{green},#{blue});
+			}
+			EOT
   		css_provider = Gtk::CssProvider.new
   		css_provider.load :data=>css
   		apply_css(self,css_provider)	
