@@ -10,7 +10,7 @@ class Option < Gtk::Frame
 
 		@event1 = Gtk::Box.new(:vertical,2)
 		@event1.set_homogeneous("r")
-		label_title = Gtk::Label.new "Options", :use_underline => true
+		label_title = Gtk::Label.new "Choix de couleur :", :use_underline => true
 		@event1.add(label_title)
 
 		box = Gtk::Box.new(:vertical,2)
