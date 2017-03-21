@@ -11,6 +11,8 @@
 
 require 'gtk3'
 require_relative '../class/cell_class.rb'
+require_relative '../vue/serialisable.rb'
+
 ##class CellView héritant (pour l'instant) de la classe Button
 class CellComponent < Gtk::Button
   ##choix à faire : button, frame or widget ?
@@ -80,12 +82,12 @@ class CellComponent < Gtk::Button
   def delPossible(i)
     set_hints((@possibles - [i]))
   end
-  def set_color(color)
+  def set_color
+    color = Serialisable.getBackgroundColor()
+    print color
     red = color.red
     green = color.green
     blue = color.blue
-<<<<<<< HEAD
-
     css=<<-EOT
     #cell{
       background: rgb(#{red},#{green},#{blue});
@@ -95,17 +97,6 @@ class CellComponent < Gtk::Button
     css_provider.load :data=>css
     apply_css(self,css_provider)
   end
-=======
-			css=<<-EOT
-				#cell{
-				background: rgb(#{red},#{green},#{blue});
-			}
-			EOT
-  		css_provider = Gtk::CssProvider.new
-  		css_provider.load :data=>css
-  		apply_css(self,css_provider)
-	end
->>>>>>> 0727e697e995a32335e81f4c38298dff8e909ba5
 
   def reset_color
     css=<<-EOT
