@@ -24,8 +24,9 @@ class Serialisable
 	# * *Arguments*    :
 	#   - +nameFic+  -> le nom du fichier pour la sauvegarde
 	def self.serialized(nameFic)
+		puts "coucou"
 		File.open(nameFic, "w+") do |f|
-		YAML.dump(Serialisable, f)
+		YAML.dump(self, f)
 		end
 	end
 

@@ -66,7 +66,7 @@ class CellComponent < Gtk::Button
         str += "<span font_family=\"Monaco\" >#{v}</span>"
 
       else
-        str += "<span foreground='blue' alpha='1' font_family=\"Monaco\">0 </span>"
+        str += "<span foreground='blue' alpha='1' font_family=\"Monaco\">0</span>"
       end
       str += "<span font_family=\"Monaco\"> </span>"
     end
