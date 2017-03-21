@@ -41,7 +41,7 @@ class CellComponent < Gtk::Button
       str = "<span  font='10'>"
       1.upto(9) do |v|
         str += "\n" if v == 4 or v == 7
-        str += "<span font_family=\"Monaco\">1 </span>"
+        str += "<span font_family=\"Monaco\">0 </span>"
       end
       str += "</span>"
       @label.set_markup(str)
@@ -66,7 +66,7 @@ class CellComponent < Gtk::Button
         str += "<span font_family=\"Monaco\" >#{v}</span>"
 
       else
-        str += "<span font_family=\"Monaco\"> </span>"
+        str += "<span font_family=\"Monaco\">0</span>"
       end
       str += "<span font_family=\"Monaco\"> </span>"
     end
