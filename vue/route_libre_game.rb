@@ -6,12 +6,20 @@ require_relative '../vue/component_board.rb'
 require_relative '../vue/component_numpad.rb'
 require_relative '../class/solver_class.rb'
 require_relative '../vue/component_cell.rb'
+require_relative './serialisable.rb'
+
 
 class FreeModeGame < Gtk::Frame
 
 	attr_accessor :grid, :numpad
 	@celluleavant = nil
 	def initialize(window,board)
+
+
+		trucmuche = Serialisable.getBackgroundColor()
+		print trucmuche
+
+
 		super()
 		@board=board
 		@window=window
@@ -52,7 +60,11 @@ class FreeModeGame < Gtk::Frame
       		#@cellule.set_color Gdk::Color.new(112, 117, 128)
       		if(@numpad.statut)
       			@cellule.set_value @number
-				@cellule.set_color Gdk::Color.new(65000, 0, 0)
+      			color = Serialisable.getBackgroundColor()
+      			#red = (color.red / 65535.0) * 255.0
+  				#green = (color.green / 65535.0) * 255.0
+ 				#blue = (color.blue / 65535.0) * 255.0
+				@cellule.set_color Gdk::Color.new(color.red, color.green, color.blue)
 			else
 				if(not @cellule.isPossible?(@number))
 					@cellule.addPossible(@number)

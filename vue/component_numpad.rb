@@ -55,9 +55,13 @@ class NumpadComponent < Gtk::Frame
       end
     }
 
-    #CHANGER L'ETAT D'UN BOUTON
-    # buttonFullPossibilities.set_sensitive(false)
-
+    #--------------------------CHANGER L'ETAT D'UN BOUTON----------------------------
+    #
+    #
+    #___________________buttonFullPossibilities.set_sensitive(false)
+    #
+    #
+    #--------------------------------------------------------------------------------
 
     buttonCrayon = Gtk::RadioButton.new :label => "Crayon"
     buttonCrayon.join_group(buttonPen)

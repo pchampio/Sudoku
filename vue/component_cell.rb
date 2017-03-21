@@ -84,6 +84,7 @@ class CellComponent < Gtk::Button
     red = color.red
     green = color.green
     blue = color.blue
+<<<<<<< HEAD
 
     css=<<-EOT
     #cell{
@@ -94,6 +95,17 @@ class CellComponent < Gtk::Button
     css_provider.load :data=>css
     apply_css(self,css_provider)
   end
+=======
+			css=<<-EOT
+				#cell{
+				background: rgb(#{red},#{green},#{blue});
+			}
+			EOT
+  		css_provider = Gtk::CssProvider.new
+  		css_provider.load :data=>css
+  		apply_css(self,css_provider)
+	end
+>>>>>>> 0727e697e995a32335e81f4c38298dff8e909ba5
 
   def reset_color
     css=<<-EOT

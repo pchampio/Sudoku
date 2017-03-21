@@ -1,23 +1,41 @@
 require 'gtk3'
 
 class Serialisable
-	attr_accessor :backgroundColor, :selectColor
 	@@backgroundColor
 	@@selectColor
 
-	def getBackgroundColor()
+	def self.getBackgroundColor()
 		return @@backgroundColor
 	end
 
-	def setBackgroundColor(backgroundColor)
+	def self.setBackgroundColor(backgroundColor)
 		@@backgroundColor = backgroundColor
 	end
 
-	def getSelectColor()
+	def self.getSelectColor()
 		return @@selectColor
 	end
 
-	def setSelectColor(selectColor)
+	def self.setSelectColor(selectColor)
 		@@selectColor = selectColor
 	end
+
+	# Serialize une planche.
+	# * *Arguments*    :
+	#   - +nameFic+  -> le nom du fichier pour la sauvegarde
+	def self.serialized(nameFic)
+		File.open(nameFic, "w+") do |f|
+		YAML.dump(Serialisable, f)
+		end
+	end
+
+	# Serialize une planche.
+	# * *Arguments*    :
+	#   - +nameFic+  -> le nom du fichier pour la sauvegarde
+	# * *Returns*      :
+	#   - le fichier chargé et convertit en langage machine
+	def self.unserialized(nameFic)
+		return YAML.load_file(nameFic)
+	end
+
 end
