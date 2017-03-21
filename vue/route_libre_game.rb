@@ -16,8 +16,7 @@ class FreeModeGame < Gtk::Frame
 	def initialize(window,board)
 
 
-		trucmuche = Serialisable.getBackgroundColor()
-		print trucmuche
+		
 
 
 		super()
