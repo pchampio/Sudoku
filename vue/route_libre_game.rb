@@ -15,10 +15,6 @@ class FreeModeGame < Gtk::Frame
 	@celluleavant = nil
 	def initialize(window,board)
 
-
-		
-
-
 		super()
 		@board=board
 		@window=window
@@ -46,8 +42,7 @@ class FreeModeGame < Gtk::Frame
       @cellule.reset_color
 		end
 		@cellule=cellule
-
-    @cellule.set_color #Gdk::Color.new(112, 117, 128)
+    @cellule.set_color(Serialisable.getSelectColor())
 
 		@celluleavant = @cellule
 	end
@@ -59,11 +54,7 @@ class FreeModeGame < Gtk::Frame
       		#@cellule.set_color Gdk::Color.new(112, 117, 128)
       		if(@numpad.statut)
       			@cellule.set_value @number
-      			color = Serialisable.getBackgroundColor()
-      			#red = (color.red / 65535.0) * 255.0
-  				#green = (color.green / 65535.0) * 255.0
- 				#blue = (color.blue / 65535.0) * 255.0
-				@cellule.set_color #Gdk::Color.new(color.red, color.green, color.blue)
+				# @cellule.set_color #Gdk::Color.new(color.red, color.green, color.blue)
 			else
 				if(not @cellule.isPossible?(@number))
 					@cellule.addPossible(@number)

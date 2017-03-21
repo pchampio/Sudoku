@@ -16,26 +16,15 @@ class Option < Gtk::Frame
 		bgpicker = Gtk::ColorButton.new
 
 		label_background = Gtk::Label.new "Couleur Fond de Grille :", :use_underline => true
-
-		
-		print bgpicker
 		bgpicker.signal_connect("color-set"){
 			Serialisable.setBackgroundColor(bgpicker.color)
-			puts "-----------------------------------------------------"
-			print "la couleur de fond"
-			puts bgpicker.color
 		}
 
 
 		label_selected_cell = Gtk::Label.new "Case selectionnée :", :use_underline => true
 
-		
-		print scpicker
 		scpicker.signal_connect("color-set"){
 			Serialisable.setSelectColor(scpicker.color)
-			puts "-----------------------------------------------------"
-			print "la couleur de selection"
-			puts scpicker.color
 		}
 
 		menuButton=Gtk::Button.new(:label=>"Retour")

@@ -41,7 +41,7 @@ class CellComponent < Gtk::Button
       str = "<span  font='10'>"
       1.upto(9) do |v|
         str += "\n" if v == 4 or v == 7
-        str += "<span font_family=\"Monaco\">_ </span>"
+        str += "<span font_family=\"Monaco\">1 </span>"
       end
       str += "</span>"
       @label.set_markup(str)
@@ -50,6 +50,7 @@ class CellComponent < Gtk::Button
       self.add(@label)
       @label.set_markup("<span font='#{@fontSize}' ><b>#{@cell.value}</b></span>")
     end
+    reset_color()
   end
 
   def set_hints(possibles)
@@ -61,8 +62,6 @@ class CellComponent < Gtk::Button
     1.upto(9) do |v|
       str += "\n" if v == 4 or v == 7
       if possibles.include?(v)
-        # str += "<span  font_family=\"Monaco\" color=\"red\" background=\"#757779\">#{v}</span>"
-        # c'est moche mais c'est pour la demo
 
         str += "<span font_family=\"Monaco\" >#{v}</span>"
 
@@ -82,12 +81,11 @@ class CellComponent < Gtk::Button
   def delPossible(i)
     set_hints((@possibles - [i]))
   end
-  def set_color
-    color = Serialisable.getBackgroundColor()
-    print color
-    red = color.red
-    green = color.green
-    blue = color.blue
+
+  def set_color(color = Serialisable.getBackgroundColor())
+    red = (color.red / 65535.0) * 255.0
+    green = (color.green / 65535.0) * 255.0
+    blue = (color.blue / 65535.0) * 255.0
     css=<<-EOT
     #cell{
       background: rgb(#{red},#{green},#{blue});
@@ -99,14 +97,7 @@ class CellComponent < Gtk::Button
   end
 
   def reset_color
-    css=<<-EOT
-    #cell{
-      background: #444A58;
-    }
-    EOT
-    css_provider = Gtk::CssProvider.new
-    css_provider.load :data=>css
-    apply_css(self,css_provider)
+    set_color()
   end
 
   def apply_css(widget,provider)
