@@ -36,13 +36,17 @@ class CellComponent < Gtk::Button
     @fontSize = 18
     # @label.width_chars = 2
     if(@cell.value==0)
-
-                                                  # Grand format actuel
-      @label.set_markup("<span font='#{@fontSize - 8}' >\n\n</span>")
+      str = "<span  font='10'>"
+      1.upto(9) do |v|
+        str += "\n" if v == 4 or v == 7
+        str += "<span font_family=\"Monaco\">_ </span>"
+      end
+      str += "</span>"
+      @label.set_markup(str)
       self.add(@label)
     else
-      @label.set_markup("<span font='#{@fontSize}' ><b>#{@cell.value}</b></span>")
       self.add(@label)
+      @label.set_markup("<span font='#{@fontSize}' ><b>#{@cell.value}</b></span>")
     end
   end
 
@@ -50,7 +54,7 @@ class CellComponent < Gtk::Button
     # Monospace Fonts !!!!
     @possibles = possibles
 
-                      # Grand format actuel
+    # Grand format actuel
     str = "<span  font='10'>"
     1.upto(9) do |v|
       str += "\n" if v == 4 or v == 7
@@ -76,39 +80,39 @@ class CellComponent < Gtk::Button
   def delPossible(i)
     set_hints((@possibles - [i]))
   end
-	def set_color(color)
+  def set_color(color)
     red = color.red
     green = color.green
     blue = color.blue
 
-			css=<<-EOT
-				#cell{
-				background: rgb(#{red},#{green},#{blue});
-			}
-			EOT
-  		css_provider = Gtk::CssProvider.new
-  		css_provider.load :data=>css
-  		apply_css(self,css_provider)
-	end
+    css=<<-EOT
+    #cell{
+      background: rgb(#{red},#{green},#{blue});
+    }
+    EOT
+    css_provider = Gtk::CssProvider.new
+    css_provider.load :data=>css
+    apply_css(self,css_provider)
+  end
 
   def reset_color
-      css=<<-EOT
-        #cell{
-        background: #444A58;
-      }
-      EOT
-  		css_provider = Gtk::CssProvider.new
-      css_provider.load :data=>css
-  		apply_css(self,css_provider)
+    css=<<-EOT
+    #cell{
+      background: #444A58;
+    }
+    EOT
+    css_provider = Gtk::CssProvider.new
+    css_provider.load :data=>css
+    apply_css(self,css_provider)
   end
 
   def apply_css(widget,provider)
-  	widget.style_context.add_provider provider,GLib::MAXUINT
-  	if(widget.is_a?(Gtk::Container))
-  		widget.each_all do |child|
-  			apply_css(child,provider)
-  		end
-  	end
+    widget.style_context.add_provider provider,GLib::MAXUINT
+    if(widget.is_a?(Gtk::Container))
+      widget.each_all do |child|
+        apply_css(child,provider)
+      end
+    end
   end
 
   def isPossible?(i)
