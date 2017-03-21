@@ -80,7 +80,6 @@ class CellComponent < Gtk::Button
     red = color.red
     green = color.green
     blue = color.blue
-
 			css=<<-EOT
 				#cell{
 				background: rgb(#{red},#{green},#{blue});

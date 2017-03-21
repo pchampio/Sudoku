@@ -1,4 +1,3 @@
-
 require 'gtk3'
 require_relative '../vue/route_option.rb'
 require_relative '../vue/route_libre_choix.rb'
