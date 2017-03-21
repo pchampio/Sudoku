@@ -21,6 +21,8 @@ class Option < Gtk::Frame
 		print bgpicker
 		bgpicker.signal_connect("color-set"){
 			Serialisable.setBackgroundColor(bgpicker.color)
+			puts "-----------------------------------------------------"
+			print "la couleur de fond"
 			puts bgpicker.color
 		}
 
@@ -31,6 +33,8 @@ class Option < Gtk::Frame
 		print scpicker
 		scpicker.signal_connect("color-set"){
 			Serialisable.setSelectColor(scpicker.color)
+			puts "-----------------------------------------------------"
+			print "la couleur de selection"
 			puts scpicker.color
 		}
 
