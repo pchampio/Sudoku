@@ -36,6 +36,7 @@ class CellComponent < Gtk::Button
     @possibles = []
     # Grand format actuel
     @fontSize = 18
+
     # @label.width_chars = 2
     if(@cell.value==0)
       str = "<span  font='10'>"
@@ -90,9 +91,16 @@ class CellComponent < Gtk::Button
     red = (color.red / 65535.0) * 255.0
     green = (color.green / 65535.0) * 255.0
     blue = (color.blue / 65535.0) * 255.0
+    
+    chiffreColorolor = Serialisable.getChiffreColor
+    redC = (chiffreColorolor.red / 65535.0) * 255.0
+    greenC = (chiffreColorolor.green / 65535.0) * 255.0
+    blueC = (chiffreColorolor.blue / 65535.0) * 255.0
+
     css=<<-EOT
     #cell{
       background: rgb(#{red},#{green},#{blue});
+      color: rgb(#{redC},#{greenC},#{blueC});
     }
     EOT
     css_provider = Gtk::CssProvider.new
