@@ -80,25 +80,38 @@ class NumpadComponent < Gtk::Frame
     buttonCrayon = Gtk::RadioButton.new :label => "Crayon"
     buttonCrayon.join_group(buttonPen)
     buttonCrayon.signal_connect('clicked'){@statut=false}
+    boxTechnic = Gtk::Box.new(:horizontal,2)
     cb = Gtk::ComboBoxText.new
-        cb.signal_connect "changed" do |w, e|
-            
+    boxTechnic.add(cb)
+    @techniqueValue=""
+        cb.signal_connect "changed" do |event, label|
+            @technicValue=event.active_text
+            puts @technicValue
         end
-
+        cb.append_text ""
         cb.append_text "Technique de l'aigle"
         cb.append_text "Technique du dauphin"
         cb.append_text "Technique du tigre"
         cb.append_text "Techique de la panthère"
         cb.append_text "Technique du serpent"
-      @pan.add(cb)
-    buttonGomme = Gtk::Button.new(:label=>"gomme", :use_underline => true)
+      buttTechnic=Gtk::Button.new(:label => "valider",:use_underline => true);
+      boxTechnic.add(buttTechnic)
+      
+
+    imgGomme = Gtk::Image.new :file => "./ressources/gomme.png"
+    boxGomme = Gtk::Box.new(:horizontal,1)
+    buttonGomme = Gtk::Button.new(:label=>nil, :use_underline => true)
+    boxGomme.add(imgGomme)
+    buttonGomme.add(boxGomme)
+    @pan.add(buttonGomme)
     buttonGomme.signal_connect('clicked'){
         @panel.recupereNumber(0)
     }
-
+    @pan.add(buttonGomme)
+    @pan.add(boxTechnic)
     @pan.add(buttonPen)
     @pan.add(buttonCrayon)
-    @pan.add(buttonGomme)
+
     @pan.add(buttonFullPossibilities)
     self.add(@pan)
 
