@@ -37,8 +37,20 @@ class NumpadComponent < Gtk::Frame
         numButtons[x][y].add(label)
 
         numButtons[x][y].signal_connect("clicked"){
-          @value=val
-          @panel.recupereNumber(@value)
+        	@value=val
+        	@panel.recupereNumber(@value)
+####################################################################################################################
+############################"" Prière de ne pas toucher à ce que je viens de modifier ici bas ######################
+####################################################################################################################
+        	if (@panel.grid.board.complete?)
+	          	@window.remove self
+				victoire = FreeModeWin.new(@window)
+				@window.add(victoire)
+			end
+####################################################################################################################
+############################ Jusqu'ici quoi ###############################################################
+####################################################################################################################
+
         }
         @table.attach(numButtons[x][y],2*x,2*(x+1),y,(y+1))
       }
