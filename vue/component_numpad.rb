@@ -21,7 +21,9 @@ class NumpadComponent < Gtk::Frame
     @panel=panel
     @value=0
     @statut=true
-    table = Gtk::Table.new(9,6,true)
+    @pan=Gtk::Box.new(:vertical,6)
+    @table = Gtk::Table.new(3,3,true)
+    @pan.add(@table)
 
     numButtons=Array.new(3){Array.new(3)}
 
@@ -50,7 +52,7 @@ class NumpadComponent < Gtk::Frame
 ####################################################################################################################
 
         }
-        table.attach(numButtons[x][y],2*x,2*(x+1),2*y,2*(y+1))
+        @table.attach(numButtons[x][y],2*x,2*(x+1),y,(y+1))
       }
     }
 
@@ -84,11 +86,12 @@ class NumpadComponent < Gtk::Frame
         @panel.recupereNumber(0)
     }
 
-    table.attach(buttonPen,0,2,7,8)
-    table.attach(buttonCrayon,2,4,7,8)
-    table.attach(buttonGomme,0,6,6,7)
-    table.attach(buttonFullPossibilities,0,6,8,9)
-    self.add(table)
+    @pan.add(buttonPen)
+    @pan.add(buttonCrayon)
+    @pan.add(buttonGomme)
+    @pan.add(buttonFullPossibilities)
+    self.add(@pan)
+
 
     show_all()
   end
