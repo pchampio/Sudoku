@@ -94,10 +94,10 @@ class FreeModeGame < Gtk::Frame
       		print "La case est freeze\n"
     	end
 	end
+
 	def victoire
 		@window.remove self
 		victoire = FreeModeWin.new(@window)
 		@window.add(victoire)
 	end
-
 end
