@@ -96,15 +96,18 @@ class NumpadComponent < Gtk::Frame
       boxTechnic.add(buttTechnic)
       
 
-    imgGomme = Gtk::Image.new :file => "./ressources/gomme.png"
-    boxGomme = Gtk::Box.new(:horizontal,1)
-    buttonGomme = Gtk::Button.new(:label=>nil, :use_underline => true)
+    
+
+    labelGomme = Gtk::Label.new("gomme", :use_underline => true)
+    imgGomme = Gtk::Image.new(:file => "./ressources/gomme.png", :size=>100)
+    boxGomme = Gtk::Box.new(:horizontal,2)
+    buttonGomme = Gtk::Button.new(:label=>nil,:use_underline => true)
     boxGomme.add(imgGomme)
+    boxGomme.add(labelGomme)
     buttonGomme.add(boxGomme)
-    @pan.add(buttonGomme)
+    
 
-    buttonGomme = Gtk::Button.new(:label=>"gomme", :use_underline => true)
-
+    
     buttonGomme.signal_connect('clicked'){
         @panel.recupereNumber(0)
     }
