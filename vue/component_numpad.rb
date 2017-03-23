@@ -123,12 +123,8 @@ class NumpadComponent < Gtk::Frame
     @pan.add(buttonPen)
     @pan.add(buttonCrayon)
 
-<<<<<<< HEAD
-=======
-    @pan.add(buttonPause)
 
-    @pan.add(buttonFullPossibilities)
->>>>>>> bf200fde59a1019a22018c6e2392747440e08ddf
+    @pan.add(buttonPause)
     @pan.add(@buttonMisAJourAuto)
     self.add(@pan)
 
