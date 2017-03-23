@@ -43,9 +43,7 @@ class NumpadComponent < Gtk::Frame
 ############################"" Prière de ne pas toucher à ce que je viens de modifier ici bas ######################
 ####################################################################################################################
         	if (@panel.grid.board.complete?)
-	          	@window.remove self
-				victoire = FreeModeWin.new(@window)
-				@window.add(victoire)
+	          	@panel.grid.victoire
 			end
 ####################################################################################################################
 ############################ Jusqu'ici quoi ###############################################################
