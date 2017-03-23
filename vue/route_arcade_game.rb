@@ -9,26 +9,28 @@ require_relative './component_board.rb'
 require_relative './component_numpad.rb'
 require_relative '../class/solver_class.rb'
 require_relative './component_cell.rb'
+require_relative './serialisable.rb'
 
 class ArcadeModeGame < Gtk::Frame
 
-	attr_accessor :grid, :numpad
+		attr_accessor :grid, :numpad
 	@celluleavant = nil
+	@etoiles= 0
 	def initialize(window,board)
+
 		super()
 		@board=board
 		@window=window
+		@window.set_title "Sudoku (Jeu Arcade)"
 		@window.set_window_position Gtk::WindowPosition::CENTER
 		@word=nil
 
 		@event1 = Gtk::Box.new(:vertical,2)
 		event2 = Gtk::Box.new(:horizontal,2)
 		@grid = BoardComponent.new(self,@board)
-		label_title = Gtk::Label.new "Jeu Arcade", :use_underline => true
 		@numpad = NumpadComponent.create self
 
 
-		@event1.add(label_title)
 		@event1.add(event2)
 		event2.add(@grid)
 		event2.add(@numpad)
@@ -40,11 +42,10 @@ class ArcadeModeGame < Gtk::Frame
 
 	def recupereCell(cellule)
 		if(@celluleavant!=cellule && @celluleavant != nil)
-			@celluleavant.set_color Gdk::Color.new(30000, 0, 0)
+      @cellule.reset_color
 		end
 		@cellule=cellule
-
-        @cellule.set_color Gdk::Color.new(12000, 12000, 0)
+    @cellule.set_color(Serialisable.getSelectColor())
 
 		@celluleavant = @cellule
 	end
@@ -53,7 +54,17 @@ class ArcadeModeGame < Gtk::Frame
 		@number=number
     	if(!@cellule.cell.freeze?)
       		@cellule.set_value @number
-			@cellule.set_color Gdk::Color.new(65000, 0, 0)
+      		#@cellule.set_color Gdk::Color.new(112, 117, 128)
+      		if(@numpad.statut)
+      			@cellule.set_value @number
+				# @cellule.set_color #Gdk::Color.new(color.red, color.green, color.blue)
+			else
+				if(not @cellule.isPossible?(@number))
+					@cellule.addPossible(@number)
+				else
+					@cellule.delPossible(@number)
+				end
+        	end
     	else
       		print "La case est freeze\n"
     	end
@@ -67,3 +78,4 @@ class ArcadeModeGame < Gtk::Frame
     	end
 	end
 end
+

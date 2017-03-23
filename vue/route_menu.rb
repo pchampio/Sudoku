@@ -2,6 +2,7 @@ require 'gtk3'
 require_relative '../vue/route_option.rb'
 require_relative '../vue/route_libre_choix.rb'
 require_relative './route_arcade_choix.rb'
+require_relative './route_tuto_choix.rb'
 require_relative './serialisable.rb'
 
 class Menu < Gtk::Window
@@ -51,6 +52,10 @@ class Menu < Gtk::Window
 		arcadeButton.signal_connect("clicked"){
 			remove(@event1)
 			add(ArcadeModeChoice.new self)
+		}
+		tutoButton.signal_connect("clicked"){
+			remove(@event1)
+			add(TutoModeChoice.new self)
 		}
 		add @event1
 
