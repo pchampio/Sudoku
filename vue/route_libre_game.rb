@@ -1,5 +1,6 @@
 require 'gtk3'
 require 'yaml'
+require 'thread'
 require_relative '../class/board_class.rb'
 require_relative '../class/cell_class.rb'
 require_relative '../vue/component_board.rb'
@@ -19,6 +20,17 @@ class FreeModeGame < Gtk::Frame
 		super()
 		@board=board
 		@window=window
+		@elapse = 0
+		@time= Thread.new do
+			while(1) do
+				@elapse += 1
+				sleep(1)
+				getTimeFromSec(@elapse)
+			end
+		@time.join
+
+		end
+
 		@window.set_title "Sudoku (Jeu Libre)"
 		@window.set_window_position Gtk::WindowPosition::CENTER
 		@word=nil
@@ -27,7 +39,6 @@ class FreeModeGame < Gtk::Frame
 		event2 = Gtk::Box.new(:horizontal,2)
 		@grid = BoardComponent.new(self,@board)
 		@numpad = NumpadComponent.create self
-		
 
 		@event1.add(event2)
 		event2.add(@grid)
@@ -36,6 +47,13 @@ class FreeModeGame < Gtk::Frame
 		@cellule=@board.cellAt(0,0)
 		self.add(@event1)
 		show_all
+	end
+
+	def getTimeFromSec(time)
+		@minute = format('%02d', time/60)
+		@sec = format('%02d', time%60)
+
+		print "#{@minute}:#{@sec} \n"
 	end
 
 	def recupereCell(cellule)
@@ -71,6 +89,7 @@ class FreeModeGame < Gtk::Frame
 		@number=0
     	if(!@cellule.cell.freeze?)
       		@cellule.set_value 0
+      		@timer_stop = false
     	else
       		print "La case est freeze\n"
     	end
