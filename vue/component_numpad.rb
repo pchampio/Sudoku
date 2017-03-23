@@ -68,7 +68,17 @@ class NumpadComponent < Gtk::Frame
     buttonCrayon = Gtk::RadioButton.new :label => "Crayon"
     buttonCrayon.join_group(buttonPen)
     buttonCrayon.signal_connect('clicked'){@statut=false}
+    cb = Gtk::ComboBoxText.new
+        cb.signal_connect "changed" do |w, e|
+            
+        end
 
+        cb.append_text "Technique de l'aigle"
+        cb.append_text "Technique du dauphin"
+        cb.append_text "Technique du tigre"
+        cb.append_text "Techique de la panthère"
+        cb.append_text "Technique du serpent"
+      @pan.add(cb)
     buttonGomme = Gtk::Button.new(:label=>"gomme", :use_underline => true)
     buttonGomme.signal_connect('clicked'){
         @panel.recupereNumber(0)
