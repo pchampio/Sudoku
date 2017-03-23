@@ -27,7 +27,7 @@ class FreeModeGame < Gtk::Frame
 		event2 = Gtk::Box.new(:horizontal,2)
 		@grid = BoardComponent.new(self,@board)
 		@numpad = NumpadComponent.create self
-
+		
 
 		@event1.add(event2)
 		event2.add(@grid)
@@ -75,10 +75,10 @@ class FreeModeGame < Gtk::Frame
       		print "La case est freeze\n"
     	end
 	end
+
 	def victoire
 		@window.remove self
 		victoire = FreeModeWin.new(@window)
 		@window.add(victoire)
 	end
-
 end
