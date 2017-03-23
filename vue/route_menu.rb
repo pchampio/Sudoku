@@ -19,7 +19,7 @@ class Menu < Gtk::Window
 			Gtk.main_quit
 		end
 
-    Serialisable.unserialized("sauvegarde.yml")
+    Serialisable.unserialized
 		#trucmuche = Serialisable.getBackgroundColor()
 
 		init_ui

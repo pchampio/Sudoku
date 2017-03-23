@@ -24,10 +24,16 @@ class NumpadComponent < Gtk::Frame
     @pan=Gtk::Box.new(:vertical,6)
     @table = Gtk::Table.new(3,3,true)
     @pan.add(@table)
-    @buttonMisAJourAuto = Gtk::ToggleButton.new(:label=>"aide au temps reel", :use_underline=>true)
-    if @buttonMisAJourAuto.active?
-      affichePossiblite
-    end
+
+    @buttonMisAJourAuto = Gtk::CheckButton.new("aide au temps reel")
+    
+    @buttonMisAJourAuto.signal_connect('clicked'){
+      if @buttonMisAJourAuto.active?
+        affichePossiblite
+      else
+        deletePossibilite
+      end
+    }
 
     numButtons=Array.new(3){Array.new(3)}
 
@@ -47,16 +53,9 @@ class NumpadComponent < Gtk::Frame
           if @buttonMisAJourAuto.active?
             affichePossiblite
           end
-####################################################################################################################
-############################"" Prière de ne pas toucher à ce que je viens de modifier ici bas ######################
-####################################################################################################################
         	if (@panel.grid.board.complete?)
 	          	@panel.victoire
 			     end
-####################################################################################################################
-############################ Jusqu'ici quoi ###############################################################
-####################################################################################################################
-
 
         }
         @table.attach(numButtons[x][y],2*x,2*(x+1),y,(y+1))
@@ -65,12 +64,15 @@ class NumpadComponent < Gtk::Frame
 
     buttonPen = Gtk::RadioButton.new :label => "Stylo"
     buttonPen.signal_connect('clicked'){@statut=true}
-
-
-    buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les indices !", :use_underline => true)
-    buttonFullPossibilities.signal_connect('clicked'){
-      affichePossiblite()
+    buttonPause = Gtk::Button.new(:label=>"Pause", :use_underline => true)
+    buttonPause.signal_connect('clicked'){
+    	@panel.pause
     }
+
+    #buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les indices !", :use_underline => true)
+    #buttonFullPossibilities.signal_connect('clicked'){
+     # affichePossiblite()
+    #}
 
     #--------------------------CHANGER L'ETAT D'UN BOUTON----------------------------
     #
@@ -101,15 +103,18 @@ class NumpadComponent < Gtk::Frame
       boxTechnic.add(buttTechnic)
       
 
-    imgGomme = Gtk::Image.new :file => "./ressources/gomme.png"
-    boxGomme = Gtk::Box.new(:horizontal,1)
-    buttonGomme = Gtk::Button.new(:label=>nil, :use_underline => true)
+    
+
+    labelGomme = Gtk::Label.new("gomme", :use_underline => true)
+    imgGomme = Gtk::Image.new(:file => "./ressources/gomme.png", :size=>100)
+    boxGomme = Gtk::Box.new(:horizontal,2)
+    buttonGomme = Gtk::Button.new(:label=>nil,:use_underline => true)
     boxGomme.add(imgGomme)
+    boxGomme.add(labelGomme)
     buttonGomme.add(boxGomme)
-    @pan.add(buttonGomme)
+    
 
-    buttonGomme = Gtk::Button.new(:label=>"gomme", :use_underline => true)
-
+    
     buttonGomme.signal_connect('clicked'){
         @panel.recupereNumber(0)
     }
@@ -118,7 +123,8 @@ class NumpadComponent < Gtk::Frame
     @pan.add(buttonPen)
     @pan.add(buttonCrayon)
 
-    @pan.add(buttonFullPossibilities)
+
+    @pan.add(buttonPause)
     @pan.add(@buttonMisAJourAuto)
     self.add(@pan)
 
@@ -131,6 +137,14 @@ class NumpadComponent < Gtk::Frame
       cells.each do |cell|
         possibles = @panel.grid.board.possibles(cell)
         @panel.grid.cellsView[cell.row][cell.col].set_hints(possibles)
+      end
+  end
+
+  def deletePossibilite
+    cells = @panel.grid.board.unusedCells
+      cells.each do |cell|
+        #possibles = @panel.grid.board.possibles(cell)
+        @panel.grid.cellsView[cell.row][cell.col].del_hints()
       end
   end
 

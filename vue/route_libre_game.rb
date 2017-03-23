@@ -15,25 +15,19 @@ class FreeModeGame < Gtk::Frame
 
 	attr_accessor :grid, :numpad
 	@celluleavant = nil
+	@time
+	@timeFin
 	def initialize(window,board)
 
 		super()
 		@board=board
 		@window=window
-		@elapse = 0
-		@time= Thread.new do
-			while(1) do
-				@elapse += 1
-				sleep(1)
-				getTimeFromSec(@elapse)
-			end
-		@time.join
-
-		end
 
 		@window.set_title "Sudoku (Jeu Libre)"
 		@window.set_window_position Gtk::WindowPosition::CENTER
 		@word=nil
+		puts @timeStop
+		startTimer()
 
 		@event1 = Gtk::Box.new(:vertical,2)
 		event2 = Gtk::Box.new(:horizontal,2)
@@ -49,11 +43,34 @@ class FreeModeGame < Gtk::Frame
 		show_all
 	end
 
+	def startTimer()
+		@elapse = 0
+		@time= Thread.new do
+			while(1) do
+				@elapse += 1
+				sleep(1)
+				getTimeFromSec(@elapse)
+			end
+		@time.join
+
+		end
+	end
+
+
+		# stopTimer()
+		# puts "avant"
+		# puts @timeFin
+		# puts "apres"
+	def stopTimer()
+		@time.kill
+	end
+
 	def getTimeFromSec(time)
 		@minute = format('%02d', time/60)
 		@sec = format('%02d', time%60)
 
 		print "#{@minute}:#{@sec} \n"
+		@timeFin  = "#{@minute}:#{@sec}"
 	end
 
 	def recupereCell(cellule)
@@ -85,19 +102,16 @@ class FreeModeGame < Gtk::Frame
       		print "La case est freeze\n"
     	end
 	end
-	def gommer()
-		@number=0
-    	if(!@cellule.cell.freeze?)
-      		@cellule.set_value 0
-      		@timer_stop = false
-    	else
-      		print "La case est freeze\n"
-    	end
-	end
 
 	def victoire
 		@window.remove self
 		victoire = FreeModeWin.new(@window)
 		@window.add(victoire)
+	end
+
+	def pause
+		@window.remove self
+		pause = Pause.new(@window)
+		@window.add(pause)
 	end
 end

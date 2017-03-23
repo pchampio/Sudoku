@@ -36,6 +36,7 @@ class CellComponent < Gtk::Button
     @possibles = []
     # Grand format actuel
     @fontSize = 18
+
     # @label.width_chars = 2
     if(@cell.value==0)
       str = "<span  font='10'>"
@@ -74,6 +75,10 @@ class CellComponent < Gtk::Button
     @label.set_markup(str)
   end
 
+  def del_hints
+    @label.set_markup("")
+  end
+
   def addPossible(i)
     set_hints((@possibles + [i]).uniq)
   end
@@ -86,9 +91,16 @@ class CellComponent < Gtk::Button
     red = (color.red / 65535.0) * 255.0
     green = (color.green / 65535.0) * 255.0
     blue = (color.blue / 65535.0) * 255.0
+
+    chiffreColorolor = Serialisable.getChiffreColor
+    redC = (chiffreColorolor.red / 65535.0) * 255.0
+    greenC = (chiffreColorolor.green / 65535.0) * 255.0
+    blueC = (chiffreColorolor.blue / 65535.0) * 255.0
+
     css=<<-EOT
     #cell{
       background: rgb(#{red},#{green},#{blue});
+      color: rgb(#{redC},#{greenC},#{blueC});
     }
     EOT
     css_provider = Gtk::CssProvider.new
@@ -121,17 +133,6 @@ class CellComponent < Gtk::Button
       @label.set_markup("")
     end
   end
-
-  # def highlight_same_number(cellView)
-    # @cellsView = cellsView
-    # @number = cellView.cell.value
-
-    # @cellsView.each do |cells|
-      # if(cells.cell.value == @number)
-        # cells.set_font_color()
-      # end
-    # end
-  # end
 
   def set_font_color(color = Serialisable.getSelectColor())
     red = (color.red / 65535.0) * 255.0
