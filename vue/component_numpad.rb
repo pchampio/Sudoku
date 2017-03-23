@@ -43,7 +43,7 @@ class NumpadComponent < Gtk::Frame
 ############################"" Prière de ne pas toucher à ce que je viens de modifier ici bas ######################
 ####################################################################################################################
         	if (@panel.grid.board.complete?)
-	          	@panel.grid.victoire
+	          	@panel.victoire
 			end
 ####################################################################################################################
 ############################ Jusqu'ici quoi ###############################################################
@@ -102,6 +102,9 @@ class NumpadComponent < Gtk::Frame
     boxGomme.add(imgGomme)
     buttonGomme.add(boxGomme)
     @pan.add(buttonGomme)
+
+    buttonGomme = Gtk::Button.new(:label=>"gomme", :use_underline => true)
+
     buttonGomme.signal_connect('clicked'){
         @panel.recupereNumber(0)
     }

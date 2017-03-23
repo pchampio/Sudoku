@@ -7,6 +7,7 @@ require_relative '../vue/component_numpad.rb'
 require_relative '../class/solver_class.rb'
 require_relative '../vue/component_cell.rb'
 require_relative './serialisable.rb'
+require_relative './route_libre_win.rb'
 
 
 class FreeModeGame < Gtk::Frame
@@ -79,5 +80,5 @@ class FreeModeGame < Gtk::Frame
 		victoire = FreeModeWin.new(@window)
 		@window.add(victoire)
 	end
-	
+
 end
