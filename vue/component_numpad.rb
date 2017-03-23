@@ -24,10 +24,16 @@ class NumpadComponent < Gtk::Frame
     @pan=Gtk::Box.new(:vertical,6)
     @table = Gtk::Table.new(3,3,true)
     @pan.add(@table)
-    @buttonMisAJourAuto = Gtk::ToggleButton.new(:label=>"aide au temps reel", :use_underline=>true)
-    if @buttonMisAJourAuto.active?
-      affichePossiblite
-    end
+
+    @buttonMisAJourAuto = Gtk::CheckButton.new("aide au temps reel")
+    
+    @buttonMisAJourAuto.signal_connect('clicked'){
+      if @buttonMisAJourAuto.active?
+        affichePossiblite
+      else
+        deletePossibilite
+      end
+    }
 
     numButtons=Array.new(3){Array.new(3)}
 
@@ -67,10 +73,10 @@ class NumpadComponent < Gtk::Frame
     buttonPen.signal_connect('clicked'){@statut=true}
 
 
-    buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les indices !", :use_underline => true)
-    buttonFullPossibilities.signal_connect('clicked'){
-      affichePossiblite()
-    }
+    #buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les indices !", :use_underline => true)
+    #buttonFullPossibilities.signal_connect('clicked'){
+     # affichePossiblite()
+    #}
 
     #--------------------------CHANGER L'ETAT D'UN BOUTON----------------------------
     #
@@ -118,7 +124,6 @@ class NumpadComponent < Gtk::Frame
     @pan.add(buttonPen)
     @pan.add(buttonCrayon)
 
-    @pan.add(buttonFullPossibilities)
     @pan.add(@buttonMisAJourAuto)
     self.add(@pan)
 
@@ -131,6 +136,14 @@ class NumpadComponent < Gtk::Frame
       cells.each do |cell|
         possibles = @panel.grid.board.possibles(cell)
         @panel.grid.cellsView[cell.row][cell.col].set_hints(possibles)
+      end
+  end
+
+  def deletePossibilite
+    cells = @panel.grid.board.unusedCells
+      cells.each do |cell|
+        #possibles = @panel.grid.board.possibles(cell)
+        @panel.grid.cellsView[cell.row][cell.col].del_hints()
       end
   end
 
