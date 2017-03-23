@@ -7,19 +7,19 @@ class FreeModeWin < Gtk::Frame
 		@window = window
 		@window.set_window_position Gtk::WindowPosition::CENTER
 		@window.set_title "Sudoku (Victoire)"
-		imageButton = Gtk::Button.new :label=>"Image"
-	
-		victoire = Gtk::Image.new(:file => "../ressources/victoire.jpg")
-		imageButton.set_image(victoire)
-		@event = Gtk::Box.new(:vertical,2)
-		@event.add(imageButton)
-		self.add(victoire)
-		#@myViewport = Viewport.new(0, 0, 640, 480)
-		#@mySprite = Sprite.new(@myViewport)
-		#@myBitmap = RPG::Cache.picture("../ressources/victoire.png")
-		#@mySprite.bitmap = @myBitmap
-		#@window.add(@mySprite)
+
+		imgVictoire = Gtk::Image.new :file => "./ressources/victoire.png"
+	    boxVictoire = Gtk::Box.new(:horizontal,1)
+	    boxVictoire.add(imgVictoire)
+	    self.add(boxVictoire)
 		show_all
 	end
 
 end
+
+
+
+#Pour les boutons retours, il faut qu'ils apparaissent dans la barre en haut
+#la pause doit faire un save de la grille, temps (==> serial) affiche ecran noir, puis revient sur la grille deserialiser
+#ajout du temps sur la victoire
+#label des boutons a remplacer par des box / grilles

@@ -1,5 +1,6 @@
 require 'gtk3'
 require 'yaml'
+require 'thread'
 require_relative '../class/board_class.rb'
 require_relative '../class/cell_class.rb'
 require_relative '../vue/component_board.rb'
@@ -14,20 +15,24 @@ class FreeModeGame < Gtk::Frame
 
 	attr_accessor :grid, :numpad
 	@celluleavant = nil
+	@time
+	@timeFin
 	def initialize(window,board)
 
 		super()
 		@board=board
 		@window=window
+
 		@window.set_title "Sudoku (Jeu Libre)"
 		@window.set_window_position Gtk::WindowPosition::CENTER
 		@word=nil
+		puts @timeStop
+		startTimer()
 
 		@event1 = Gtk::Box.new(:vertical,2)
 		event2 = Gtk::Box.new(:horizontal,2)
 		@grid = BoardComponent.new(self,@board)
 		@numpad = NumpadComponent.create self
-		
 
 		@event1.add(event2)
 		event2.add(@grid)
@@ -36,6 +41,36 @@ class FreeModeGame < Gtk::Frame
 		@cellule=@board.cellAt(0,0)
 		self.add(@event1)
 		show_all
+	end
+
+	def startTimer()
+		@elapse = 0
+		@time= Thread.new do
+			while(1) do
+				@elapse += 1
+				sleep(1)
+				getTimeFromSec(@elapse)
+			end
+		@time.join
+
+		end
+	end
+
+
+		# stopTimer()
+		# puts "avant"
+		# puts @timeFin
+		# puts "apres"
+	def stopTimer()
+		@time.kill
+	end
+
+	def getTimeFromSec(time)
+		@minute = format('%02d', time/60)
+		@sec = format('%02d', time%60)
+
+		print "#{@minute}:#{@sec} \n"
+		@timeFin  = "#{@minute}:#{@sec}"
 	end
 
 	def recupereCell(cellule)
@@ -67,18 +102,16 @@ class FreeModeGame < Gtk::Frame
       		print "La case est freeze\n"
     	end
 	end
-	def gommer()
-		@number=0
-    	if(!@cellule.cell.freeze?)
-      		@cellule.set_value 0
-    	else
-      		print "La case est freeze\n"
-    	end
-	end
 
 	def victoire
 		@window.remove self
 		victoire = FreeModeWin.new(@window)
 		@window.add(victoire)
+	end
+
+	def pause
+		@window.remove self
+		pause = Pause.new(@window)
+		@window.add(pause)
 	end
 end
