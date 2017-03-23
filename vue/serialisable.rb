@@ -1,8 +1,13 @@
 require 'gtk3'
 
 class Serialisable
-	@@backgroundColor
-	@@selectColor
+
+  attr_reader :selectColor, :backgroundColor
+
+	def initialize()
+	    @backgroundColor =  @@backgroundColor.to_s
+	    @selectColor     =  @@selectColor.to_s
+	end
 
 	def self.getBackgroundColor()
 		return @@backgroundColor
@@ -14,7 +19,7 @@ class Serialisable
 
 	def self.getSelectColor()
 		return @@selectColor
-	end
+	end;
 
 	def self.setSelectColor(selectColor)
 		@@selectColor = selectColor
@@ -24,9 +29,9 @@ class Serialisable
 	# * *Arguments*    :
 	#   - +nameFic+  -> le nom du fichier pour la sauvegarde
 	def self.serialized(nameFic)
-		puts "coucou"
+    obj = Serialisable.new
 		File.open(nameFic, "w+") do |f|
-		YAML.dump(self, f)
+      YAML.dump(obj, f)
 		end
 	end
 
@@ -36,7 +41,9 @@ class Serialisable
 	# * *Returns*      :
 	#   - le fichier chargé et convertit en langage machine
 	def self.unserialized(nameFic)
-		return YAML.load_file(nameFic)
+    obj = YAML.load_file(nameFic)
+   	self.setBackgroundColor(Gdk::Color.parse(obj.backgroundColor))
+    self.setSelectColor(Gdk::Color.parse(obj.selectColor))
 	end
 
 end

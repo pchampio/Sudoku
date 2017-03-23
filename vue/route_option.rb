@@ -17,7 +17,7 @@ class Option < Gtk::Frame
 
 		label_background = Gtk::Label.new "Couleur Fond de Grille :", :use_underline => true
 		bgpicker.signal_connect("color-set"){
-			Serialisable.setBackgroundColor(bgpicker.color)
+   		   Serialisable.setBackgroundColor(bgpicker.color)
 		}
 
 
@@ -29,7 +29,7 @@ class Option < Gtk::Frame
 
 		menuButton=Gtk::Button.new(:label=>"Retour")
 		menuButton.signal_connect("clicked"){
-			Serialisable.serialized(@@nom_fic)
+      Serialisable.serialized(@@nom_fic)
 			@window.remove self
 			@window.add @window.event1
 		}

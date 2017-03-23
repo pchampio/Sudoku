@@ -1,1 +1,3 @@
---- !ruby/class 'Serialisable'
+--- !ruby/object:Serialisable
+backgroundColor: "#44444a4a5858"
+selectColor: "#505056556666"
