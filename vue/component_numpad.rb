@@ -6,7 +6,7 @@ Dir[File.dirname(__FILE__) + '*.rb'].each {|file| require file }
 
 class NumpadComponent < Gtk::Frame
   #variables
-  attr_accessor :value #valeur retourner
+  attr_accessor :value, :buttonMisAJourAuto#valeur retourner
   attr_reader :statut #gère l'édition des cases : indice ou valeur
 
   private_class_method :new
@@ -24,6 +24,10 @@ class NumpadComponent < Gtk::Frame
     @pan=Gtk::Box.new(:vertical,6)
     @table = Gtk::Table.new(3,3,true)
     @pan.add(@table)
+    @buttonMisAJourAuto = Gtk::ToggleButton.new(:label=>"aide au temps reel", :use_underline=>true)
+    if @buttonMisAJourAuto.active?
+      affichePossiblite
+    end
 
     numButtons=Array.new(3){Array.new(3)}
 
@@ -39,6 +43,9 @@ class NumpadComponent < Gtk::Frame
         numButtons[x][y].signal_connect("clicked"){
           @value=val
           @panel.recupereNumber(@value)
+          if @buttonMisAJourAuto.active?
+            affichePossiblite
+          end
         }
         @table.attach(numButtons[x][y],2*x,2*(x+1),y,(y+1))
       }
@@ -50,11 +57,7 @@ class NumpadComponent < Gtk::Frame
 
     buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les indices !", :use_underline => true)
     buttonFullPossibilities.signal_connect('clicked'){
-      cells = @panel.grid.board.unusedCells
-      cells.each do |cell|
-        possibles = @panel.grid.board.possibles(cell)
-        @panel.grid.cellsView[cell.row][cell.col].set_hints(possibles)
-      end
+      affichePossiblite()
     }
 
     #--------------------------CHANGER L'ETAT D'UN BOUTON----------------------------
@@ -78,10 +81,19 @@ class NumpadComponent < Gtk::Frame
     @pan.add(buttonCrayon)
     @pan.add(buttonGomme)
     @pan.add(buttonFullPossibilities)
+    @pan.add(@buttonMisAJourAuto)
     self.add(@pan)
 
 
     show_all()
+  end
+
+  def affichePossiblite()
+    cells = @panel.grid.board.unusedCells
+      cells.each do |cell|
+        possibles = @panel.grid.board.possibles(cell)
+        @panel.grid.cellsView[cell.row][cell.col].set_hints(possibles)
+      end
   end
 
 end
