@@ -21,7 +21,9 @@ class NumpadComponent < Gtk::Frame
     @panel=panel
     @value=0
     @statut=true
-    table = Gtk::Table.new(9,6,true)
+    @pan=Gtk::Box.new(:vertical,6)
+    @table = Gtk::Table.new(3,3,true)
+    @pan.add(@table)
 
     numButtons=Array.new(3){Array.new(3)}
 
@@ -35,10 +37,20 @@ class NumpadComponent < Gtk::Frame
         numButtons[x][y].add(label)
 
         numButtons[x][y].signal_connect("clicked"){
-          @value=val
-          @panel.recupereNumber(@value)
+        	@value=val
+        	@panel.recupereNumber(@value)
+####################################################################################################################
+############################"" Prière de ne pas toucher à ce que je viens de modifier ici bas ######################
+####################################################################################################################
+        	if (@panel.grid.board.complete?)
+	          	@panel.victoire
+			end
+####################################################################################################################
+############################ Jusqu'ici quoi ###############################################################
+####################################################################################################################
+
         }
-        table.attach(numButtons[x][y],2*x,2*(x+1),2*y,2*(y+1))
+        @table.attach(numButtons[x][y],2*x,2*(x+1),y,(y+1))
       }
     }
 
@@ -66,17 +78,44 @@ class NumpadComponent < Gtk::Frame
     buttonCrayon = Gtk::RadioButton.new :label => "Crayon"
     buttonCrayon.join_group(buttonPen)
     buttonCrayon.signal_connect('clicked'){@statut=false}
+    boxTechnic = Gtk::Box.new(:horizontal,2)
+    cb = Gtk::ComboBoxText.new
+    boxTechnic.add(cb)
+    @techniqueValue=""
+        cb.signal_connect "changed" do |event, label|
+            @technicValue=event.active_text
+            puts @technicValue
+        end
+        cb.append_text ""
+        cb.append_text "Technique de l'aigle"
+        cb.append_text "Technique du dauphin"
+        cb.append_text "Technique du tigre"
+        cb.append_text "Techique de la panthère"
+        cb.append_text "Technique du serpent"
+      buttTechnic=Gtk::Button.new(:label => "valider",:use_underline => true);
+      boxTechnic.add(buttTechnic)
+      
+
+    imgGomme = Gtk::Image.new :file => "./ressources/gomme.png"
+    boxGomme = Gtk::Box.new(:horizontal,1)
+    buttonGomme = Gtk::Button.new(:label=>nil, :use_underline => true)
+    boxGomme.add(imgGomme)
+    buttonGomme.add(boxGomme)
+    @pan.add(buttonGomme)
 
     buttonGomme = Gtk::Button.new(:label=>"gomme", :use_underline => true)
+
     buttonGomme.signal_connect('clicked'){
         @panel.recupereNumber(0)
     }
+    @pan.add(buttonGomme)
+    @pan.add(boxTechnic)
+    @pan.add(buttonPen)
+    @pan.add(buttonCrayon)
 
-    table.attach(buttonPen,0,2,7,8)
-    table.attach(buttonCrayon,2,4,7,8)
-    table.attach(buttonGomme,0,6,6,7)
-    table.attach(buttonFullPossibilities,0,6,8,9)
-    self.add(table)
+    @pan.add(buttonFullPossibilities)
+    self.add(@pan)
+
 
     show_all()
   end
