@@ -74,6 +74,10 @@ class CellComponent < Gtk::Button
     @label.set_markup(str)
   end
 
+  def del_hints
+    @label.set_markup("")
+  end
+
   def addPossible(i)
     set_hints((@possibles + [i]).uniq)
   end
@@ -121,4 +125,6 @@ class CellComponent < Gtk::Button
       @label.set_markup("")
     end
   end
+
+
 end
