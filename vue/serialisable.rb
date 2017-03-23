@@ -2,11 +2,12 @@ require 'gtk3'
 
 class Serialisable
 
-  attr_reader :selectColor, :backgroundColor
+  attr_reader :selectColor, :backgroundColor, :chiffreColor
 
 	def initialize()
 	    @backgroundColor =  @@backgroundColor.to_s
 	    @selectColor     =  @@selectColor.to_s
+	    @chiffreColor	 =	@@chiffreColor.to_s
 	end
 
 	def self.getBackgroundColor()
@@ -19,31 +20,32 @@ class Serialisable
 
 	def self.getSelectColor()
 		return @@selectColor
-	end;
+	end
 
 	def self.setSelectColor(selectColor)
 		@@selectColor = selectColor
 	end
 
-	# Serialize une planche.
-	# * *Arguments*    :
-	#   - +nameFic+  -> le nom du fichier pour la sauvegarde
-	def self.serialized(nameFic)
+	def self.getChiffreColor()
+		return @@chiffreColor
+	end
+
+	def self.setChiffreColor(chiffreColor)
+		@@chiffreColor = chiffreColor
+	end
+
+	def self.serialized
     obj = Serialisable.new
-		File.open(nameFic, "w+") do |f|
+		File.open("save_color.yaml", "w+") do |f|
       YAML.dump(obj, f)
 		end
 	end
 
-	# Serialize une planche.
-	# * *Arguments*    :
-	#   - +nameFic+  -> le nom du fichier pour la sauvegarde
-	# * *Returns*      :
-	#   - le fichier chargé et convertit en langage machine
-	def self.unserialized(nameFic)
-    obj = YAML.load_file(nameFic)
+	def self.unserialized
+    obj = YAML.load_file("save_color.yaml")
    	self.setBackgroundColor(Gdk::Color.parse(obj.backgroundColor))
     self.setSelectColor(Gdk::Color.parse(obj.selectColor))
+	self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))
 	end
 
 end
