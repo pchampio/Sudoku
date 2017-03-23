@@ -47,16 +47,9 @@ class NumpadComponent < Gtk::Frame
           if @buttonMisAJourAuto.active?
             affichePossiblite
           end
-####################################################################################################################
-############################"" Prière de ne pas toucher à ce que je viens de modifier ici bas ######################
-####################################################################################################################
         	if (@panel.grid.board.complete?)
 	          	@panel.victoire
 			     end
-####################################################################################################################
-############################ Jusqu'ici quoi ###############################################################
-####################################################################################################################
-
 
         }
         @table.attach(numButtons[x][y],2*x,2*(x+1),y,(y+1))
@@ -65,7 +58,10 @@ class NumpadComponent < Gtk::Frame
 
     buttonPen = Gtk::RadioButton.new :label => "Stylo"
     buttonPen.signal_connect('clicked'){@statut=true}
-
+    buttonPause = Gtk::Button.new(:label=>"Pause", :use_underline => true)
+    buttonPause.signal_connect('clicked'){
+    	@panel.pause
+    }
 
     buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les indices !", :use_underline => true)
     buttonFullPossibilities.signal_connect('clicked'){
@@ -117,6 +113,8 @@ class NumpadComponent < Gtk::Frame
     @pan.add(boxTechnic)
     @pan.add(buttonPen)
     @pan.add(buttonCrayon)
+
+    @pan.add(buttonPause)
 
     @pan.add(buttonFullPossibilities)
     @pan.add(@buttonMisAJourAuto)

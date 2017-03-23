@@ -100,4 +100,10 @@ class FreeModeGame < Gtk::Frame
 		victoire = FreeModeWin.new(@window)
 		@window.add(victoire)
 	end
+
+	def pause
+		@window.remove self
+		pause = Pause.new(@window)
+		@window.add(pause)
+	end
 end
