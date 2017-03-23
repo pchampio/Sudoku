@@ -121,4 +121,34 @@ class CellComponent < Gtk::Button
       @label.set_markup("")
     end
   end
+
+  # def highlight_same_number(cellView)
+    # @cellsView = cellsView
+    # @number = cellView.cell.value
+
+    # @cellsView.each do |cells|
+      # if(cells.cell.value == @number)
+        # cells.set_font_color()
+      # end
+    # end
+  # end
+
+  def set_font_color(color = Serialisable.getSelectColor())
+    red = (color.red / 65535.0) * 255.0
+    green = (color.green / 65535.0) * 255.0
+    blue = (color.blue / 65535.0) * 255.0
+    css=<<-EOT
+    #cell{
+      color: rgb(#{red},#{green},#{blue});
+    }
+    EOT
+    css_provider = Gtk::CssProvider.new
+    css_provider.load :data=>css
+    apply_css(self,css_provider)
+  end
+
+  def reset_font_color()
+    set_font_color(Gdk::Color.parse("#FFFFFF"))
+  end
+
 end

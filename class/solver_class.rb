@@ -45,8 +45,7 @@ class Solver
       caase = Cell.creer(i, j, box)
       caase.value = cellValue
 
-      possibles = caase
-      @boxes[box] << possibles
+      @boxes[box] << caase
     end
   end
 

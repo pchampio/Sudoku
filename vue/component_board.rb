@@ -48,6 +48,18 @@ class BoardComponent < Gtk::Frame
 						@cellsView[x*3+i][y*3+j].signal_connect("clicked"){
 							@panel.recupereCell(@cellsView[x*3+i][y*3+j])
 
+              @cellsView.each do |cellsview|
+                cellsview.each do |cellview|
+                  if @cellsView[x*3+i][y*3+j].cell.value == cellview.cell.value
+                    if @cellsView[x*3+i][y*3+j] != cellview
+                      cellview.set_font_color()
+                    end
+                  else
+                    cellview.reset_font_color()
+                  end
+                end
+              end
+
 						}
 					}
 				}
