@@ -31,7 +31,7 @@ bundler install --path vendor/bundle
 ```
 
 ### Exécution
-`ruby ./Start.rb`
+`./Start.rb`
 
 ### Tests unitaire
 * Utilisation du Framework [Minitest](https://github.com/seattlerb/minitest) 
