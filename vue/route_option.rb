@@ -8,46 +8,56 @@ class Option < Gtk::Frame
 		@window.set_title "Sudoku (Options)"
 		@window.set_window_position Gtk::WindowPosition::CENTER
 
-		box = Gtk::Box.new(:vertical,10)
-		box.set_homogeneous("r")
+		vBox = Gtk::Box.new(:vertical,10)
+		vBox.set_homogeneous("r")
 
-		scpicker = Gtk::ColorButton.new
-		bgpicker = Gtk::ColorButton.new
-		cpicker = Gtk::ColorButton.new
+    scpicker = Gtk::ColorButton.new(Serialisable.getSelectColor)
+		bgpicker = Gtk::ColorButton.new(Serialisable.getBackgroundColor)
+		cpicker = Gtk::ColorButton.new(Serialisable.getChiffreColor)
 
+    bgHBox = Gtk::Box.new(:horizontal,3)
 		label_background = Gtk::Label.new "Couleur du fond de la grille :", :use_underline => true
 		bgpicker.signal_connect("color-set"){
    		   Serialisable.setBackgroundColor(bgpicker.color)
 		}
 
+    bgHBox.set_homogeneous("r")
+    bgHBox.add label_background
+    bgHBox.add bgpicker
 
-		label_selected_cell = Gtk::Label.new "Couleur de la case selectionnée :", :use_underline => true
 
+    scHBox = Gtk::Box.new(:horizontal,3)
+    label_selected_cell = Gtk::Label.new "Couleur de la case selectionnée :", :use_underline => true
 		scpicker.signal_connect("color-set"){
 			Serialisable.setSelectColor(scpicker.color)
 		}
 
-		label_num_color = Gtk::Label.new "Couleur des chiffres :", :use_underline => true
+    scHBox.set_homogeneous("r")
+    scHBox.add label_selected_cell
+    scHBox.add scpicker
 
+
+    cchiffHbox = Gtk::Box.new(:horizontal,3)
+    label_num_color = Gtk::Label.new "Couleur des chiffres :", :use_underline => true
 		cpicker.signal_connect("color-set"){
 			Serialisable.setChiffreColor(cpicker.color)
 		}
+    cchiffHbox.set_homogeneous("r")
+    cchiffHbox.add label_num_color
+    cchiffHbox.add cpicker
 
 		menuButton=Gtk::Button.new(:label=>"Retour")
 		menuButton.signal_connect("clicked"){
       		Serialisable.serialized
 			@window.remove self
-			@window.add @window.event1
+			@window.add @window.main_menu
 		}
 
-		box.add label_background
-		box.add bgpicker
-		box.add label_num_color
-		box.add cpicker
-		box.add label_selected_cell
-		box.add scpicker
-		box.add menuButton
-		self.add box
+    vBox.add bgHBox
+    vBox.add scHBox
+    vBox.add cchiffHbox
+		vBox.add menuButton
+		self.add vBox
 
 		show_all
 	end

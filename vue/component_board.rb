@@ -3,7 +3,7 @@
 # encoding: UTF-8
 
 ##
-# Author:: Waibin Wang et Riviere Marius
+# Author:: Waibin Wang, Riviere Marius
 # License:: MIT Licence
 #
 # https://github.com/Drakirus/Sudoku
@@ -19,58 +19,83 @@ require_relative '../vue/route_libre_game.rb'
 ##class héritant de Gtk::Frame
 #permet d'être ajoutée dans une fenêtre
 class BoardComponent < Gtk::Frame
-	##Variables
-	## @board #grille de sudoku de board_class.rb
-	## @boardBoxView #c'est une gtk::Table qui contient les boxs de la grille de sudoku
-	## @boxView#tableau de boxs de la grille
-	attr_accessor :cellsView, :board#comporte un tableau de CellView.rb
-	##constructeur
-	#@param : un board de board_class.rb
-	def initialize(panel,board)
+
+  attr_reader :board # board de l'api ../class/board_class.rb
+
+  private_class_method :new
+  def self.create(board)
+    new(board)
+  end
+
+	def initialize(board)
 		super()
 		@board=board
-		@panel=panel
-		@boardBoxView=Gtk::Table.new(3,3,true)
 
-
+    # vues
+    @boardBoxView=Gtk::Table.new(3,3,true)
 		@boxView=Array.new(3){Array.new(3)}
-		@cellsView=Array.new(9){Array.new(9)}
 
-		0.upto(2){|y|
-			0.upto(2){|x|
+    # container of all CellComponent
+		@cellsView = []
+
+    # creation des 9 boxes de la grille
+		0.upto(2) do |y|
+			0.upto(2) do |x|
 				@boxView[x][y]=Gtk::Table.new(3,3,true)
 
-				0.upto(2){|i|
-					0.upto(2){|j|
-						cell=CellComponent.new(@board.cellAt(x*3+i,y*3+j))
+        # creation des 9 cases dans une boxe
+				0.upto(2) do |i|
+					0.upto(2) do |j|
+
+            cell=CellComponent.create(@board.cellAt(x*3+i,y*3+j), self)
 						@boxView[x][y].attach(cell,i,i+1,j,j+1)
-						@cellsView[x*3+i][y*3+j]=cell
-						@cellsView[x*3+i][y*3+j].signal_connect("clicked"){
-							@panel.recupereCell(@cellsView[x*3+i][y*3+j])
+						@cellsView << cell
 
-              @cellsView.each do |cellsview|
-                cellsview.each do |cellview|
-                  if @cellsView[x*3+i][y*3+j].cell.value == cellview.cell.value
-                    if @cellsView[x*3+i][y*3+j] != cellview
-                      cellview.set_font_color()
-                    end
-                  else
-                    cellview.reset_font_color()
-                  end
-                end
-              end
+						cell.signal_connect("clicked") do
+              apply_css_color_button(cell, "background", Serialisable.getSelectColor)
+              highlightCurrentNum(cell)
+            end
 
-						}
-					}
-				}
+          end
+        end
 				tmp = Gtk::Frame.new()
 				tmp.add(@boxView[x][y])
 				@boardBoxView.attach(tmp,x,x+1,y,y+1,nil,nil,3,3)
 
-			}
-		}
+      end
+    end
     self.add(@boardBoxView)
 	end
 
+  def highlightCurrentNum(cellComp)
+    @cellsView.each do |cell|
+      if  !cellComp.cell.vide? and cellComp.cell.value == cell.cell.value
+        if cell!=cellComp
+          apply_css_color_button(cell, "color", Serialisable.getSelectColor)
+        end
+      else
+        apply_css_color_button(cell, "color", Serialisable.getChiffreColor)
+      end
+    end
+  end
 
+  def affichePossiblite()
+    unusedCells = @board.unusedCells
+    @cellsView.each do |cellsview|
+      if unusedCells.include? cellsview.cell
+        cellsview.set_hints(
+          @board.possibles(cellsview.cell)
+        )
+      end
+    end
+  end
+
+  def deletePossibilite
+    unusedCells = @board.unusedCells
+    @cellsView.each do |cellsview|
+      if unusedCells.include? cellsview.cell
+        cellsview.delHints
+      end
+    end
+  end
 end

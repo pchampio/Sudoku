@@ -41,7 +41,7 @@ class Serialisable
 		end
 	end
 
-	def self.unserialized
+	def self.load
     obj = YAML.load_file("save_color.yaml")
    	self.setBackgroundColor(Gdk::Color.parse(obj.backgroundColor))
     self.setSelectColor(Gdk::Color.parse(obj.selectColor))
@@ -49,15 +49,3 @@ class Serialisable
 	end
 
 end
-
-# chiffreColorolor = Serialisable.getChiffreColor
-#     redC = (chiffreColorolor.red / 65535.0) * 255.0
-#     greenC = (chiffreColorolor.green / 65535.0) * 255.0
-#     blueC = (chiffreColorolor.blue / 65535.0) * 255.0
-
-#     css=<<-EOT
-#     #cell{
-#       background: rgb(#{red},#{green},#{blue});
-#       color: rgb(#{redC},#{greenC},#{blueC});
-#     }
-#     EOT

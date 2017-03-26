@@ -1,0 +1,4 @@
+--- !ruby/object:Serialisable
+backgroundColor: "#757550507b7b"
+selectColor: "#72729f9fcfcf"
+chiffreColor: "#ffffffffffff"
