@@ -63,7 +63,7 @@ class Suggest
 
       boxe[1].each do |cell|
         # Si une Cell n'a qu'une possibilité alors on peut affecter la valeur à la planche
-          # Si la Cell la moins répéter ne l'est qu'une fois alors c'est la seule possibilité
+        # Si la Cell la moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.length == 1 and !cell.possibles.empty? \
             or minRepeated_count == 1 and cell.possibles.include?(minRepeated_number)
           puts "Examine the digit #{cell.possibles.first}."

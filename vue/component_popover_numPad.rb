@@ -87,13 +87,13 @@ class NumPadPopover < Popover
 
   def update
     # TODO Option dans Serialisable pour possible add numbre totalement faux
-      candidates = @board_comp.board.possibles(@celluleComponent.cell)
-      @numButtons.each_with_index do |numbutton, index|
-        if InGameMenu.mode_ecriture == :chiffre
-          numbutton.set_sensitive(candidates.include? index+1)
-        else
-          numbutton.set_sensitive(true)
-        end
+    candidates = @board_comp.board.possibles(@celluleComponent.cell)
+    @numButtons.each_with_index do |numbutton, index|
+      if InGameMenu.mode_ecriture == :chiffre
+        numbutton.set_sensitive(candidates.include? index+1)
+      else
+        numbutton.set_sensitive(true)
+      end
     end
   end
 

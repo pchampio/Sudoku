@@ -68,7 +68,7 @@ class InGameMenu < Gtk::Frame
 
     # buttonPause = Gtk::Button.new(:label=>"Pause", :use_underline => true)
     # buttonPause.signal_connect('clicked'){
-      # @root_vue.pause
+    # @root_vue.pause
     # }
 
     boxTechnic = Gtk::Box.new(:horizontal,2)

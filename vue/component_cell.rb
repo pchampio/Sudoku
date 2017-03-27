@@ -109,7 +109,7 @@ class CellComponent < Gtk::Button
 
   def set_hints(possibles)
     @possibles = possibles
-    str = "<span  font='#{10}'>"
+    str = "<span  font='10'>"
     1.upto(9) do |v|
       str += "\n" if v == 4 or v == 7
       if possibles.include?(v)

@@ -27,45 +27,45 @@ class BoardComponent < Gtk::Frame
     new(board)
   end
 
-	def initialize(board)
-		super()
-		@board=board
+  def initialize(board)
+    super()
+    @board=board
 
     # vues
     @boardBoxView=Gtk::Table.new(3,3,true)
-		@boxView=Array.new(3){Array.new(3)}
+    @boxView=Array.new(3){Array.new(3)}
 
     # container of all CellComponent
-		@cellsView = []
+    @cellsView = []
 
     # creation des 9 boxes de la grille
-		0.upto(2) do |y|
-			0.upto(2) do |x|
-				@boxView[x][y]=Gtk::Table.new(3,3,true)
+    0.upto(2) do |y|
+      0.upto(2) do |x|
+        @boxView[x][y]=Gtk::Table.new(3,3,true)
 
         # creation des 9 cases dans une boxe
-				0.upto(2) do |i|
-					0.upto(2) do |j|
+        0.upto(2) do |i|
+          0.upto(2) do |j|
 
             cell=CellComponent.create(@board.cellAt(x*3+i,y*3+j), self)
-						@boxView[x][y].attach(cell,i,i+1,j,j+1)
-						@cellsView << cell
+            @boxView[x][y].attach(cell,i,i+1,j,j+1)
+            @cellsView << cell
 
-						cell.signal_connect("clicked") do
+            cell.signal_connect("clicked") do
               apply_css_color_button(cell, "background", Serialisable.getSelectColor)
               highlightCurrentNum(cell)
             end
 
           end
         end
-				tmp = Gtk::Frame.new()
-				tmp.add(@boxView[x][y])
-				@boardBoxView.attach(tmp,x,x+1,y,y+1,nil,nil,3,3)
+        tmp = Gtk::Frame.new()
+        tmp.add(@boxView[x][y])
+        @boardBoxView.attach(tmp,x,x+1,y,y+1,nil,nil,3,3)
 
       end
     end
     self.add(@boardBoxView)
-	end
+  end
 
   def highlightCurrentNum(cellComp)
     @cellsView.each do |cell|
