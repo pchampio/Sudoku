@@ -50,14 +50,3 @@ class Serialisable
 
 end
 
-# chiffreColorolor = Serialisable.getChiffreColor
-#     redC = (chiffreColorolor.red / 65535.0) * 255.0
-#     greenC = (chiffreColorolor.green / 65535.0) * 255.0
-#     blueC = (chiffreColorolor.blue / 65535.0) * 255.0
-
-#     css=<<-EOT
-#     #cell{
-#       background: rgb(#{red},#{green},#{blue});
-#       color: rgb(#{redC},#{greenC},#{blueC});
-#     }
-#     EOT

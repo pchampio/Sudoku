@@ -110,8 +110,11 @@ class FreeModeGame < Gtk::Frame
 	end
 
 	def pause
+		#@window.remove self
+		#pause = Pause.new(@window)
+		#@window.add(pause)
 		@window.remove self
-		pause = Pause.new(@window)
-		@window.add(pause)
+		#faire un "panel"? noir et l'afficher à la place de ce qu'il y à actuellement, sinon passer par route_pause
 	end
+
 end
