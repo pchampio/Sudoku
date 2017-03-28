@@ -1,14 +1,12 @@
 require 'gtk3'
+
 require_relative '../vue/route_option.rb'
 require_relative '../vue/route_libre_choix.rb'
-require_relative './route_arcade_choix.rb'
-require_relative './route_tuto_choix.rb'
 require_relative './serialisable.rb'
 
 class Menu < Gtk::Window
 
-	attr_accessor :event1
-
+  attr_reader :main_menu
 	def initialize()
 		super()
 		set_title "Sudoku"
@@ -19,48 +17,54 @@ class Menu < Gtk::Window
 			Gtk.main_quit
 		end
 
-    Serialisable.unserialized
-		#trucmuche = Serialisable.getBackgroundColor()
-
+    Serialisable.load
 		init_ui
 	end
 
 	def init_ui
 		# https://lazka.github.io/pgi-docs/Gtk-3.0/classes/Box.html
-		@event1 = Gtk::Box.new(:vertical,5)
-		@event1.set_homogeneous("r")
+		vBox = Gtk::Box.new(:vertical,5)
+		vBox.set_homogeneous("r")
 		label_title = Gtk::Label.new "Sudoku", :use_underline => true
 		tutoButton = Gtk::Button.new :label=>"Tuto", :use_underline => true
 		arcadeButton = Gtk::Button.new :label=>"Arcade", :use_underline => true
 		freeModeButton = Gtk::Button.new :label=>"Libre", :use_underline => true
 		optionButton = Gtk::Button.new :label=>"Options", :use_underline => true
-		@event1.add(label_title)
-		@event1.add(tutoButton)
-		@event1.add(arcadeButton)
-		@event1.add(freeModeButton)
-		@event1.add(optionButton)
+		vBox.add(label_title)
+		vBox.add(tutoButton)
+		vBox.add(arcadeButton)
+		vBox.add(freeModeButton)
+		vBox.add(optionButton)
 
 		optionButton.signal_connect("clicked"){
-			remove(@event1)
+			remove(vBox)
 			add(Option.new self)
 		}
 
 		freeModeButton.signal_connect("clicked"){
-			remove(@event1)
+			remove(vBox)
 			add(FreeModeChoice.new self)
 		}
 		arcadeButton.signal_connect("clicked"){
-			remove(@event1)
+			remove(vBox)
 			add(ArcadeModeChoice.new self)
 		}
 		tutoButton.signal_connect("clicked"){
-			remove(@event1)
+			remove(vBox)
 			add(TutoModeChoice.new self)
 		}
-		add @event1
+		add vBox
+
+    @main_menu = vBox
 
 		show_all
 	end
+
+  def apply_cursor(name)
+    cursor = Gdk::Cursor.new(name)
+    self.window.set_cursor cursor
+  end
+
 end
 
 #Gtk.init

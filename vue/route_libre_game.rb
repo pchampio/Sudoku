@@ -1,52 +1,42 @@
 require 'gtk3'
 require 'yaml'
 require 'thread'
+
 require_relative '../class/board_class.rb'
 require_relative '../class/cell_class.rb'
-require_relative '../vue/component_board.rb'
-require_relative '../vue/component_numpad.rb'
 require_relative '../class/solver_class.rb'
-require_relative '../vue/component_cell.rb'
+require_relative './component_board.rb'
+require_relative './component_inGame_menu.rb'
+require_relative './component_cell.rb'
 require_relative './serialisable.rb'
 require_relative './route_libre_win.rb'
 
 
 class FreeModeGame < Gtk::Frame
 
-	attr_accessor :grid, :numpad
-	@celluleavant = nil
-	@time
-	@timeFin
-	def initialize(window,board)
+  def initialize(window,board)
+    super()
+    @window = window
+    window.set_title "Sudoku (Jeu Libre)"
+    window.set_window_position Gtk::WindowPosition::CENTER
 
-		super()
-		@board=board
-		@window=window
+    startTimer()
 
-		@window.set_title "Sudoku (Jeu Libre)"
-		@window.set_window_position Gtk::WindowPosition::CENTER
-		@word=nil
-		puts @timeStop
-		startTimer()
+    hBox = Gtk::Box.new(:horizontal,2)
+    boardComponent = BoardComponent.create board
+    inGameMedu = InGameMenu.create(self, boardComponent)
 
-		@event1 = Gtk::Box.new(:vertical,2)
-		event2 = Gtk::Box.new(:horizontal,2)
-		@grid = BoardComponent.new(self,@board)
-		@numpad = NumpadComponent.create self
+    hBox.add(boardComponent)
+    hBox.add(inGameMedu)
+    self.add(hBox)
 
-		@event1.add(event2)
-		event2.add(@grid)
-		event2.add(@numpad)
-
-		@cellule=@board.cellAt(0,0)
-		self.add(@event1)
-		show_all
-	end
+    show_all
+  end
 
 	def startTimer()
 		@elapse = 0
 		@time= Thread.new do
-			while(1) do
+			while(true) do
 				@elapse += 1
 				sleep(1)
 				getTimeFromSec(@elapse)
@@ -55,7 +45,6 @@ class FreeModeGame < Gtk::Frame
 
 		end
 	end
-
 
 		# stopTimer()
 		# puts "avant"
@@ -69,38 +58,8 @@ class FreeModeGame < Gtk::Frame
 		@minute = format('%02d', time/60)
 		@sec = format('%02d', time%60)
 
-		print "#{@minute}:#{@sec} \n"
+		# print "#{@minute}:#{@sec} \n"
 		@timeFin  = "#{@minute}:#{@sec}"
-	end
-
-	def recupereCell(cellule)
-		if(@celluleavant!=cellule && @celluleavant != nil)
-      @cellule.reset_color
-		end
-		@cellule=cellule
-    @cellule.set_color(Serialisable.getSelectColor())
-
-		@celluleavant = @cellule
-	end
-
-	def recupereNumber(number)
-		@number=number
-    	if(!@cellule.cell.freeze?)
-      		@cellule.set_value @number
-      		#@cellule.set_color Gdk::Color.new(112, 117, 128)
-      		if(@numpad.statut)
-      			@cellule.set_value @number
-				# @cellule.set_color #Gdk::Color.new(color.red, color.green, color.blue)
-			else
-				if(not @cellule.isPossible?(@number))
-					@cellule.addPossible(@number)
-				else
-					@cellule.delPossible(@number)
-				end
-        	end
-    	else
-      		print "La case est freeze\n"
-    	end
 	end
 
 	def victoire

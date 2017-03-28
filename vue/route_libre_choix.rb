@@ -1,4 +1,6 @@
 require 'gtk3'
+require 'thread'
+
 require_relative '../class/board_class.rb'
 require_relative '../class/generator_class.rb'
 require_relative '../vue/route_libre_game.rb'
@@ -11,8 +13,8 @@ class FreeModeChoice < Gtk::Frame
 		@window=window
 		@window.set_window_position Gtk::WindowPosition::CENTER
 		@window.set_title "Sudoku (Choix de la difficulté)"
-		@event1 = Gtk::Box.new(:vertical,5)
-		@event1.set_homogeneous("r")
+		vBox = Gtk::Box.new(:vertical,5)
+		vBox.set_homogeneous("r")
 		label_difficulty = Gtk::Label.new "Difficulté :", :use_underline => true
 
 
@@ -29,12 +31,26 @@ class FreeModeChoice < Gtk::Frame
 		difficultyButton.signal_connect("clicked") { @difficulty= 3 }
 		diabolikButton = Gtk::RadioButton.new :label => "Diabolique", :member => easyButton
 		diabolikButton.signal_connect("clicked") { @difficulty= 4 }
+
 		begginButton=Gtk::Button.new(:label=>"Commencer")
-		begginButton.signal_connect("clicked"){commencerPartie}
+		begginButton.signal_connect("clicked"){
+      @window.apply_cursor("wait")
+
+      # @genBoard = Thread.new do
+        board = generateBoard # can take some time
+        @window.apply_cursor("default")
+        @window.remove self
+        game = FreeModeGame.new(@window, board)
+        @window.add(game)
+      # end
+    }
+
 		menuButton=Gtk::Button.new(:label=>"Retour")
 		menuButton.signal_connect("clicked"){
-			@window.remove self
-			@window.add @window.event1
+      @genBoard.kill if @genBoard
+      @window.remove self
+			@window.add @window.main_menu
+      # @window.apply_cursor("default")
 		}
 
 
@@ -46,16 +62,15 @@ class FreeModeChoice < Gtk::Frame
 		box.add menuButton
 		box.add begginButton
 
-		@event1.add(difficultyBox)
-		@event1.add box
+		vBox.add(difficultyBox)
+		vBox.add box
 
-		self.add @event1
+		self.add vBox
 
-		show_all
+    show_all
 	end
 
-	def commencerPartie()
-
+	def generateBoard()
 		gameGen = Generator.new
 		case @difficulty
 		when 1
@@ -69,10 +84,7 @@ class FreeModeChoice < Gtk::Frame
 		else
       gameGen.generate(:easy)
 		end
-
-		@window.remove self
-		game = FreeModeGame.new(@window, gameGen.board)
-		@window.add(game)
+    return gameGen.board
 	end
 
 end
