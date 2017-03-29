@@ -22,4 +22,9 @@ require_relative './class/generator_class.rb'
 
 
 FreeModeGame.new(window,a.board)
+Gtk.main
 window.show_all
+
+
+#header bar doit connaitre temps ==> methode d'acces header bar
+#afficher masquer élément header bar via méthod
