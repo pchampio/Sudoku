@@ -10,11 +10,7 @@
 #
 
 require 'gtk3'
-require_relative 'component_cell.rb'
-require_relative '../class/board_class.rb'
-require_relative '../class/cell_class.rb'
-require_relative '../class/solver_class.rb'
-require_relative '../vue/route_libre_game.rb'
+Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 
 ##class héritant de Gtk::Frame
 #permet d'être ajoutée dans une fenêtre

@@ -10,11 +10,7 @@
 #
 
 require 'gtk3'
-require_relative '../class/cell_class.rb'
-require_relative './serialisable.rb'
-require_relative './component_popover_numPad.rb'
-require_relative './component_popover_info.rb'
-require_relative './apply_css.rb'
+Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 
 class CellComponent < Gtk::Button
   attr_reader :cell

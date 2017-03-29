@@ -1,7 +1,7 @@
 require 'gtk3'
 
 Dir[File.dirname(__FILE__) + '../class/*.rb'].each {|file| require file }
-Dir[File.dirname(__FILE__) + '*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 
 
 class InGameMenu < Gtk::Frame

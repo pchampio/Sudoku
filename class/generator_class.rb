@@ -44,7 +44,6 @@ require_relative './solver_class.rb'
 
 class Generator
 
-  # https://en.wikipedia.org/wiki/Sudoku_solving_algorithms
   @@planche_base="
     5 3 4   6 7 8   9 1 2
     6 7 2   1 9 5   3 4 8
@@ -60,10 +59,11 @@ class Generator
  "
 
   @@difficulties = {
-    :easy => [1,0],
+    :easy => [35,0],
     :medium => [81,7],
     :hard => [81,13],
-    :extreme => [81, 81]
+    # :extreme => [81, 81]
+    :extreme => [2, 0]
   }
 
   # Creation d'une planche de base valide egal a @@planche_base
