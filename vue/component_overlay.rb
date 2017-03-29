@@ -13,24 +13,19 @@ require 'gtk3'
 
 class Overlay < Gtk::Overlay
 
-  @main_window
-
   def initialize(main_window)
-    super()
-    @main_window=main_window
+  	super()
+    @main_window = main_window
     self.init_ui()
   end
 
   def init_ui
 
-    vbox = Gtk::Box.new(:vertical, 10)
     @frame = Gtk::Frame.new
-
+    
     self.add_overlay(@frame)
-    @frame.add vbox
     self.set_overlay_pass_through(@frame, false)
-    vbox.halign = :center
-    vbox.valign = :center
+   
 
     @frame.name = "wind"
 
@@ -39,9 +34,6 @@ class Overlay < Gtk::Overlay
       background-color: #282727;
       opacity: 0.7;
      }
-    #buttontest{
-      background-color: #f20000;
-    }
     EOT
 
 
@@ -49,15 +41,16 @@ class Overlay < Gtk::Overlay
 	css_provider.load :data=>css
 	apply_css(@frame, css_provider)
 
-
-	vbox.pack_start(@entry, :expand => false, :fill => false, :padding => 8)
-
     @main_window.add(self)
     self.show_all
   end
 
   def update
  
+  end
+
+  def addComponent(element)
+  	@frame.add(element)
   end
  
   def run
@@ -78,11 +71,11 @@ class Overlay < Gtk::Overlay
 end
 end
 
-window = Gtk::Window.new("First example")
-window.set_size_request(400, 400)
-window.set_border_width(10)
-
-window.signal_connect("delete-event") { |_widget| Gtk.main_quit }
-
-Overlay.new(window).run
-Gtk.main
+#window = Gtk::Window.new("First example")
+#window.set_size_request(400, 400)
+#window.set_border_width(10)
+#
+#window.signal_connect("delete-event") { |_widget| Gtk.main_quit }
+#
+#Overlay.new(window).run
+#Gtk.main
