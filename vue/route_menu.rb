@@ -3,6 +3,7 @@ require 'gtk3'
 require_relative '../vue/route_option.rb'
 require_relative '../vue/route_libre_choix.rb'
 require_relative './serialisable.rb'
+require_relative './headerbar.rb'
 
 class Menu < Gtk::Window
 
@@ -56,7 +57,7 @@ class Menu < Gtk::Window
 		add vBox
 
     @main_menu = vBox
-
+    	HeaderbarDemo.create self
 		show_all
 	end
 
