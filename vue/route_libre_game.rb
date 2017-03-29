@@ -5,12 +5,13 @@ require 'thread'
 require_relative '../class/board_class.rb'
 require_relative '../class/cell_class.rb'
 require_relative '../class/solver_class.rb'
+require_relative '../class/generator_class.rb'
 require_relative './component_board.rb'
 require_relative './component_inGame_menu.rb'
 require_relative './component_cell.rb'
 require_relative './serialisable.rb'
 require_relative './route_libre_win.rb'
-
+require_relative './headerbar.rb'
 
 class FreeModeGame < Gtk::Frame
 
@@ -19,7 +20,6 @@ class FreeModeGame < Gtk::Frame
     @window = window
     window.set_title "Sudoku (Jeu Libre)"
     window.set_window_position Gtk::WindowPosition::CENTER
-
     startTimer()
 
     hBox = Gtk::Box.new(:horizontal,2)
@@ -29,7 +29,7 @@ class FreeModeGame < Gtk::Frame
     hBox.add(boardComponent)
     hBox.add(inGameMedu)
     self.add(hBox)
-
+	#HeaderbarDemo.create self
     show_all
   end
 
@@ -69,6 +69,7 @@ class FreeModeGame < Gtk::Frame
 	end
 
 	def pause
+		@time.stop
 		#@window.remove self
 		#pause = Pause.new(@window)
 		#@window.add(pause)
