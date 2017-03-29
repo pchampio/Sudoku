@@ -62,18 +62,18 @@ class CellComponent < Gtk::Button
   ###########################
 
   def create_popover(parent, child, pos)
-    popover = Gtk::Popover.new(parent)
-    popover.signal_connect "closed" do
+    @popover = Gtk::Popover.new(parent)
+    @popover.signal_connect "closed" do
       unless @cell.vide?
         apply_css_color_button(self, "color", Serialisable.getSelectColor)
       end
       apply_css_color_button(self, "background", Serialisable.getBackgroundColor)
     end
-    popover.position = pos
-    popover.add(child)
+    @popover.position = pos
+    @popover.add(child)
     child.margin = 5
     child.show_all
-    popover
+    @popover
   end
 
   def createPopover(parent, pos, window)
@@ -96,7 +96,16 @@ class CellComponent < Gtk::Button
     self.signal_connect "clicked" do
       entry_popover.show
       popoverWind.update
+      apply_css_color_button(self, "color", Serialisable.getChiffreColor)
     end
+  end
+
+  def hidePopover
+    @popover.visible = false
+  end
+
+  def showPopover
+    @popover.visible = true
   end
 
   ############################
@@ -136,3 +145,4 @@ class CellComponent < Gtk::Button
   end
 
 end
+
