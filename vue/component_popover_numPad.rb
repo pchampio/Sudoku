@@ -46,15 +46,18 @@ class NumPadPopover < Popover
         numButtons.set_size_request(40, 40)
         table.attach(numButtons,2*x,2*(x+1),y,(y+1))
 
+        # NUMPAD
         numButtons.signal_connect("clicked")do
           if InGameMenu.mode_ecriture == :candidates
             @celluleComponent.possiblesAddDel(val)
           else
             @celluleComponent.set_value(val)
+            @celluleComponent.hidePopover
           end
           @board_comp.highlightCurrentNum(@celluleComponent)
+
           if InGameMenu.audo_maj_candidates
-            @board_comp.affichePossiblite
+            @board_comp.showPossibles
           end
         end
 
@@ -65,12 +68,19 @@ class NumPadPopover < Popover
     imgGomme = Gtk::Image.new(:file => File.dirname(__FILE__) +"/../ressources/gomme.png", :size=>100)
     buttonGomme = Gtk::Button.new(:label=>nil,:use_underline => true)
 
+    # GOMME
     buttonGomme.signal_connect("clicked")do
-      @celluleComponent.set_value(0)
-      @celluleComponent.delHints
+      if InGameMenu.mode_ecriture == :candidates
+        @celluleComponent.delHints
+      else
+        @celluleComponent.set_value(0) # set numbre to none
+        @celluleComponent.possiblesAddDel(0) # redraw possibles
+        @celluleComponent.hidePopover
+      end
+
       @board_comp.highlightCurrentNum(@celluleComponent)
       if InGameMenu.audo_maj_candidates
-        @board_comp.affichePossiblite
+        @board_comp.showPossibles
       end
     end
 
@@ -98,3 +108,4 @@ class NumPadPopover < Popover
   end
 
 end
+

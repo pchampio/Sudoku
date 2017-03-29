@@ -3,7 +3,7 @@
 # encoding: UTF-8
 
 ##
-# Author:: Waibin Wang, Riviere Marius
+# Author:: Waibin Wang, Riviere Marius, Pierre Champion
 # License:: MIT Licence
 #
 # https://github.com/Drakirus/Sudoku
