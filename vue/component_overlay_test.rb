@@ -97,5 +97,5 @@ window.set_border_width(10)
 
 window.signal_connect("delete-event") { |_widget| Gtk.main_quit }
 
-Overlay.new(window).run
+OverlayDemo.new(window).run
 Gtk.main
