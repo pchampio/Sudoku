@@ -43,6 +43,16 @@ class Game < Gtk::Overlay
 
     self.set_overlay_pass_through(@frame, false)
     self.add(hBox)
+    css=<<-EOT
+          #switchWrite {
+            -GtkSwitch-slider-width: 45px;
+            transition: all 200ms ease-in;
+            border: none;
+            border-radius: 14px;
+            color: transparent;
+          }
+    EOT
+    apply_style(self, css)
   end
 
   def init_overlay
