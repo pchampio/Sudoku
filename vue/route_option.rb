@@ -13,7 +13,7 @@ require 'gtk3'
 require_relative './serialisable.rb'
 
 class Option < Gtk::Frame
-	def initialize(window)
+	def initialize(window)#:nodoc:
 		super()
 		@window=window
 		@window.set_title "Sudoku (Options)"

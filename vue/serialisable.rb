@@ -1,3 +1,14 @@
+#!/usr/bin/env ruby
+
+# encoding: UTF-8
+
+##
+# Author:: DEZERE Florian
+# License:: MIT Licence
+#
+# https://github.com/Drakirus/Sudoku
+#
+
 require 'gtk3'
 
 class Serialisable
