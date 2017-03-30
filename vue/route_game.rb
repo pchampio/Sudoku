@@ -12,7 +12,7 @@ class Game < Gtk::Overlay
     super()
 
     # create headerbar
-    HeadBar.create(window, "Sudoku","Groupe C")
+    HeadBar.create(window,self, "Sudoku","Groupe C")
 
     hBox = Gtk::Box.new(:horizontal,2)
     boardComponent = BoardComponent.create board
@@ -65,6 +65,7 @@ class Game < Gtk::Overlay
 
   def hideOverlay
     self.remove(@frame)
+    @frame
   end
 
   def showOverlay

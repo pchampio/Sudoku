@@ -16,11 +16,11 @@ class HeadBar
 
     private_class_method :new
 
-    def self.create(main_window, title, subtitle)
-        new(main_window, title, subtitle)
+    def self.create(main_window, route_game, title, subtitle)
+        new(main_window, route_game, title, subtitle)
     end
 
-    def initialize(main_window, title, subtitle)
+    def initialize(main_window, route_game, title, subtitle)
         @title, @subtitle = title, subtitle
 
         @header = Gtk::HeaderBar.new
@@ -34,8 +34,9 @@ class HeadBar
         imageSettings = Gtk::Image.new(:icon => iconSettings, :size => :button)
         @buttonSettings.add(imageSettings)
         @buttonSettings.signal_connect "clicked" do
-          vbox = Option.new
-          main_window.addToOverlay vbox.getBox
+          # vbox = Option.new
+          # route_game.addToOverlay vbox.getBox
+          route_game.showOverlay
         end
         @header.pack_end(@buttonSettings)
 
