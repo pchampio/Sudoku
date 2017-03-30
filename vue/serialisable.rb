@@ -10,6 +10,8 @@ class Serialisable
 	    @chiffreColor	 =	@@chiffreColor.to_s
 	    @surligneColor 	 = 	@@surligneColor.to_s
 	    @username		 = 	@@username
+	    @erreurAutoriser = 	@@erreurAutoriser
+	    @surlignageSurvol=	@@surlignageSurvol
 	end
 
 	def self.getBackgroundColor()
@@ -60,6 +62,14 @@ class Serialisable
 		return @@erreurAutoriser
 	end
 
+	def self.setSurlignageSurvol(boolean)
+		@@surlignageSurvol = boolean
+	end
+
+	def self.getSurlignageSurvol()
+		return @@surlignageSurvol
+	end
+
 	def self.serialized
     obj = Serialisable.new
 		File.open("save_color.yaml", "w+") do |f|
@@ -74,6 +84,8 @@ class Serialisable
 	self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))
 	self.setSurligneColor(Gdk::Color.parse(obj.selectColor))
 	#self.setUsername(obj.username) #peut y avoir des erreurs
+	#self.setErreurAutoriser(obj.erreurAutoriser)
+	#self.setSurlignageSurvol(obj.surlignageSurvol)
 	end
 
 end

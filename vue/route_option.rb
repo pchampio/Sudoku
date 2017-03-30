@@ -82,15 +82,19 @@ class Option < Gtk::Frame
 			@window.add @window.main_menu
 		}
 
+		#faire hbox pour avoir switch avec champs texte comme dans component in game menu
 		switchErreurAutoriser = Gtk::Switch.new
 		switchErreurAutoriser.signal_connect('state-set') do
-			@@audo_maj_candidates = switchErreurAutoriser.active?
-			if @@audo_maj_candidates
-				@boardComp.showPossibles
-			else
-				@boardComp.hidePossibles
-			end
-			audo_maj_candidates_sw.state = @@audo_maj_candidates
+			erreurAutoriser = switchErreurAutoriser.active?
+			Serialisable.setErreurAutoriser(erreurAutoriser)
+			switchErreurAutoriser.state = erreurAutoriser
+		end
+
+		switchSurlignageSurvol = Gtk::Switch.new
+		switchSurlignageSurvol.signal_connect('state-set') do
+			surlignageSurvol = switchSurlignageSurvol.active?
+			Serialisable.setSurlignageSurvol(surlignageSurvol)
+			switchSurlignageSurvol.state = surlignageSurvol
 		end
 
 		vBox.add entry_username
@@ -98,6 +102,8 @@ class Option < Gtk::Frame
 		vBox.add scHBox
 		vBox.add cchiffHbox
 		vBox.add cSurlignHbox
+		vBox.add switchErreurAutoriser
+		vBox.add switchSurlignageSurvol
 		vBox.add menuButton
 		self.add vBox
 
