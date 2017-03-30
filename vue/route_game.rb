@@ -21,9 +21,13 @@ class Game < Gtk::Frame
     hBox.add(inGameMedu)
     self.add(hBox)
     css=<<-EOT
-        #sw{
-            slider-width : 40
-        }
+          #switchWrite {
+            -GtkSwitch-slider-width: 45px;
+            transition: all 200ms ease-in;
+            border: none;
+            border-radius: 14px;
+            color: transparent;
+          } 
     EOT
     apply_style(self, css)
   end

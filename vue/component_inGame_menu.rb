@@ -7,11 +7,16 @@ Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 class InGameMenu < Gtk::Frame
 
   @@mode_ecriture = :chiffre # 2 possibles (chiffre, candidates)
+  @@mode_maj_ecriture = false 
   @@audo_maj_candidates = false
 
   def self.mode_ecriture
     return @@mode_ecriture
   end
+
+  def self.mode_ecriture=mode
+    @@mode_ecriture = mode
+  end 
 
   def self.audo_maj_candidates
     return @@audo_maj_candidates
@@ -43,12 +48,12 @@ class InGameMenu < Gtk::Frame
     audo_maj_candidates_hbox.add(audo_maj_candidates_sw)
 
     wayWrite_hbox = Gtk::Box.new(:horizontal,5)
-    labelPen = Gtk::Label.new("Stylo")
+    labelPen = Gtk::Label.new(" Stylo      ")
     switchWrite = Gtk::Switch.new
-    switchWrite.name = "sw"
+    switchWrite.name = "switchWrite"
 
 
-    labelCrayon = Gtk::Label.new("Crayon")
+    labelCrayon = Gtk::Label.new("      Crayon")
 
     wayWrite_hbox.add(labelPen)
     wayWrite_hbox.add(switchWrite)
@@ -62,6 +67,16 @@ class InGameMenu < Gtk::Frame
         @boardComp.hidePossibles
       end
       audo_maj_candidates_sw.state = @@audo_maj_candidates
+    end
+
+    switchWrite.signal_connect('state-set') do
+      @@mode_maj_ecriture = switchWrite.active?
+      if !@@mode_maj_ecriture
+        @@mode_ecriture = :chiffre
+      else
+        @@mode_ecriture = :candidates
+      end
+      switchWrite.state = @@mode_maj_ecriture
     end
 
     #buttonPen = Gtk::RadioButton.new :label => "Stylo"

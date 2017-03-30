@@ -25,6 +25,8 @@ class CellComponent < Gtk::Button
     super()
     @cell=cell
 
+    @resetModeEcriture = nil
+
     @label = Gtk::Label.new
     @label.wrap = false
     add(@label)
@@ -64,6 +66,10 @@ class CellComponent < Gtk::Button
   def create_popover(parent, child, pos)
     @popover = Gtk::Popover.new(parent)
     @popover.signal_connect "closed" do
+      if(@resetModeEcriture)
+        InGameMenu.mode_ecriture = @resetModeEcriture
+        @resetModeEcriture = nil
+      end
       unless @cell.vide?
         apply_css_color_button(self, "color", Serialisable.getSelectColor)
       end
@@ -84,6 +90,19 @@ class CellComponent < Gtk::Button
     popover
   end
 
+  def button_press(widget, event)
+    oldMode = InGameMenu.mode_ecriture
+    if (event.button == 3)
+      InGameMenu.mode_ecriture = :candidates
+    end
+    if (event.button == 1) and oldMode == :chiffre
+      InGameMenu.mode_ecriture = :chiffre
+    end
+    if(InGameMenu.mode_ecriture != oldMode)
+      @resetModeEcriture = oldMode
+    end 
+  end
+
   def add_cell_with_popover(board_comp)
     if @cell.freeze?
       popoverWind = InfoPopover.create(self, board_comp.board)
@@ -93,11 +112,14 @@ class CellComponent < Gtk::Button
     entry_popover = createPopover(
       self, :top, popoverWind
     )
-    self.signal_connect "clicked" do
+    self.signal_connect( "button_press_event", :BUTTON_PRESS_MASK  ) { 
+      |widget, event, y| 
+      button_press( widget, event) 
       entry_popover.show
       popoverWind.update
       apply_css_color_button(self, "color", Serialisable.getChiffreColor)
-    end
+    } 
+
   end
 
   def hidePopover
