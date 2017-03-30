@@ -82,11 +82,22 @@ class Option < Gtk::Frame
 			@window.add @window.main_menu
 		}
 
+		switchErreurAutoriser = Gtk::Switch.new
+		switchErreurAutoriser.signal_connect('state-set') do
+			@@audo_maj_candidates = switchErreurAutoriser.active?
+			if @@audo_maj_candidates
+				@boardComp.showPossibles
+			else
+				@boardComp.hidePossibles
+			end
+			audo_maj_candidates_sw.state = @@audo_maj_candidates
+		end
+
+		vBox.add entry_username
 		vBox.add bgHBox
 		vBox.add scHBox
 		vBox.add cchiffHbox
 		vBox.add cSurlignHbox
-		vBox.add entry_username
 		vBox.add menuButton
 		self.add vBox
 

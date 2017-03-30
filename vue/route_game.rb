@@ -15,7 +15,7 @@ class Game < Gtk::Frame
 
     hBox = Gtk::Box.new(:horizontal,2)
     boardComponent = BoardComponent.create board
-    inGameMedu = InGameMenu.create(self, boardComponent)
+    inGameMedu = InGameMenu.create(boardComponent) #inGameMedu = InGameMenu.create(self, boardComponent) #vient d'etre modifier du à une erreur
 
     hBox.add(boardComponent)
     hBox.add(inGameMedu)
