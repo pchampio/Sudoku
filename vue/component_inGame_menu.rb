@@ -18,13 +18,12 @@ class InGameMenu < Gtk::Frame
   end
 
   private_class_method :new
-  def self.create(root_vue, boardComponent)
-    new(root_vue, boardComponent)
+  def self.create(boardComponent)
+    new(boardComponent)
   end
 
-  def initialize(root_vue, boardComponent)
+  def initialize(boardComponent)
     super()
-    @root_vue=root_vue
     @boardComp = boardComponent
 
     init_ui
@@ -66,11 +65,6 @@ class InGameMenu < Gtk::Frame
       @boardComp.showPossibles
     }
 
-    # buttonPause = Gtk::Button.new(:label=>"Pause", :use_underline => true)
-    # buttonPause.signal_connect('clicked'){
-    # @root_vue.pause
-    # }
-
     boxTechnic = Gtk::Box.new(:horizontal,2)
     cb = Gtk::ComboBoxText.new
     boxTechnic.add(cb)
@@ -91,8 +85,6 @@ class InGameMenu < Gtk::Frame
     @pan.add(boxTechnic)
     @pan.add(buttonPen)
     @pan.add(buttonCrayon)
-
-    # @pan.add(buttonPause)
 
     @pan.add(buttonFullPossibilities)
     @pan.add(audo_maj_candidates_hbox)
