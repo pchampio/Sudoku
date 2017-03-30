@@ -42,7 +42,17 @@ class InGameMenu < Gtk::Frame
     audo_maj_candidates_hbox.add(audo_maj_candidates_lab)
     audo_maj_candidates_hbox.add(audo_maj_candidates_sw)
 
+    wayWrite_hbox = Gtk::Box.new(:horizontal,5)
+    labelPen = Gtk::Label.new("Stylo")
+    switchWrite = Gtk::Switch.new
+    switchWrite.name = "sw"
 
+
+    labelCrayon = Gtk::Label.new("Crayon")
+
+    wayWrite_hbox.add(labelPen)
+    wayWrite_hbox.add(switchWrite)
+    wayWrite_hbox.add(labelCrayon)
 
     audo_maj_candidates_sw.signal_connect('state-set') do
       @@audo_maj_candidates = audo_maj_candidates_sw.active?
@@ -54,12 +64,12 @@ class InGameMenu < Gtk::Frame
       audo_maj_candidates_sw.state = @@audo_maj_candidates
     end
 
-    buttonPen = Gtk::RadioButton.new :label => "Stylo"
-    buttonPen.signal_connect('clicked'){@@mode_ecriture = :chiffre}
+    #buttonPen = Gtk::RadioButton.new :label => "Stylo"
+    #buttonPen.signal_connect('clicked'){@@mode_ecriture = :chiffre}
 
-    buttonCrayon = Gtk::RadioButton.new :label => "Crayon"
-    buttonCrayon.join_group(buttonPen)
-    buttonCrayon.signal_connect('clicked'){@@mode_ecriture = :candidates}
+    #buttonCrayon = Gtk::RadioButton.new :label => "Crayon"
+    #buttonCrayon.join_group(buttonPen)
+    #buttonCrayon.signal_connect('clicked'){@@mode_ecriture = :candidates}
 
     buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les candidates !", :use_underline => true)
     buttonFullPossibilities.signal_connect('clicked'){
@@ -89,13 +99,14 @@ class InGameMenu < Gtk::Frame
 
 
     @pan.add(boxTechnic)
-    @pan.add(buttonPen)
-    @pan.add(buttonCrayon)
+   # @pan.add(buttonPen)
+   # @pan.add(buttonCrayon)
 
     # @pan.add(buttonPause)
 
     @pan.add(buttonFullPossibilities)
     @pan.add(audo_maj_candidates_hbox)
+    @pan.add(wayWrite_hbox)
     self.add(@pan)
   end
 

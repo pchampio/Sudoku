@@ -20,5 +20,11 @@ class Game < Gtk::Frame
     hBox.add(boardComponent)
     hBox.add(inGameMedu)
     self.add(hBox)
+    css=<<-EOT
+        #sw{
+            slider-width : 40
+        }
+    EOT
+    apply_style(self, css)
   end
 end
