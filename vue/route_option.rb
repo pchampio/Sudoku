@@ -13,11 +13,8 @@ require 'gtk3'
 require_relative './serialisable.rb'
 
 class Option < Gtk::Frame
-	def initialize(window)#:nodoc:
+	def initialize()#:nodoc:
 		super()
-		@window=window
-		@window.set_title "Sudoku (Options)"
-		@window.set_window_position Gtk::WindowPosition::CENTER
 
 		vBox = Gtk::Box.new(:vertical,10)
 		vBox.set_homogeneous("r")
@@ -78,8 +75,7 @@ class Option < Gtk::Frame
 		menuButton=Gtk::Button.new(:label=>"Retour")
 		menuButton.signal_connect("clicked"){
 			Serialisable.serialized
-			@window.remove self
-			@window.add @window.main_menu
+      puts "return"
 		}
 
 		#faire hbox pour avoir switch avec champs texte comme dans component in game menu
@@ -115,8 +111,8 @@ class Option < Gtk::Frame
 		vBox.add menuButton
 		self.add vBox
 
-		show_all
+    return vBox
 	end
 end
 
-#`logname` 
+#`logname`

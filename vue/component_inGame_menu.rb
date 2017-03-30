@@ -7,7 +7,7 @@ Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 class InGameMenu < Gtk::Frame
 
   @@mode_ecriture = :chiffre # 2 possibles (chiffre, candidates)
-  @@mode_maj_ecriture = false 
+  @@mode_maj_ecriture = false
   @@audo_maj_candidates = false
 
   def self.mode_ecriture
@@ -16,7 +16,7 @@ class InGameMenu < Gtk::Frame
 
   def self.mode_ecriture=mode
     @@mode_ecriture = mode
-  end 
+  end
 
   def self.audo_maj_candidates
     return @@audo_maj_candidates

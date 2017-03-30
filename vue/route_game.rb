@@ -51,6 +51,9 @@ class Game < Gtk::Overlay
             border-radius: 14px;
             color: transparent;
           }
+          #wind {
+            background-color: #{@backgroundColor};
+          }
     EOT
     apply_style(self, css)
   end
@@ -58,16 +61,6 @@ class Game < Gtk::Overlay
   def init_overlay
     @frame = Gtk::Frame.new
     @frame.name = "wind"
-
-    css=<<-EOT
-     #wind {
-     background-color: #{@backgroundColor};
-     }
-    EOT
-    css_provider = Gtk::CssProvider.new
-    css_provider.load :data=>css
-    apply_css(@frame, css_provider)
-
   end
 
   def hideOverlay

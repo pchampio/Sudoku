@@ -33,6 +33,10 @@ class HeadBar
         iconSettings = Gio::ThemedIcon.new("mail-send-receive-symbolic")
         imageSettings = Gtk::Image.new(:icon => iconSettings, :size => :button)
         @buttonSettings.add(imageSettings)
+        @buttonSettings.signal_connect "clicked" do
+          vbox = Option.new
+          main_window.addToOverlay vbox.getBox
+        end
         @header.pack_end(@buttonSettings)
 
         @buttonSuivant = Gtk::Button.new
@@ -52,10 +56,8 @@ class HeadBar
         iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
         imageTime = Gtk::Image.new(:icon => iconTime, :size => :button)
         @buttonTime.signal_connect("clicked") do
-            puts "coucou"
-            #afficher overlay pause
-            #@time.pause #ne connait pas stoppe pour thread? normal? :/
-            #une fois qu'on quitte la pause, faire un @time.run ==> du coup l'overlay pause aura besoin de la VI time non?
+          # print @time.getTimeFromSec
+          @time.toggle
         end
         @buttonTime.add(imageTime)
         @header.pack_start(@buttonTime)
