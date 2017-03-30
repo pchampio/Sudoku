@@ -20,5 +20,15 @@ class Game < Gtk::Frame
     hBox.add(boardComponent)
     hBox.add(inGameMedu)
     self.add(hBox)
+    css=<<-EOT
+          #switchWrite {
+            -GtkSwitch-slider-width: 45px;
+            transition: all 200ms ease-in;
+            border: none;
+            border-radius: 14px;
+            color: transparent;
+          } 
+    EOT
+    apply_style(self, css)
   end
 end
