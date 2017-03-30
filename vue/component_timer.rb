@@ -13,19 +13,19 @@ require 'thread'
 
 class Timer
 
-  private_class_method :new
-  def self.create(label)
-    new(label)
-  end
+	private_class_method :new
+	def self.create(label)
+		new(label)
+	end
 	def initialize(label)
-    @labelTime = label
+		@labelTime = label
 		@elapse = 0
 		@time= Thread.new do
 			while(true) do
 				@elapse += 1
 				sleep(1)
 				getTimeFromSec(@elapse)
-        @labelTime.set_markup("<b>#{getTimeFromSec}</b>")
+				@labelTime.set_markup("<b>#{getTimeFromSec}</b>")
 			end
 			@time.join
 		end
@@ -39,7 +39,7 @@ class Timer
 		@minute = format('%02d', time/60)
 		@sec = format('%02d', time%60)
 		@timeFin  = "#{@minute}:#{@sec}"
-    return @timeFin
+		return @timeFin
 	end
 
 	def pause

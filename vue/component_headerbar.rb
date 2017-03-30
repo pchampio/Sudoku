@@ -51,6 +51,12 @@ class HeadBar
         @buttonTime = Gtk::Button.new
         iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
         imageTime = Gtk::Image.new(:icon => iconTime, :size => :button)
+        @buttonTime.signal_connect("clicked") do
+            puts "coucou"
+            #afficher overlay pause
+            #@time.pause #ne connait pas stoppe pour thread? normal? :/
+            #une fois qu'on quitte la pause, faire un @time.run ==> du coup l'overlay pause aura besoin de la VI time non?
+        end
         @buttonTime.add(imageTime)
         @header.pack_start(@buttonTime)
         @header.pack_start(labelTime)
