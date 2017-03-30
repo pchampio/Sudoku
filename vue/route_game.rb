@@ -22,10 +22,10 @@ class Game < Gtk::Overlay
     hBox.add(inGameMedu)
 
     @backgroundColor = window.style_context.get_background_color "NORMAL"
+    @backgroundColor  = Gdk::RGBA.new(@backgroundColor.red, @backgroundColor.green, @backgroundColor.blue, 0.93)
 
     init_overlay
     showOverlay
-
 
     vbox = Gtk::Box.new(:vertical, 10)
     vbox.halign = :center
@@ -33,10 +33,6 @@ class Game < Gtk::Overlay
     button = Gtk::Button.new(:label =>"coucou")
     button.name = "buttontest"
     vbox.add button
-    vbox.set_margin_top 10
-    vbox.set_margin_bottom 10
-    button.name = "testbtn"
-    vbox.name = "testsdf"
 
     apply_css_color_button(button, "background", Serialisable.getBackgroundColor)
     button.signal_connect "clicked" do
@@ -53,11 +49,9 @@ class Game < Gtk::Overlay
     @frame = Gtk::Frame.new
     @frame.name = "wind"
 
-
     css=<<-EOT
      #wind {
-      background-color: #{@backgroundColor};
-      opacity: 0.9;
+     background-color: #{@backgroundColor};
      }
     EOT
     css_provider = Gtk::CssProvider.new
