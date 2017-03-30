@@ -1,41 +1,92 @@
-require "gtk3"
+#!/usr/bin/env ruby
 
-class HeaderbarDemo
+# encoding: UTF-8
+
+##
+# Author:: DEZERE Florian
+# License:: MIT Licence
+#
+# https://github.com/Drakirus/Sudoku
+#
+
+require "gtk3"
+require_relative './component_timer.rb'
+
+class HeadBar
 
     private_class_method :new
-    def self.create(main_window)
-      new(main_window)
+
+    def self.create(main_window, title, subtitle)
+        new(main_window, title, subtitle)
     end
 
-  def initialize(main_window)
+    def initialize(main_window, title, subtitle)
+        @title, @subtitle = title, subtitle
 
-    header = Gtk::HeaderBar.new
-    header.show_close_button = true
-    header.title = "Welcome to Facebook - Log in, sign up or learn more"
-    header.has_subtitle = false
+        @header = Gtk::HeaderBar.new
+        @header.show_close_button = true
+        @header.title = @title
+        # @header.set_has_subtitle = true
+        @header.subtitle = @subtitle
 
-    button = Gtk::Button.new
+        @buttonSettings = Gtk::Button.new
+        iconSettings = Gio::ThemedIcon.new("mail-send-receive-symbolic")
+        imageSettings = Gtk::Image.new(:icon => iconSettings, :size => :button)
+        @buttonSettings.add(imageSettings)
+        @header.pack_end(@buttonSettings)
 
-    icon = Gio::ThemedIcon.new("mail-send-receive-symbolic")
-    image = Gtk::Image.new(:icon => icon, :size => :button)
+        @buttonSuivant = Gtk::Button.new
+        imageSuivant = Gtk::Image.new(:icon_name => "pan-start-symbolic", :size => :button)
+        @buttonSuivant.add(imageSuivant)
+        @header.pack_start(@buttonSuivant)
 
-    button.add(image)
-    header.pack_end(button)
+        @buttonPrecedent = Gtk::Button.new
+        imagePrecedent = Gtk::Image.new(:icon_name => "pan-end-symbolic", :size => :button)
+        @buttonPrecedent.add(imagePrecedent)
+        @header.pack_start(@buttonPrecedent)
 
-    box = Gtk::Box.new(:horizontal, 0)
-    box.style_context.add_class("linked")
+        labelTime = Gtk::Label.new
+        @time = Timer.create labelTime  #avec ça, on à accès aux méthodes pour avoir un bel affichage par exemple ! :)
 
-    button = Gtk::Button.new
-    image = Gtk::Image.new(:icon_name => "pan-start-symbolic", :size => :button)
-    button.add(image)
-    box.add(button)
+        @buttonTime = Gtk::Button.new
+        iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
+        imageTime = Gtk::Image.new(:icon => iconTime, :size => :button)
+        @buttonTime.add(imageTime)
+        @header.pack_start(@buttonTime)
+        @header.pack_start(labelTime)
 
-    button = Gtk::Button.new
-    image = Gtk::Image.new(:icon_name => "pan-end-symbolic", :size => :button)
-    button.add(image)
-    box.add(button)
+        main_window.titlebar = @header
+    end
 
-    header.pack_start(box)
-    main_window.titlebar = header
-  end
+    def setVisibleSettings(b)
+        if b
+            @header.pack_end(@buttonSettings)
+        else
+            @header.remove(@buttonSettings)
+        end
+    end
+
+    def setVisibleSuivant(b)
+        if b
+            @header.pack_start(@buttonSuivant)
+        else
+            @header.remove(@buttonPrecedent)
+        end
+    end
+
+    def setVisiblePrecedent(b)
+        if b
+            @header.pack_start(@buttonPrecedent)
+        else
+            @header.remove(@buttonPrecedent)
+        end
+    end
+
+    def setVisibleTimer(b)
+        if b
+            @header.pack_start(@labelTime)
+        else
+            @header.remove(@labelTime)
+        end
+    end
 end

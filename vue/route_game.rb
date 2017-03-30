@@ -11,9 +11,7 @@ class Game < Gtk::Frame
     super()
 
     # create headerbar
-    HeaderbarDemo.create window
-
-    startTimer()
+    HeadBar.create(window, "Sudoku","Groupe C")
 
     hBox = Gtk::Box.new(:horizontal,2)
     boardComponent = BoardComponent.create board
@@ -23,39 +21,4 @@ class Game < Gtk::Frame
     hBox.add(inGameMedu)
     self.add(hBox)
   end
-
-  def startTimer()
-    @elapse = 0
-    @time= Thread.new do
-      while(true) do
-        @elapse += 1
-        sleep(1)
-        getTimeFromSec(@elapse)
-      end
-      @time.join
-
-    end
-  end
-
-  # stopTimer()
-  # puts "avant"
-  # puts @timeFin
-  # puts "apres"
-  def stopTimer()
-    @time.kill
-  end
-
-  def getTimeFromSec(time)
-    @minute = format('%02d', time/60)
-    @sec = format('%02d', time%60)
-
-    # print "#{@minute}:#{@sec} \n"
-    @timeFin  = "#{@minute}:#{@sec}"
-  end
-
-
-  def pause
-    @time.stop
-  end
-
 end
