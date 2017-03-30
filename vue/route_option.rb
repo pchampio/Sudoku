@@ -67,6 +67,14 @@ class Option < Gtk::Frame
 		cSurlignHbox.add label_surligne_color
 		cSurlignHbox.add surlignepicker
 
+		entry_username = Gtk::Entry.new
+		entry_username.set_max_length(15)
+		entry_username.set_texte(`logname`)
+		Serialisable.setUsername(`logname`)
+		entry_username.signal_connect("entry"){
+			Serialisable.setUsername(entry_username.get_text())
+		}
+
 		menuButton=Gtk::Button.new(:label=>"Retour")
 		menuButton.signal_connect("clicked"){
 			Serialisable.serialized
@@ -77,9 +85,13 @@ class Option < Gtk::Frame
 		vBox.add bgHBox
 		vBox.add scHBox
 		vBox.add cchiffHbox
+		vBox.add cSurlignHbox
+		vBox.add entry_username
 		vBox.add menuButton
 		self.add vBox
 
 		show_all
 	end
 end
+
+#`logname` 

@@ -9,6 +9,7 @@ class Serialisable
 	    @selectColor     =  @@selectColor.to_s
 	    @chiffreColor	 =	@@chiffreColor.to_s
 	    @surligneColor 	 = 	@@surligneColor.to_s
+	    @username		 = 	@@username
 	end
 
 	def self.getBackgroundColor()
@@ -43,6 +44,14 @@ class Serialisable
 		@@surligneColor = surligneColor
 	end
 
+	def self.setUsername(username)
+		@@username = username
+	end
+
+	def self.getUsername()
+		return @@username
+	end
+
 	def self.serialized
     obj = Serialisable.new
 		File.open("save_color.yaml", "w+") do |f|
@@ -56,6 +65,7 @@ class Serialisable
     self.setSelectColor(Gdk::Color.parse(obj.selectColor))
 	self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))
 	self.setSurligneColor(Gdk::Color.parse(obj.selectColor))
+	self.setUsername(obj.username) #peut y avoir des erreurs
 	end
 
 end
