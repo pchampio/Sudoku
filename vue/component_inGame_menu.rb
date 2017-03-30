@@ -68,9 +68,6 @@ class InGameMenu < Gtk::Frame
     boxTechnic = Gtk::Box.new(:horizontal,2)
     cb = Gtk::ComboBoxText.new
     boxTechnic.add(cb)
-    cb.signal_connect "changed" do |event, label|
-      puts event.active_text
-    end
     cb.append_text ""
     cb.append_text "Technique de l'aigle"
     cb.append_text "Technique du dauphin"
@@ -79,6 +76,7 @@ class InGameMenu < Gtk::Frame
     cb.append_text "Technique du serpent"
 
     buttTechnic=Gtk::Button.new(:label => "valider",:use_underline => true);
+    buttTechnic.signal_connect('clicked'){puts cb.active_text}
     boxTechnic.add(buttTechnic)
 
 
