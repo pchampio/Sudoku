@@ -75,7 +75,7 @@ class BoardComponent < Gtk::Frame
     end
   end
 
-  def affichePossiblite()
+  def showPossibles
     unusedCells = @board.unusedCells
     @cellsView.each do |cellsview|
       if unusedCells.include? cellsview.cell
@@ -86,7 +86,7 @@ class BoardComponent < Gtk::Frame
     end
   end
 
-  def deletePossibilite
+  def hidePossibles
     unusedCells = @board.unusedCells
     @cellsView.each do |cellsview|
       if unusedCells.include? cellsview.cell

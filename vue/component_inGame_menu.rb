@@ -18,13 +18,12 @@ class InGameMenu < Gtk::Frame
   end
 
   private_class_method :new
-  def self.create(root_vue, boardComponent)
-    new(root_vue, boardComponent)
+  def self.create(boardComponent)
+    new(boardComponent)
   end
 
-  def initialize(root_vue, boardComponent)
+  def initialize(boardComponent)
     super()
-    @root_vue=root_vue
     @boardComp = boardComponent
 
     init_ui
@@ -47,9 +46,9 @@ class InGameMenu < Gtk::Frame
     audo_maj_candidates_sw.signal_connect('state-set') do
       @@audo_maj_candidates = audo_maj_candidates_sw.active?
       if @@audo_maj_candidates
-        @boardComp.affichePossiblite
+        @boardComp.showPossibles
       else
-        @boardComp.deletePossibilite
+        @boardComp.hidePossibles
       end
       audo_maj_candidates_sw.state = @@audo_maj_candidates
     end
@@ -63,13 +62,8 @@ class InGameMenu < Gtk::Frame
 
     buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les candidates !", :use_underline => true)
     buttonFullPossibilities.signal_connect('clicked'){
-      @boardComp.affichePossiblite()
+      @boardComp.showPossibles
     }
-
-    # buttonPause = Gtk::Button.new(:label=>"Pause", :use_underline => true)
-    # buttonPause.signal_connect('clicked'){
-    # @root_vue.pause
-    # }
 
     boxTechnic = Gtk::Box.new(:horizontal,2)
     cb = Gtk::ComboBoxText.new
@@ -91,8 +85,6 @@ class InGameMenu < Gtk::Frame
     @pan.add(boxTechnic)
     @pan.add(buttonPen)
     @pan.add(buttonCrayon)
-
-    # @pan.add(buttonPause)
 
     @pan.add(buttonFullPossibilities)
     @pan.add(audo_maj_candidates_hbox)

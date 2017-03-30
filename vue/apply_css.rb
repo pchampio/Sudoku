@@ -1,3 +1,13 @@
+#!/usr/bin/env ruby
+
+# encoding: UTF-8
+
+##
+# Author:: Waibin Wang, Riviere Marius, Pierre CHAMPION
+# License:: MIT Licence
+#
+# https://github.com/Drakirus/Sudoku
+
 def apply_css(widget,provider)
   widget.style_context.add_provider provider, Gtk::StyleProvider::PRIORITY_USER
   if(widget.is_a?(Gtk::Container))
@@ -5,6 +15,12 @@ def apply_css(widget,provider)
       apply_css(child,provider)
     end
   end
+end
+
+def apply_style(widget, css)
+  css_provider = Gtk::CssProvider.new
+  css_provider.load :data=>css
+  apply_css(self, css_provider)
 end
 
 def apply_css_color_button(object, cssTarget, color)
