@@ -57,9 +57,9 @@ class InGameMenu < Gtk::Frame
     audo_maj_candidates_sw.signal_connect('state-set') do
       @@audo_maj_candidates = audo_maj_candidates_sw.active?
       if @@audo_maj_candidates
-        @boardComp.affichePossiblite
+        @boardComp.showPossibles
       else
-        @boardComp.deletePossibilite
+        @boardComp.hidePossibles
       end
       audo_maj_candidates_sw.state = @@audo_maj_candidates
     end
@@ -73,7 +73,7 @@ class InGameMenu < Gtk::Frame
 
     buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les candidates !", :use_underline => true)
     buttonFullPossibilities.signal_connect('clicked'){
-      @boardComp.affichePossiblite()
+      @boardComp.showPossibles
     }
 
     # buttonPause = Gtk::Button.new(:label=>"Pause", :use_underline => true)
