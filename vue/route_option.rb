@@ -83,27 +83,35 @@ class Option < Gtk::Frame
 		}
 
 		#faire hbox pour avoir switch avec champs texte comme dans component in game menu
+		erreurAutoriserHBox = Gtk::Box.new(:horizontal,5)
+		labelErreurAutoriser = Gtk::Label.new("Permettre l'autorisation des erreurs")
 		switchErreurAutoriser = Gtk::Switch.new
 		switchErreurAutoriser.signal_connect('state-set') do
 			erreurAutoriser = switchErreurAutoriser.active?
 			Serialisable.setErreurAutoriser(erreurAutoriser)
 			switchErreurAutoriser.state = erreurAutoriser
 		end
+		erreurAutoriserHBox.add(labelErreurAutoriser)
+		erreurAutoriserHBox.add(switchErreurAutoriser)
 
+		surlignageSurvolHbox = Gtk::Box.new(:horizontal,5)
+		labelSurlignageSurvol = Gtk::Label.new("Avoir un surlignage des lignes et des colonnes")
 		switchSurlignageSurvol = Gtk::Switch.new
 		switchSurlignageSurvol.signal_connect('state-set') do
 			surlignageSurvol = switchSurlignageSurvol.active?
 			Serialisable.setSurlignageSurvol(surlignageSurvol)
 			switchSurlignageSurvol.state = surlignageSurvol
 		end
+		surlignageSurvolHbox.add(labelSurlignageSurvol)
+		surlignageSurvolHbox.add(switchSurlignageSurvol)
 
 		vBox.add entry_username
 		vBox.add bgHBox
 		vBox.add scHBox
 		vBox.add cchiffHbox
 		vBox.add cSurlignHbox
-		vBox.add switchErreurAutoriser
-		vBox.add switchSurlignageSurvol
+		vBox.add erreurAutoriserHBox
+		vBox.add surlignageSurvolHbox
 		vBox.add menuButton
 		self.add vBox
 
