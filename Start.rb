@@ -25,4 +25,3 @@ window.add Game.new(window,a.board)
 window.show_all
 
 Gtk.main
-
