@@ -2,12 +2,14 @@ require 'gtk3'
 
 class Serialisable
 
-  attr_reader :selectColor, :backgroundColor, :chiffreColor
+  attr_reader :selectColor, :backgroundColor, :chiffreColor, :surligneColor
 
 	def initialize()
 	    @backgroundColor =  @@backgroundColor.to_s
 	    @selectColor     =  @@selectColor.to_s
 	    @chiffreColor	 =	@@chiffreColor.to_s
+	    @surligneColor 	 = 	@@surligneColor.to_s
+	    @username		 = 	@@username
 	end
 
 	def self.getBackgroundColor()
@@ -34,6 +36,30 @@ class Serialisable
 		@@chiffreColor = chiffreColor
 	end
 
+	def self.getSurligneColor()
+		return @@surligneColor
+	end
+
+	def self.setSurligneColor(surligneColor)
+		@@surligneColor = surligneColor
+	end
+
+	def self.setUsername(username)
+		@@username = username
+	end
+
+	def self.getUsername()
+		return @@username
+	end
+
+	def self.setErreurAutoriser(boolean)
+		@@erreurAutoriser = boolean
+	end
+
+	def self.getErreurAutoriser()
+		return @@erreurAutoriser
+	end
+
 	def self.serialized
     obj = Serialisable.new
 		File.open("save_color.yaml", "w+") do |f|
@@ -46,6 +72,8 @@ class Serialisable
    	self.setBackgroundColor(Gdk::Color.parse(obj.backgroundColor))
     self.setSelectColor(Gdk::Color.parse(obj.selectColor))
 	self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))
+	self.setSurligneColor(Gdk::Color.parse(obj.selectColor))
+	#self.setUsername(obj.username) #peut y avoir des erreurs
 	end
 
 end
