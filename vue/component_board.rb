@@ -25,52 +25,72 @@ class BoardComponent < Gtk::Frame
 
   def initialize(board)
     super()
-    @board=board
 
-    # vues
     @boardBoxView=Gtk::Table.new(3,3,true)
-    @boxView=Array.new(3){Array.new(3)}
+
+    initBoard(board)
+
+    self.add(@boardBoxView)
+  end
+
+  def initBoard(board)
+    @board=board
 
     # container of all CellComponent
     @cellsView = []
 
+    boxView=Array.new(3){Array.new(3)}
+
     # creation des 9 boxes de la grille
     0.upto(2) do |y|
       0.upto(2) do |x|
-        @boxView[x][y]=Gtk::Table.new(3,3,true)
+        boxView[x][y]=Gtk::Table.new(3,3,true)
 
         # creation des 9 cases dans une boxe
         0.upto(2) do |i|
           0.upto(2) do |j|
 
-            cell=CellComponent.create(@board.cellAt(x*3+i,y*3+j), self)
-            @boxView[x][y].attach(cell,i,i+1,j,j+1)
+            cell=CellComponent.create(@board.cellAt(y*3+j,x*3+i), self)
+            boxView[x][y].attach(cell,i,i+1,j,j+1)
             @cellsView << cell
 
             cell.signal_connect("clicked") do
-              apply_css_color_button(cell, "background", Serialisable.getSelectColor)
+              apply_css_color_button(cell, "background", GlobalOpts.getSelectColor)
               highlightCurrentNum(cell)
             end
 
           end
         end
-        tmp = Gtk::Frame.new()
-        tmp.add(@boxView[x][y])
-        @boardBoxView.attach(tmp,x,x+1,y,y+1,nil,nil,3,3)
+        @boardBoxView.attach(boxView[x][y],x,x+1,y,y+1,nil,nil,3,3)
 
       end
     end
-    self.add(@boardBoxView)
+  end
+
+  def updateBoardColor
+    @cellsView.each do |cell|
+      apply_css_color_button(cell, "background", GlobalOpts.getBackgroundColor)
+      apply_css_color_button(cell, "color", GlobalOpts.getChiffreColor)
+    end
+  end
+
+  def updateBoard(board)
+    @board = board
+    @boardBoxView.children.each do |tab|
+      tab.children.each do |cell|
+        cell.init_ui(@board.cellAt(cell.cell.row,cell.cell.col), self)
+      end
+    end
   end
 
   def highlightCurrentNum(cellComp)
     @cellsView.each do |cell|
       if  !cellComp.cell.vide? and cellComp.cell.value == cell.cell.value
         if cell!=cellComp
-          apply_css_color_button(cell, "color", Serialisable.getSelectColor)
+          apply_css_color_button(cell, "color", GlobalOpts.getSelectColor)
         end
       else
-        apply_css_color_button(cell, "color", Serialisable.getChiffreColor)
+        apply_css_color_button(cell, "color", GlobalOpts.getChiffreColor)
       end
     end
   end

@@ -11,18 +11,26 @@
 
 require 'gtk3'
 
-class Serialisable
+class GlobalOpts
 
   attr_reader :selectColor, :backgroundColor, :chiffreColor, :surligneColor
 
+@@backgroundColor  = "#757550507b7b"
+@@selectColor      = "#72729f9fcfcf"
+@@chiffreColor     = "#ffffffffffff"
+@@surligneColor    = "#ffffffffffff"
+@@username         = "testuser"
+@@erreurAutoriser  = false
+@@surlignageSurvol = true
+
 	def initialize()
-	    @backgroundColor =  @@backgroundColor.to_s
-	    @selectColor     =  @@selectColor.to_s
-	    @chiffreColor	 =	@@chiffreColor.to_s
-	    @surligneColor 	 = 	@@surligneColor.to_s
-	    @username		 = 	@@username
-	    @erreurAutoriser = 	@@erreurAutoriser
-	    @surlignageSurvol=	@@surlignageSurvol
+	    @backgroundColor  = @@backgroundColor.to_s
+	    @selectColor      = @@selectColor.to_s
+	    @chiffreColor     = @@chiffreColor.to_s
+	    @surligneColor    = @@surligneColor.to_s
+	    @username         = @@username
+	    @erreurAutoriser  = @@erreurAutoriser
+	    @surlignageSurvol = @@surlignageSurvol
 	end
 
 	def self.getBackgroundColor()
@@ -82,7 +90,7 @@ class Serialisable
 	end
 
 	def self.serialized
-    obj = Serialisable.new
+    obj = GlobalOpts.new
 		File.open("save_color.yaml", "w+") do |f|
       YAML.dump(obj, f)
 		end

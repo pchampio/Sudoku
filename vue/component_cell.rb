@@ -23,7 +23,6 @@ class CellComponent < Gtk::Button
 
   def initialize(cell, board_comp)
     super()
-    @cell=cell
 
     @resetModeEcriture = nil
 
@@ -32,12 +31,19 @@ class CellComponent < Gtk::Button
     add(@label)
 
     @fontSize = 18
+    set_size_request(54, 54)
 
+    init_ui(cell, board_comp)
+    apply_css_color_button(self, "background", GlobalOpts.getBackgroundColor)
+    apply_css_color_button(self, "color", GlobalOpts.getChiffreColor)
+
+
+  end
+
+  def init_ui(cell, board_comp)
+    @cell=cell
     @possibles = []
     set_value
-    set_size_request(54, 54)
-    apply_css_color_button(self, "background", Serialisable.getBackgroundColor)
-    apply_css_color_button(self, "color", Serialisable.getChiffreColor)
     add_cell_with_popover(board_comp)
   end
 
@@ -71,9 +77,9 @@ class CellComponent < Gtk::Button
         @resetModeEcriture = nil
       end
       unless @cell.vide?
-        apply_css_color_button(self, "color", Serialisable.getSelectColor)
+        apply_css_color_button(self, "color", GlobalOpts.getSelectColor)
       end
-      apply_css_color_button(self, "background", Serialisable.getBackgroundColor)
+      apply_css_color_button(self, "background", GlobalOpts.getBackgroundColor)
     end
     @popover.position = pos
     @popover.add(child)
@@ -90,7 +96,7 @@ class CellComponent < Gtk::Button
     popover
   end
 
-  def button_press(widget, event)
+  def button_press(event)
     oldMode = InGameMenu.mode_ecriture
     if (event.button == 3)
       InGameMenu.mode_ecriture = :candidates
@@ -100,7 +106,7 @@ class CellComponent < Gtk::Button
     end
     if(InGameMenu.mode_ecriture != oldMode)
       @resetModeEcriture = oldMode
-    end 
+    end
   end
 
   def add_cell_with_popover(board_comp)
@@ -112,13 +118,22 @@ class CellComponent < Gtk::Button
     entry_popover = createPopover(
       self, :top, popoverWind
     )
-    self.signal_connect( "button_press_event", :BUTTON_PRESS_MASK  ) { 
-      |widget, event, y| 
-      button_press( widget, event) 
-      entry_popover.show
-      popoverWind.update
-      apply_css_color_button(self, "color", Serialisable.getChiffreColor)
-    } 
+    if @cell.freeze?
+      self.signal_connect "clicked" do
+        entry_popover.show
+        popoverWind.update
+      end
+    else
+      self.signal_connect( "button_press_event", :BUTTON_PRESS_MASK  ) {
+        |_widget, event, _y|
+        button_press( event)
+        entry_popover.show
+        popoverWind.update
+        apply_css_color_button(self, "color", GlobalOpts.getChiffreColor)
+        apply_css_color_button(self, "background", GlobalOpts.getSelectColor)
+
+      }
+    end
 
   end
 

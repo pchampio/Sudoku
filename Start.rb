@@ -16,7 +16,7 @@ window.signal_connect 'destroy'  do
   Gtk.main_quit
 end
 
-Serialisable.load
+GlobalOpts.load
 
 a=Generator.new
 a.generate(:easy)

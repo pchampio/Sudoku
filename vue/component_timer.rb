@@ -54,4 +54,12 @@ class Timer
     end
 	end
 
+  def running
+    @pause
+  end
+
+  def raz
+    @elapse = 0
+  end
+
 end

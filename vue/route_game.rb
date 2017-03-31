@@ -1,57 +1,62 @@
 require 'gtk3'
-require 'yaml'
-require 'thread'
-
 
 Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 require_relative "../class/generator_class.rb"
 
 class Game < Gtk::Overlay
 
-  def initialize(window,board)
+  def initialize(window, board)
     super()
 
-    # create headerbar
-    HeadBar.create(window,self, "Sudoku","Groupe C")
+    @window = window
 
     hBox = Gtk::Box.new(:horizontal,2)
     boardComponent = BoardComponent.create board
     inGameMedu = InGameMenu.create(boardComponent)
 
+    # create headerbar
+    header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent).header
+    window.titlebar = header
+
     hBox.add(boardComponent)
     hBox.add(inGameMedu)
 
     @backgroundColor = window.style_context.get_background_color "NORMAL"
-    @backgroundColor  = Gdk::RGBA.new(@backgroundColor.red, @backgroundColor.green, @backgroundColor.blue, 0.93)
+    @backgroundColor_blur  = Gdk::RGBA.new(@backgroundColor.red, @backgroundColor.green, @backgroundColor.blue, 0.75)
+    @cursorWait = Gdk::Cursor.new("wait")
+    @cursorDefault = Gdk::Cursor.new("default")
+
 
     init_overlay
-    showOverlay
 
     vbox = Gtk::Box.new(:vertical, 10)
     vbox.halign = :center
     vbox.valign = :center
     button = Gtk::Button.new(:label =>"coucou")
-    button.name = "buttontest"
     vbox.add button
-
-    apply_css_color_button(button, "background", Serialisable.getBackgroundColor)
+    apply_css_color_button(button, "background", GlobalOpts.getBackgroundColor)
     button.signal_connect "clicked" do
+      cleanOverlay
       hideOverlay
     end
-
     addToOverlay vbox
+    showOverlay
 
-    self.set_overlay_pass_through(@frame, false)
+    # self.addToOverlay Option.create self
+
     self.add(hBox)
+    # -GtkSwitch-slider-width: 45px;
     css=<<-EOT
           #switchWrite {
-            -GtkSwitch-slider-width: 45px;
             transition: all 200ms ease-in;
             border: none;
             border-radius: 14px;
             color: transparent;
           }
-          #wind {
+          #overlay {
+            background-color: #{@backgroundColor_blur};
+          }
+          #menu {
             background-color: #{@backgroundColor};
           }
     EOT
@@ -59,21 +64,53 @@ class Game < Gtk::Overlay
   end
 
   def init_overlay
+    @boxContent = []
     @frame = Gtk::Frame.new
-    @frame.name = "wind"
+    @box = Gtk::Box.new(:horizontal, 10)
+    @box.halign = :center
+    @box.valign = :center
+    @frame.add(@box)
+    @frame.name = "overlay"
+    @box.name = "menu"
+    @visible = false
   end
 
   def hideOverlay
-    self.remove(@frame)
-    @frame
+    self.remove(@frame) if @visible
+    @visible = false
   end
 
   def showOverlay
-    self.add_overlay(@frame)
+    unless @visible
+      @visible = true
+      self.add_overlay(@frame)
+      self.set_overlay_pass_through(@frame, false)
+      self.show_all
+    end
   end
 
   def addToOverlay box
-    @frame.add box
+    @boxContent <<  box
+    @box.add box
+  end
+
+  def cleanOverlay
+    @boxContent.each do |content|
+      @box.remove(content)
+    end
+    @boxContent = []
+  end
+
+  def isOverlayVisible?
+    return @visible
+  end
+
+  def raz_cursor
+    @window.window.set_cursor @cursorDefault
+  end
+
+  def load_cursor
+    @window.window.set_cursor @cursorWait
   end
 
 end

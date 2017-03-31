@@ -96,7 +96,7 @@ class NumPadPopover < Popover
   end
 
   def update
-    # TODO Option dans Serialisable pour possible add numbre totalement faux
+    return if GlobalOpts.getErreurAutoriser
     candidates = @board_comp.board.possibles(@celluleComponent.cell)
     @numButtons.each_with_index do |numbutton, index|
       if InGameMenu.mode_ecriture == :chiffre

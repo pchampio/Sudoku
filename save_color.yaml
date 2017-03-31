@@ -1,4 +1,8 @@
---- !ruby/object:Serialisable
+--- !ruby/object:GlobalOpts
 backgroundColor: "#757550507b7b"
 selectColor: "#72729f9fcfcf"
 chiffreColor: "#ffffffffffff"
+surligneColor: "#72729f9fcfcf"
+username: testuser
+erreurAutoriser: false
+surlignageSurvol: true

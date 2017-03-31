@@ -14,13 +14,14 @@ require_relative './component_timer.rb'
 
 class HeadBar
 
+    attr_reader :header
     private_class_method :new
 
-    def self.create(main_window, route_game, title, subtitle)
-        new(main_window, route_game, title, subtitle)
+    def self.create(overlay, title, subtitle, compboard)
+        new(overlay, title, subtitle, compboard)
     end
 
-    def initialize(main_window, route_game, title, subtitle)
+    def initialize(overlay, title, subtitle, compboard)
         @title, @subtitle = title, subtitle
 
         @header = Gtk::HeaderBar.new
@@ -30,15 +31,52 @@ class HeadBar
         @header.subtitle = @subtitle
 
         @buttonSettings = Gtk::Button.new
-        iconSettings = Gio::ThemedIcon.new("mail-send-receive-symbolic")
+        iconSettings = Gio::ThemedIcon.new("emblem-system-symbolic")
         imageSettings = Gtk::Image.new(:icon => iconSettings, :size => :button)
         @buttonSettings.add(imageSettings)
         @buttonSettings.signal_connect "clicked" do
-          # vbox = Option.new
-          # route_game.addToOverlay vbox.getBox
-          route_game.showOverlay
+          unless overlay.isOverlayVisible?
+            @time.toggle
+            overlay.cleanOverlay
+            option = Option.new
+            overlay.addToOverlay option
+            overlay.showOverlay
+
+            option.signal_retour do
+              @time.toggle
+              overlay.hideOverlay
+              compboard.updateBoardColor
+            end
+          end
         end
         @header.pack_end(@buttonSettings)
+
+        @btnNewGame = Gtk::Button.new
+        iconNewGame = Gio::ThemedIcon.new("appointment-new-symbolic")
+        imageNewGame = Gtk::Image.new(:icon => iconNewGame, :size => :button)
+        @btnNewGame.add(imageNewGame)
+        @btnNewGame.signal_connect "clicked" do
+          unless overlay.isOverlayVisible?
+            @time.toggle
+
+            newgame = NewGame.new
+            overlay.cleanOverlay
+            overlay.addToOverlay newgame
+            overlay.showOverlay
+
+            newgame.signal_retour do
+              if newgame.board
+                compboard.updateBoard newgame.board
+                @time.raz
+              end
+              @time.toggle
+              overlay.cleanOverlay
+              overlay.hideOverlay
+              overlay.raz_cursor
+            end
+          end
+        end
+        @header.pack_end(@btnNewGame)
 
         @buttonSuivant = Gtk::Button.new
         imageSuivant = Gtk::Image.new(:icon_name => "pan-start-symbolic", :size => :button)
@@ -51,20 +89,29 @@ class HeadBar
         @header.pack_start(@buttonPrecedent)
 
         labelTime = Gtk::Label.new
-        @time = Timer.create labelTime  #avec ça, on à accès aux méthodes pour avoir un bel affichage par exemple ! :)
+        @time = Timer.create labelTime
+        # @time.toggle
 
         @buttonTime = Gtk::Button.new
         iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
         imageTime = Gtk::Image.new(:icon => iconTime, :size => :button)
         @buttonTime.signal_connect("clicked") do
-          # print @time.getTimeFromSec
           @time.toggle
+          if @time.running
+            overlay.cleanOverlay
+            # label = Gtk::Label.new("<span weight='ultrabold' font='40'>Pause</span>")
+            # label.use_markup = true
+            # overlay.addToOverlay label
+            overlay.showOverlay
+          else
+            overlay.hideOverlay
+          end
         end
         @buttonTime.add(imageTime)
         @header.pack_start(@buttonTime)
         @header.pack_start(labelTime)
 
-        main_window.titlebar = @header
+        return @header
     end
 
     def setVisibleSettings(b)
