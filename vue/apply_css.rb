@@ -24,15 +24,22 @@ def apply_style(widget, css)
 end
 
 def apply_css_color_button(object, cssTarget, color)
-    red = (color.red / 65535.0) * 255.0
-    green = (color.green / 65535.0) * 255.0
-    blue = (color.blue / 65535.0) * 255.0
     css=<<-EOT
     button{
-      #{cssTarget}: rgb(#{red},#{green},#{blue});
+      #{apply_css_convert_color(cssTarget, color)}
     }
     EOT
     css_provider = Gtk::CssProvider.new
     css_provider.load :data=>css
     apply_css(object,css_provider)
+end
+
+def apply_css_convert_color(cssTarget, color)
+    red = (color.red / 65535.0) * 255.0
+    green = (color.green / 65535.0) * 255.0
+    blue = (color.blue / 65535.0) * 255.0
+    css=<<-EOT
+      #{cssTarget}: rgb(#{red},#{green},#{blue});
+    EOT
+    return css
 end

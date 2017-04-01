@@ -53,8 +53,8 @@ class NumPadPopover < Popover
           else
             @celluleComponent.set_value(val)
             @celluleComponent.hidePopover
+            @board_comp.highlightCurrentNum(@celluleComponent)
           end
-          @board_comp.highlightCurrentNum(@celluleComponent)
 
           if InGameMenu.audo_maj_candidates
             @board_comp.showPossibles

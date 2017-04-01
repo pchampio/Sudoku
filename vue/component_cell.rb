@@ -34,8 +34,6 @@ class CellComponent < Gtk::Button
     set_size_request(54, 54)
 
     init_ui(cell, board_comp)
-    apply_css_color_button(self, "background", GlobalOpts.getBackgroundColor)
-    apply_css_color_button(self, "color", GlobalOpts.getChiffreColor)
 
 
   end
@@ -117,8 +115,6 @@ class CellComponent < Gtk::Button
       button_press( event)
       @popover.show
       @popoverWind.update
-      apply_css_color_button(self, "color", GlobalOpts.getChiffreColor)
-      apply_css_color_button(self, "background", GlobalOpts.getSelectColor)
       self.clicked #send clicked to parent
     }
   end

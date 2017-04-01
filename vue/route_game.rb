@@ -29,21 +29,6 @@ class Game < Gtk::Overlay
 
     init_overlay
 
-    vbox = Gtk::Box.new(:vertical, 10)
-    vbox.halign = :center
-    vbox.valign = :center
-    button = Gtk::Button.new(:label =>"coucou")
-    vbox.add button
-    apply_css_color_button(button, "background", GlobalOpts.getBackgroundColor)
-    button.signal_connect "clicked" do
-      cleanOverlay
-      hideOverlay
-    end
-    addToOverlay vbox
-    showOverlay
-
-    # self.addToOverlay Option.create self
-
     self.add(hBox)
     # -GtkSwitch-slider-width: 45px;
     css=<<-EOT
@@ -52,12 +37,6 @@ class Game < Gtk::Overlay
             border: none;
             border-radius: 14px;
             color: transparent;
-          }
-          #overlay {
-            background-color: #{@backgroundColor_blur};
-          }
-          #menu {
-            background-color: #{@backgroundColor};
           }
     EOT
     apply_style(self, css)
@@ -86,6 +65,15 @@ class Game < Gtk::Overlay
       self.add_overlay(@frame)
       self.set_overlay_pass_through(@frame, false)
       self.show_all
+      css=<<-EOT
+          #overlay {
+            background-color: #{@backgroundColor_blur};
+          }
+          #menu {
+            background-color: #{@backgroundColor};
+          }
+      EOT
+      apply_style(self, css)
     end
   end
 

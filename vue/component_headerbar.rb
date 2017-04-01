@@ -79,12 +79,12 @@ class HeadBar
         @header.pack_end(@btnNewGame)
 
         @buttonSuivant = Gtk::Button.new
-        imageSuivant = Gtk::Image.new(:icon_name => "pan-start-symbolic", :size => :button)
+        imageSuivant = Gtk::Image.new(:icon_name => "edit-undo-symbolic", :size => :button)
         @buttonSuivant.add(imageSuivant)
         @header.pack_start(@buttonSuivant)
 
         @buttonPrecedent = Gtk::Button.new
-        imagePrecedent = Gtk::Image.new(:icon_name => "pan-end-symbolic", :size => :button)
+        imagePrecedent = Gtk::Image.new(:icon_name => "edit-redo-symbolic", :size => :button)
         @buttonPrecedent.add(imagePrecedent)
         @header.pack_start(@buttonPrecedent)
 
