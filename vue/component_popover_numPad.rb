@@ -96,10 +96,9 @@ class NumPadPopover < Popover
   end
 
   def update
-    return if GlobalOpts.getErreurAutoriser
     candidates = @board_comp.board.possibles(@celluleComponent.cell)
     @numButtons.each_with_index do |numbutton, index|
-      if InGameMenu.mode_ecriture == :chiffre
+      if InGameMenu.mode_ecriture == :chiffre and not GlobalOpts.getErreurAutoriser
         numbutton.set_sensitive(candidates.include? index+1)
       else
         numbutton.set_sensitive(true)

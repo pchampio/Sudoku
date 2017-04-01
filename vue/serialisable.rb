@@ -91,13 +91,13 @@ class GlobalOpts
 
 	def self.serialized
     obj = GlobalOpts.new
-		File.open("save_color.yaml", "w+") do |f|
+    File.open(File.dirname(__FILE__) +"/../save_color.yaml", "w+") do |f|
       YAML.dump(obj, f)
 		end
 	end
 
 	def self.load
-    obj = YAML.load_file("save_color.yaml")
+    obj = YAML.load_file(File.dirname(__FILE__) +"/../save_color.yaml")
    	self.setBackgroundColor(Gdk::Color.parse(obj.backgroundColor))
     self.setSelectColor(Gdk::Color.parse(obj.selectColor))
 	self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))

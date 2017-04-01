@@ -69,7 +69,10 @@ class CellComponent < Gtk::Button
   #  Creation d'un popover  #
   ###########################
 
-  def create_popover(parent, child, pos)
+  def createPopover(parent, pos, window)
+    content = window.child
+    content.parent.remove(content)
+    window.destroy
     @popover = Gtk::Popover.new(parent)
     @popover.signal_connect "closed" do
       if(@resetModeEcriture)
@@ -82,18 +85,11 @@ class CellComponent < Gtk::Button
       apply_css_color_button(self, "background", GlobalOpts.getBackgroundColor)
     end
     @popover.position = pos
-    @popover.add(child)
-    child.margin = 5
-    child.show_all
+    @popover.add(content)
+    content.margin = 5
+    content.show_all
     @popover
-  end
 
-  def createPopover(parent, pos, window)
-    content = window.child
-    content.parent.remove(content)
-    window.destroy
-    popover = create_popover(parent, content, pos)
-    popover
   end
 
   def button_press(event)
@@ -111,30 +107,20 @@ class CellComponent < Gtk::Button
 
   def add_cell_with_popover(board_comp)
     if @cell.freeze?
-      popoverWind = InfoPopover.create(self, board_comp.board)
+      @popoverWind = InfoPopover.create(self, board_comp.board)
     else
-      popoverWind = NumPadPopover.create(self, board_comp)
+      @popoverWind = NumPadPopover.create(self, board_comp)
     end
-    entry_popover = createPopover(
-      self, :top, popoverWind
-    )
-    if @cell.freeze?
-      self.signal_connect "clicked" do
-        entry_popover.show
-        popoverWind.update
-      end
-    else
-      self.signal_connect( "button_press_event", :BUTTON_PRESS_MASK  ) {
-        |_widget, event, _y|
-        button_press( event)
-        entry_popover.show
-        popoverWind.update
-        apply_css_color_button(self, "color", GlobalOpts.getChiffreColor)
-        apply_css_color_button(self, "background", GlobalOpts.getSelectColor)
-
-      }
-    end
-
+    createPopover(self, :top, @popoverWind)
+    self.signal_connect("button_press_event") {
+      |_widget, event, _y|
+      button_press( event)
+      @popover.show
+      @popoverWind.update
+      apply_css_color_button(self, "color", GlobalOpts.getChiffreColor)
+      apply_css_color_button(self, "background", GlobalOpts.getSelectColor)
+      self.clicked #send clicked to parent
+    }
   end
 
   def hidePopover
