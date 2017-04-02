@@ -4,5 +4,5 @@ selectColor: "#a4a400000000"
 chiffreColor: "#ffffffffffff"
 surligneColor: "#a4a400000000"
 username: testuser
-erreurAutoriser: false
+erreurAutoriser: true
 surlignageSurvol: false

@@ -80,7 +80,7 @@ class HeadBar
 
         labelTime = Gtk::Label.new
         @time = Timer.create labelTime
-        # @time.toggle #decommenter dans route game lors du clique sur le bouton
+        #@time.toggle #decommenter dans route game lors du clique sur le bouton
 
         @buttonTime = Gtk::Button.new
         iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
@@ -105,7 +105,7 @@ class HeadBar
         iconSave = Gio::ThemedIcon.new("document-save")
         imageSave = Gtk::Image.new(:icon => iconSave, :size => :button)
         @buttonSave.signal_connect("clicked") do
-
+            compboard.board.serialized("board_save.yml")
         end
         @buttonSave.add(imageSave)
         @header.pack_end(@buttonSave)
@@ -115,7 +115,8 @@ class HeadBar
         iconOpen = Gio::ThemedIcon.new("document-open")
         imageOpen = Gtk::Image.new(:icon => iconOpen, :size => :button)
         @buttonOpen.signal_connect("clicked") do
-
+            boardSave = Board.unserialized("board_save.yml")
+            overlay.loadBoardSave(boardSave)
         end
         @buttonOpen.add(imageOpen)
         @header.pack_end(@buttonOpen)

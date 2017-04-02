@@ -10,16 +10,16 @@ class Game < Gtk::Overlay
 
     @window = window
 
-    hBox = Gtk::Box.new(:horizontal,2)
-    boardComponent = BoardComponent.create board
-    inGameMedu = InGameMenu.create(boardComponent)
+    @hBox = Gtk::Box.new(:horizontal,2)
+    @boardComponent = BoardComponent.create board
+    @inGameMenu = InGameMenu.create(@boardComponent)
 
     # create headerbar
-    header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent).header
+    header = HeadBar.create(self, "Sudoku","Groupe C",@boardComponent).header
     window.titlebar = header
 
-    hBox.add(boardComponent)
-    hBox.add(inGameMedu)
+    @hBox.add(@boardComponent)
+    @hBox.add(@inGameMenu)
 
     @backgroundColor = window.style_context.get_background_color "NORMAL"
     @backgroundColor_blur  = Gdk::RGBA.new(@backgroundColor.red, @backgroundColor.green, @backgroundColor.blue, 0.75)
@@ -45,7 +45,7 @@ class Game < Gtk::Overlay
 
     # self.addToOverlay Option.create self
 
-    self.add(hBox)
+    self.add(@hBox)
     # -GtkSwitch-slider-width: 45px;
     css=<<-EOT
           #switchWrite {
@@ -114,10 +114,18 @@ class Game < Gtk::Overlay
     @window.window.set_cursor @cursorWait
   end
 
+  def loadBoardSave(boardSave)
+    #changer contenu hBox par boardsave, passer par @boardComponent.new
+    @hBox.remove(@boardComponent)
+    @hBox.remove(@inGameMenu)
+    @boardComponent = BoardComponent.create boardSave
+    #devrait charger une nouvelle boardcomponent mais non...
+    @inGameMenu = InGameMenu.create(@boardComponent)
+    @hBox.add(@boardComponent)
+    #@hBox.add(@inGameMenu)
+  end
 end
 
 
-#TODO enlever les fleches gauches droites
-#TODO ajouter un bouton pour faire de la sauvegarde et chargement de partie
+#TODO chargement de partie
 #TODO un overlay doit avoir son propre header
-#TODO serialiser les booleens des paramètres (bien comme il faut)
