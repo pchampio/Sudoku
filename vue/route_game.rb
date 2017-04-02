@@ -38,6 +38,7 @@ class Game < Gtk::Overlay
     button.signal_connect "clicked" do
       cleanOverlay
       hideOverlay
+      #header.toggleTimer
     end
     addToOverlay vbox
     showOverlay

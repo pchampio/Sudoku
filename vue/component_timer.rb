@@ -25,8 +25,8 @@ class Timer
 			while(true) do
 				@elapse += 1
 				sleep(1)
-        Thread.stop if @pause
-				getTimeFromSec(@elapse)
+        		Thread.stop if @pause
+					getTimeFromSec(@elapse)
 				@labelTime.set_markup("<b>#{getTimeFromSec}</b>")
 			end
 			@time.join

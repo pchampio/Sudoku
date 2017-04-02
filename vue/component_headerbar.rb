@@ -78,19 +78,9 @@ class HeadBar
         end
         @header.pack_end(@btnNewGame)
 
-        @buttonSuivant = Gtk::Button.new
-        imageSuivant = Gtk::Image.new(:icon_name => "pan-start-symbolic", :size => :button)
-        @buttonSuivant.add(imageSuivant)
-        @header.pack_start(@buttonSuivant)
-
-        @buttonPrecedent = Gtk::Button.new
-        imagePrecedent = Gtk::Image.new(:icon_name => "pan-end-symbolic", :size => :button)
-        @buttonPrecedent.add(imagePrecedent)
-        @header.pack_start(@buttonPrecedent)
-
         labelTime = Gtk::Label.new
         @time = Timer.create labelTime
-        # @time.toggle
+        # @time.toggle #decommenter dans route game lors du clique sur le bouton
 
         @buttonTime = Gtk::Button.new
         iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
@@ -122,27 +112,15 @@ class HeadBar
         end
     end
 
-    def setVisibleSuivant(b)
-        if b
-            @header.pack_start(@buttonSuivant)
-        else
-            @header.remove(@buttonPrecedent)
-        end
-    end
-
-    def setVisiblePrecedent(b)
-        if b
-            @header.pack_start(@buttonPrecedent)
-        else
-            @header.remove(@buttonPrecedent)
-        end
-    end
-
     def setVisibleTimer(b)
         if b
             @header.pack_start(@labelTime)
         else
             @header.remove(@labelTime)
         end
+    end
+
+    def toggleTimer()
+        @time.toggle
     end
 end
