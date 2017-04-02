@@ -103,7 +103,7 @@ class GlobalOpts
 	self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))
 	self.setSurligneColor(Gdk::Color.parse(obj.selectColor))
 	#self.setUsername(obj.username) #peut y avoir des erreurs
-	#self.setErreurAutoriser(obj.erreurAutoriser)
+	#self.setErreurAutoriser((obj.erreurAutoriser) == true)
 	#self.setSurlignageSurvol(obj.surlignageSurvol)
 	end
 

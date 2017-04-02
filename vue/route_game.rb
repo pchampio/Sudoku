@@ -114,3 +114,9 @@ class Game < Gtk::Overlay
   end
 
 end
+
+
+#TODO enlever les fleches gauches droites
+#TODO ajouter un bouton pour faire de la sauvegarde et chargement de partie
+#TODO un overlay doit avoir son propre header
+#TODO serialiser les booleens des paramètres (bien comme il faut)
