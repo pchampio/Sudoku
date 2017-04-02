@@ -5,4 +5,4 @@ chiffreColor: "#ffffffffffff"
 surligneColor: "#a4a400000000"
 username: testuser
 erreurAutoriser: false
-surlignageSurvol: true
+surlignageSurvol: false

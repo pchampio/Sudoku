@@ -13,7 +13,7 @@ require 'gtk3'
 
 class GlobalOpts
 
-  attr_reader :selectColor, :backgroundColor, :chiffreColor, :surligneColor
+  attr_reader :selectColor, :backgroundColor, :chiffreColor, :surligneColor, :erreurAutoriser, :username, :surlignageSurvol
 
 @@backgroundColor  = "#757550507b7b"
 @@selectColor      = "#72729f9fcfcf"
@@ -102,9 +102,9 @@ class GlobalOpts
     self.setSelectColor(Gdk::Color.parse(obj.selectColor))
 	self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))
 	self.setSurligneColor(Gdk::Color.parse(obj.selectColor))
-	#self.setUsername(obj.username) #peut y avoir des erreurs
-	#self.setErreurAutoriser((obj.erreurAutoriser) == true)
-	#self.setSurlignageSurvol(obj.surlignageSurvol)
+	self.setUsername(obj.username)
+	self.setErreurAutoriser(obj.erreurAutoriser)
+	self.setSurlignageSurvol(obj.surlignageSurvol)
 	end
 
 end

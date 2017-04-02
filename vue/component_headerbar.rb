@@ -101,6 +101,25 @@ class HeadBar
         @header.pack_start(@buttonTime)
         @header.pack_start(labelTime)
 
+        @buttonSave = Gtk::Button.new
+        iconSave = Gio::ThemedIcon.new("document-save")
+        imageSave = Gtk::Image.new(:icon => iconSave, :size => :button)
+        @buttonSave.signal_connect("clicked") do
+
+        end
+        @buttonSave.add(imageSave)
+        @header.pack_end(@buttonSave)
+
+
+        @buttonOpen = Gtk::Button.new
+        iconOpen = Gio::ThemedIcon.new("document-open")
+        imageOpen = Gtk::Image.new(:icon => iconOpen, :size => :button)
+        @buttonOpen.signal_connect("clicked") do
+
+        end
+        @buttonOpen.add(imageOpen)
+        @header.pack_end(@buttonOpen)
+
         return @header
     end
 
