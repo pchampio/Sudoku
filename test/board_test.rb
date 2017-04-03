@@ -37,6 +37,7 @@ class TestBoard < Minitest::Test
     ".tr("_", "0")
     @boardVide = Board.creer(planche.delete("\s|\n")
       .split("").reverse.map(&:to_i))
+    @boardVide.freeze
   end
 
   def test_cell_at
@@ -61,7 +62,8 @@ class TestBoard < Minitest::Test
 
   def test_comparable_copie
     assert_equal true, @board==@board2
-    assert_equal true, @board!=@boardVide
+    assert_equal false, @board==@boardVide
+    assert_equal true, @boardVide.copie==@boardVide
 
     board_copie = @board.copie
 
@@ -70,6 +72,7 @@ class TestBoard < Minitest::Test
     board_copie.cellAt(1,1).value = 9
 
     assert_equal false, @board==board_copie
+
 
   end
 

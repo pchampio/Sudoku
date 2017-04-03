@@ -22,7 +22,6 @@ require 'yaml'
 #
 class Board
 
-
   def initialize(numbers)#:nodoc:
     # Hash
     @rows = {}
@@ -270,7 +269,13 @@ class Board
         values << cell.value
       end
     end
-    Board.creer(values.reverse)
+    res = Board.creer(values.reverse)
+    self.each_with_coord do |cell,i,j|
+      if cell.freeze?
+        res.cellAt(i,j).freeze
+      end
+    end
+    return res
   end
 
 
@@ -359,6 +364,7 @@ class Board
     # file.close
 
     File.open(nameFic, "w+") do |f|
+      # Marshal.dump(self, f)
       YAML.dump(self, f)
     end
   end
@@ -374,5 +380,57 @@ class Board
     # data = JSON.parse(json)
     # self = data
     return YAML.load_file(nameFic)
+    # return Marshal.load(File.read(nameFic))
+  end
+
+  # tabs des snapshot
+  @@images_undo = []
+  @@images_redo = []
+
+  # new branch in undo history
+  @@newbrach = true
+
+  # Serialize une planche dans une file de snapshot
+  # permet undo redo
+  def snapshot
+    if not @@images_redo.empty? and @@newbrach
+      @@images_undo << @@images_redo.last
+      @@newbrach = false
+    end
+    @@images_undo << Marshal.dump(self)
+    self
+  end
+
+  # get last undo
+  def retrive_undo
+    if not @@images_undo.empty?
+      img = @@images_undo.pop
+      board = Marshal.load(img)
+      @@images_redo << img
+      @@newbrach = true
+      if board == self
+        board = retrive_undo
+      end
+      return board
+    else
+      print "end undo list\n"
+      self
+    end
+  end
+
+  # get last redo
+  def retrive_redo
+    if not @@images_redo.empty?
+      img = @@images_redo.pop
+      board = Marshal.load(img)
+      @@images_undo << img
+      if board == self
+        board = retrive_redo
+      end
+      return board
+    else
+      print "end redo list\n"
+      self
+    end
   end
 end

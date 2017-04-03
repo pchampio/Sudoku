@@ -11,12 +11,12 @@
 
 require 'gtk3'
 
-class Popover < Gtk::Window
+class Popover < Gtk::Frame
 
   private_class_method :new
 
   def initialize
-    super(:toplevel)
+    super()
   end
 
   def init_ui

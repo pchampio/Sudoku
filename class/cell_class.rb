@@ -46,8 +46,8 @@ class Cell
   #   - +other+ -> autre Cell a compare
   # * *Returns*
   #   - true/false
-  def <=>(other)
-    @value <=> other.value
+  def ==(other)
+    @value == other.value and @freeze == other.freeze?
   end
   # Connaitre si une Cell n'est pas remplie
   # * *Returns*
@@ -65,7 +65,7 @@ class Cell
 
   # Met la case en read only
   def freeze
-    instance_eval { undef :value= }
+    # instance_eval { undef :value= }
     @freeze = true
   end
 

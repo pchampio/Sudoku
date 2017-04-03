@@ -12,6 +12,7 @@ class TestGenerator < Minitest::Test
   def test_randomize
     board_copie = @gen.board.copie
     @gen.randomize
+    board_copie.freeze
     assert_equal false, board_copie==@gen.board
   end
 

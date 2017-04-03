@@ -28,6 +28,10 @@ class HeadBar < Gtk::HeaderBar
         self.title = title
         self.subtitle = subtitle
 
+        #########
+        #  END  #
+        #########
+
         labelTime = Gtk::Label.new
         time = Timer.create labelTime
 
@@ -98,16 +102,27 @@ class HeadBar < Gtk::HeaderBar
         buttonOpen.add(imageOpen)
         self.pack_end(buttonOpen)
 
+        ###########
+        #  Start  #
+        ###########
 
-        buttonSuivant = Gtk::Button.new
+        btnUndo = Gtk::Button.new
         imageSuivant = Gtk::Image.new(:icon_name => "edit-undo-symbolic", :size => :button)
-        buttonSuivant.add(imageSuivant)
-        self.pack_start(buttonSuivant)
+        btnUndo.add(imageSuivant)
+        btnUndo.signal_connect "clicked" do
+          oldBoard = compboard.board.retrive_undo
+          compboard.lazyupdateBoard oldBoard
+        end
+        self.pack_start(btnUndo)
 
-        buttonPrecedent = Gtk::Button.new
+        btnRedo = Gtk::Button.new
         imagePrecedent = Gtk::Image.new(:icon_name => "edit-redo-symbolic", :size => :button)
-        buttonPrecedent.add(imagePrecedent)
-        self.pack_start(buttonPrecedent)
+        btnRedo.add(imagePrecedent)
+        btnRedo.signal_connect "clicked" do
+          oldBoard = compboard.board.retrive_redo
+          compboard.lazyupdateBoard oldBoard
+        end
+        self.pack_start(btnRedo)
 
         buttonTime = Gtk::Button.new
         iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
@@ -126,9 +141,12 @@ class HeadBar < Gtk::HeaderBar
             overlay.hideOverlay
           end
         end
-        buttonTime.add(imageTime)
+
+        boxTime = Gtk::Box.new(:horizontal,2)
+        boxTime.add(imageTime)
+        boxTime.add(labelTime)
+        buttonTime.add(boxTime)
         self.pack_start(buttonTime)
-        self.pack_start(labelTime)
 
     end
 end

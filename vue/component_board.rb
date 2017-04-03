@@ -37,6 +37,7 @@ class BoardComponent < Gtk::Frame
 
   def initBoard(board)
     @board=board
+    @board.snapshot
 
     # container of all CellComponent
     @cellsView = []
@@ -118,9 +119,24 @@ class BoardComponent < Gtk::Frame
 
   def updateBoard(board)
     @board = board
+    @board.snapshot
     @boardBoxView.children.each do |tab|
       tab.children.each do |cell|
         cell.init_ui(@board.cellAt(cell.cell.row,cell.cell.col), self)
+      end
+    end
+  end
+
+  def lazyupdateBoard(board)
+    @board = board
+    @boardBoxView.children.each do |tab|
+      tab.children.each do |cell|
+        current = @board.cellAt(cell.cell.row,cell.cell.col)
+        if cell.cell != current
+          cell.init_ui(current, self)
+        else
+          cell.updateCell current
+        end
       end
     end
   end
@@ -147,7 +163,6 @@ class BoardComponent < Gtk::Frame
     }
     EOT
     apply_style(self, css)
-    print @cellsView.first.cell.possibles
   end
 
   def showPossibles

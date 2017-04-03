@@ -46,6 +46,10 @@ class CellComponent < Gtk::Button
     possiblesAddDel(0) if @cell.value == 0
   end
 
+  def updateCell cell
+    @cell = cell
+  end
+
   ######################################
   #  init/change label of cell button  #
   ######################################
@@ -71,7 +75,6 @@ class CellComponent < Gtk::Button
   def createPopover(parent, pos, window)
     content = window.child
     content.parent.remove(content)
-    window.destroy
     @popover = Gtk::Popover.new(parent)
     @popover.signal_connect "closed" do
       if(@resetModeEcriture)
@@ -106,7 +109,7 @@ class CellComponent < Gtk::Button
 
   def add_cell_with_popover(board_comp)
     if @cell.freeze?
-      @popoverWind = InfoPopover.create(self, board_comp.board)
+      @popoverWind = InfoPopover.create(self, board_comp)
     else
       @popoverWind = NumPadPopover.create(self, board_comp)
     end
