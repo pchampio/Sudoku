@@ -57,7 +57,7 @@ class Suggest
   def hiddenSingle
     @boxes.each_with_index do |boxe,numBoxe|
 
-      # Récupération de la Cell la plus moins répéter dans la boxe
+      # Récupération de la Cell la moins répéter dans la boxe
       minRepeated_number = @unknownInBoxes[numBoxe].min_by{ |v| @unknownInBoxes[numBoxe].count(v)}
       minRepeated_count = @unknownInBoxes[numBoxe].count(minRepeated_number)
 

@@ -9,7 +9,11 @@
 # https://github.com/Drakirus/Sudoku
 
 def apply_css(widget,provider)
-  widget.style_context.add_provider provider, Gtk::StyleProvider::PRIORITY_USER
+  begin
+    widget.style_context.add_provider provider, Gtk::StyleProvider::PRIORITY_USER
+  rescue Exception => e
+    print "error", e
+  end
   if(widget.is_a?(Gtk::Container))
     widget.each_all do |child|
       apply_css(child,provider)

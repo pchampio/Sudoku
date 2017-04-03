@@ -27,7 +27,6 @@ class HeadBar
         @header = Gtk::HeaderBar.new
         @header.show_close_button = true
         @header.title = @title
-        # @header.set_has_subtitle = true
         @header.subtitle = @subtitle
 
         @buttonSettings = Gtk::Button.new
@@ -103,7 +102,9 @@ class HeadBar
             # label.use_markup = true
             # overlay.addToOverlay label
             overlay.showOverlay
+            compboard.hideall
           else
+            compboard.updateBoardColor
             overlay.hideOverlay
           end
         end

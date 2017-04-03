@@ -137,9 +137,11 @@ class CellComponent < Gtk::Button
     1.upto(9) do |v|
       str += "\n" if v == 4 or v == 7
       if possibles.include?(v)
-        str += "<span >#{v} </span>"
+        str += "<span font-family='monospace'>#{v}</span>"
+        str += "<span> </span>"
       else
-        str += "<span foreground='blue' alpha='1'>0 </span>"
+        str += "<span font-family='monospace'> </span>"
+        str += "<span> </span>"
       end
     end
     str += "</span>"

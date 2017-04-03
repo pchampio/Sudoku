@@ -91,6 +91,9 @@ class BoardComponent < Gtk::Frame
                 .col#{cell.cell.col} {
                   #{apply_css_convert_color("background-color", GlobalOpts.getSurligneColor)}
                 }
+                .cell#{cell.cell.row.to_s + cell.cell.col.to_s}{
+                  #{apply_css_convert_color("background-color", GlobalOpts.getBackgroundColor)}
+                }
                 EOT
                 apply_style(cell, css)
               end
@@ -131,11 +134,19 @@ class BoardComponent < Gtk::Frame
     apply_style(self, css)
     @cellsView.each do |cell|
       if  !cellComp.cell.vide? and cellComp.cell.value == cell.cell.value
-        if cell!=cellComp
-          apply_css_color_button(cell, "color", GlobalOpts.getSelectColor)
-        end
+        apply_css_color_button(cell, "color", GlobalOpts.getSelectColor)
       end
     end
+  end
+
+  def hideall
+    css=<<-EOT
+    .cell{
+      #{apply_css_convert_color("color", GlobalOpts.getBackgroundColor)}
+      #{apply_css_convert_color("background", GlobalOpts.getBackgroundColor)}
+    }
+    EOT
+    apply_style(self, css)
   end
 
   def showPossibles
