@@ -12,9 +12,8 @@
 require "gtk3"
 require_relative './component_timer.rb'
 
-class HeadBar
+class HeadBar < Gtk::HeaderBar
 
-    attr_reader :header
     private_class_method :new
 
     def self.create(overlay, title, subtitle, compboard)
@@ -22,41 +21,44 @@ class HeadBar
     end
 
     def initialize(overlay, title, subtitle, compboard)
-        @title, @subtitle = title, subtitle
+        super()
 
-        @header = Gtk::HeaderBar.new
-        @header.show_close_button = true
-        @header.title = @title
-        @header.subtitle = @subtitle
+        title, subtitle = title, subtitle
+        self.show_close_button = true
+        self.title = title
+        self.subtitle = subtitle
 
-        @buttonSettings = Gtk::Button.new
+        labelTime = Gtk::Label.new
+        time = Timer.create labelTime
+
+        buttonSettings = Gtk::Button.new
         iconSettings = Gio::ThemedIcon.new("emblem-system-symbolic")
         imageSettings = Gtk::Image.new(:icon => iconSettings, :size => :button)
-        @buttonSettings.add(imageSettings)
-        @buttonSettings.signal_connect "clicked" do
+        buttonSettings.add(imageSettings)
+        buttonSettings.signal_connect "clicked" do
           unless overlay.isOverlayVisible?
-            @time.toggle
+            time.toggle
             overlay.cleanOverlay
             option = Option.new
             overlay.addToOverlay option
             overlay.showOverlay
 
             option.signal_retour do
-              @time.toggle
+              time.toggle
               overlay.hideOverlay
               compboard.updateBoardColor
             end
           end
         end
-        @header.pack_end(@buttonSettings)
+        self.pack_end(buttonSettings)
 
-        @btnNewGame = Gtk::Button.new
+        btnNewGame = Gtk::Button.new
         iconNewGame = Gio::ThemedIcon.new("appointment-new-symbolic")
         imageNewGame = Gtk::Image.new(:icon => iconNewGame, :size => :button)
-        @btnNewGame.add(imageNewGame)
-        @btnNewGame.signal_connect "clicked" do
+        btnNewGame.add(imageNewGame)
+        btnNewGame.signal_connect "clicked" do
           unless overlay.isOverlayVisible?
-            @time.toggle
+            time.toggle
 
             newgame = NewGame.new
             overlay.cleanOverlay
@@ -66,37 +68,53 @@ class HeadBar
             newgame.signal_retour do
               if newgame.board
                 compboard.updateBoard newgame.board
-                @time.raz
+                time.raz
               end
-              @time.toggle
+              time.toggle
               overlay.cleanOverlay
               overlay.hideOverlay
               overlay.raz_cursor
             end
           end
         end
-        @header.pack_end(@btnNewGame)
+        self.pack_end(btnNewGame)
 
-        @buttonSuivant = Gtk::Button.new
+        buttonSave = Gtk::Button.new
+        iconSave = Gio::ThemedIcon.new("document-save-symbolic")
+        imageSave = Gtk::Image.new(:icon => iconSave, :size => :button)
+        buttonSave.signal_connect("clicked") do
+            compboard.board.serialized("board_save.yml")
+        end
+        buttonSave.add(imageSave)
+        self.pack_end(buttonSave)
+
+        buttonOpen = Gtk::Button.new
+        iconOpen = Gio::ThemedIcon.new("document-open-symbolic")
+        imageOpen = Gtk::Image.new(:icon => iconOpen, :size => :button)
+        buttonOpen.signal_connect("clicked") do
+            boardSave = Board.unserialized("board_save.yml")
+            compboard.updateBoard boardSave
+        end
+        buttonOpen.add(imageOpen)
+        self.pack_end(buttonOpen)
+
+
+        buttonSuivant = Gtk::Button.new
         imageSuivant = Gtk::Image.new(:icon_name => "edit-undo-symbolic", :size => :button)
-        @buttonSuivant.add(imageSuivant)
-        @header.pack_start(@buttonSuivant)
+        buttonSuivant.add(imageSuivant)
+        self.pack_start(buttonSuivant)
 
-        @buttonPrecedent = Gtk::Button.new
+        buttonPrecedent = Gtk::Button.new
         imagePrecedent = Gtk::Image.new(:icon_name => "edit-redo-symbolic", :size => :button)
-        @buttonPrecedent.add(imagePrecedent)
-        @header.pack_start(@buttonPrecedent)
+        buttonPrecedent.add(imagePrecedent)
+        self.pack_start(buttonPrecedent)
 
-        labelTime = Gtk::Label.new
-        @time = Timer.create labelTime
-        # @time.toggle
-
-        @buttonTime = Gtk::Button.new
+        buttonTime = Gtk::Button.new
         iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
         imageTime = Gtk::Image.new(:icon => iconTime, :size => :button)
-        @buttonTime.signal_connect("clicked") do
-          @time.toggle
-          if @time.running
+        buttonTime.signal_connect("clicked") do
+          time.toggle
+          if time.running
             overlay.cleanOverlay
             # label = Gtk::Label.new("<span weight='ultrabold' font='40'>Pause</span>")
             # label.use_markup = true
@@ -108,42 +126,9 @@ class HeadBar
             overlay.hideOverlay
           end
         end
-        @buttonTime.add(imageTime)
-        @header.pack_start(@buttonTime)
-        @header.pack_start(labelTime)
+        buttonTime.add(imageTime)
+        self.pack_start(buttonTime)
+        self.pack_start(labelTime)
 
-        return @header
-    end
-
-    def setVisibleSettings(b)
-        if b
-            @header.pack_end(@buttonSettings)
-        else
-            @header.remove(@buttonSettings)
-        end
-    end
-
-    def setVisibleSuivant(b)
-        if b
-            @header.pack_start(@buttonSuivant)
-        else
-            @header.remove(@buttonPrecedent)
-        end
-    end
-
-    def setVisiblePrecedent(b)
-        if b
-            @header.pack_start(@buttonPrecedent)
-        else
-            @header.remove(@buttonPrecedent)
-        end
-    end
-
-    def setVisibleTimer(b)
-        if b
-            @header.pack_start(@labelTime)
-        else
-            @header.remove(@labelTime)
-        end
     end
 end

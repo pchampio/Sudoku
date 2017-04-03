@@ -40,9 +40,10 @@ class CellComponent < Gtk::Button
 
   def init_ui(cell, board_comp)
     @cell=cell
-    @possibles = []
+    @possibles = cell.possibles
     set_value
     add_cell_with_popover(board_comp)
+    possiblesAddDel(0) if @cell.value == 0
   end
 
   ######################################
@@ -133,10 +134,11 @@ class CellComponent < Gtk::Button
 
   def set_hints(possibles)
     @possibles = possibles
+    @cell.possibles = @possibles.dup
     str = "<span  font='10'>"
     1.upto(9) do |v|
       str += "\n" if v == 4 or v == 7
-      if possibles.include?(v)
+      if @possibles.include?(v)
         str += "<span font-family='monospace'>#{v}</span>"
         str += "<span> </span>"
       else
@@ -154,9 +156,11 @@ class CellComponent < Gtk::Button
 
   def possiblesAddDel(i)
     if @possibles.include?(i)
-      set_hints((@possibles - [i]))
+      possibles = @possibles - [i]
+      set_hints(possibles)
     else
-      set_hints((@possibles + [i]).uniq)
+      possibles = (@possibles + [i]).uniq
+      set_hints(possibles)
     end
     @cell.value = 0
   end

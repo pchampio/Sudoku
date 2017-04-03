@@ -76,7 +76,7 @@ class BoardComponent < Gtk::Frame
               }
               EOF
               highlightCurrentNum cell
-              apply_style(cell, css)
+              apply_style(self, css)
             end
 
             cell.signal_connect("enter") do
@@ -95,7 +95,7 @@ class BoardComponent < Gtk::Frame
                   #{apply_css_convert_color("background-color", GlobalOpts.getBackgroundColor)}
                 }
                 EOT
-                apply_style(cell, css)
+                apply_style(self, css)
               end
             end
           end
@@ -147,6 +147,7 @@ class BoardComponent < Gtk::Frame
     }
     EOT
     apply_style(self, css)
+    print @cellsView.first.cell.possibles
   end
 
   def showPossibles

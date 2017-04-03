@@ -15,7 +15,7 @@ class Game < Gtk::Overlay
     inGameMedu = InGameMenu.create(boardComponent)
 
     # create headerbar
-    header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent).header
+    header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent)
     window.titlebar = header
 
     hBox.add(boardComponent)

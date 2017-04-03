@@ -9,11 +9,7 @@
 # https://github.com/Drakirus/Sudoku
 
 def apply_css(widget,provider)
-  begin
-    widget.style_context.add_provider provider, Gtk::StyleProvider::PRIORITY_USER
-  rescue Exception => e
-    print "error", e
-  end
+  widget.style_context.add_provider provider, Gtk::StyleProvider::PRIORITY_USER
   if(widget.is_a?(Gtk::Container))
     widget.each_all do |child|
       apply_css(child,provider)
@@ -24,7 +20,7 @@ end
 def apply_style(widget, css)
   css_provider = Gtk::CssProvider.new
   css_provider.load :data=>css
-  apply_css(self, css_provider)
+  apply_css(widget, css_provider)
 end
 
 def apply_css_color_button(object, cssTarget, color)

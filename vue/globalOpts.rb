@@ -18,78 +18,78 @@ class GlobalOpts
     :username
 
 
-	def initialize()
-	    @backgroundColor  = @@backgroundColor.to_s
-	    @selectColor      = @@selectColor.to_s
-	    @chiffreColor     = @@chiffreColor.to_s
-	    @surligneColor    = @@surligneColor.to_s
-	    @username         = @@username
-	    @erreurAutoriser  = @@erreurAutoriser
-	    @surlignageSurvol = @@surlignageSurvol
-	end
+  def initialize()
+    @backgroundColor  = @@backgroundColor.to_s
+    @selectColor      = @@selectColor.to_s
+    @chiffreColor     = @@chiffreColor.to_s
+    @surligneColor    = @@surligneColor.to_s
+    @username         = @@username
+    @erreurAutoriser  = @@erreurAutoriser
+    @surlignageSurvol = @@surlignageSurvol
+  end
 
-	def self.getBackgroundColor()
-		return @@backgroundColor
-	end
+  def self.getBackgroundColor()
+    return @@backgroundColor
+  end
 
-	def self.setBackgroundColor(backgroundColor)
-		@@backgroundColor = backgroundColor
-	end
+  def self.setBackgroundColor(backgroundColor)
+    @@backgroundColor = backgroundColor
+  end
 
-	def self.getSelectColor()
-		return @@selectColor
-	end
+  def self.getSelectColor()
+    return @@selectColor
+  end
 
-	def self.setSelectColor(selectColor)
-		@@selectColor = selectColor
-	end
+  def self.setSelectColor(selectColor)
+    @@selectColor = selectColor
+  end
 
-	def self.getChiffreColor()
-		return @@chiffreColor
-	end
+  def self.getChiffreColor()
+    return @@chiffreColor
+  end
 
-	def self.setChiffreColor(chiffreColor)
-		@@chiffreColor = chiffreColor
-	end
+  def self.setChiffreColor(chiffreColor)
+    @@chiffreColor = chiffreColor
+  end
 
-	def self.getSurligneColor()
-		return @@surligneColor
-	end
+  def self.getSurligneColor()
+    return @@surligneColor
+  end
 
-	def self.setSurligneColor(surligneColor)
-		@@surligneColor = surligneColor
-	end
+  def self.setSurligneColor(surligneColor)
+    @@surligneColor = surligneColor
+  end
 
-	def self.setUsername(username)
-		@@username = username
-	end
+  def self.setUsername(username)
+    @@username = username
+  end
 
-	def self.getUsername()
-		return @@username
-	end
+  def self.getUsername()
+    return @@username
+  end
 
-	def self.setErreurAutoriser(boolean)
-		@@erreurAutoriser = boolean
-	end
+  def self.setErreurAutoriser(boolean)
+    @@erreurAutoriser = boolean
+  end
 
-	def self.getErreurAutoriser()
-		return @@erreurAutoriser
-	end
+  def self.getErreurAutoriser()
+    return @@erreurAutoriser
+  end
 
-	def self.setSurlignageSurvol(boolean)
-		@@surlignageSurvol = boolean
-	end
+  def self.setSurlignageSurvol(boolean)
+    @@surlignageSurvol = boolean
+  end
 
-	def self.getSurlignageSurvol()
-		return @@surlignageSurvol
-	end
+  def self.getSurlignageSurvol()
+    return @@surlignageSurvol
+  end
 
-	def self.serialized
+  def self.serialized
     obj = GlobalOpts.new
     File.open(File.dirname(__FILE__) +"/../save_color.yaml", "w+") do |f|
       YAML.dump(obj, f)
-		end
-	end
+    end
+  end
 
   def self.load
     obj = YAML.load_file(File.dirname(__FILE__) +"/../save_color.yaml")

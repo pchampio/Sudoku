@@ -9,7 +9,7 @@ class NewGame < Gtk::Frame
     vBox = Gtk::Box.new(:vertical,10)
     hBox = Gtk::Box.new(:horizontal,10)
 
-		title = Gtk::Label.new("<span weight='ultrabold' font='16'>New Game</span>", :xalign=>0)
+    title = Gtk::Label.new("<span weight='ultrabold' font='16'>New Game</span>", :xalign=>0)
     title.use_markup = true
     vBox.pack_start(title, :expand=>false, :fill=>false, :padding=>15)
 
@@ -17,25 +17,25 @@ class NewGame < Gtk::Frame
     btnEz.signal_connect("clicked"){
       generate(:easy)
     }
-		vBox.pack_start(btnEz, :expand=>false, :fill=>false, :padding=>2)
+    vBox.pack_start(btnEz, :expand=>false, :fill=>false, :padding=>2)
 
     btnMo = Gtk::Button.new(:label=>"Moyen")
     btnMo.signal_connect("clicked"){
       generate(:medium)
     }
-		vBox.pack_start(btnMo, :expand=>false, :fill=>false, :padding=>2)
+    vBox.pack_start(btnMo, :expand=>false, :fill=>false, :padding=>2)
 
     btnDu = Gtk::Button.new(:label=>"Dur")
     btnDu.signal_connect("clicked"){
       generate(:hard)
     }
-		vBox.pack_start(btnDu, :expand=>false, :fill=>false, :padding=>2)
+    vBox.pack_start(btnDu, :expand=>false, :fill=>false, :padding=>2)
 
     btnDia = Gtk::Button.new(:label=>"Diablique")
     btnDia.signal_connect("clicked"){
       generate(:extreme)
     }
-		vBox.pack_start(btnDia, :expand=>false, :fill=>false, :padding=>2)
+    vBox.pack_start(btnDia, :expand=>false, :fill=>false, :padding=>2)
 
     anul = Gtk::Button.new(:label=>"Anuler")
     anul.signal_connect("clicked"){
@@ -43,18 +43,18 @@ class NewGame < Gtk::Frame
       self.destroy
     }
     anul.style_context.add_class('destructive-action')
-# suggested-action
+    # suggested-action
 
 
     vBox.pack_start(anul, :expand=>false, :fill=>false, :padding=>15)
     hBox.pack_start(vBox, :expand=>false, :fill=>false, :padding=>15)
 
-		self.add hBox
+    self.add hBox
 
   end
 
   def signal_retour
-		self.signal_connect("destroy") do
+    self.signal_connect("destroy") do
       yield
     end
   end

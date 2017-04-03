@@ -22,7 +22,7 @@ class Timer
 		@labelTime = label
 		@elapse = 0
 		@time= Thread.new do
-			while(true) do
+			while true do
 				@elapse += 1
 				sleep(1)
         Thread.stop if @pause

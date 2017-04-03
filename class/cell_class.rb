@@ -24,6 +24,7 @@ class Cell
   # Chaque case connait sa propre valeur et sa position dans la planche
   def initialize(row, col, box)
     @row, @col, @box = row, col, box
+    @possibles = []
     @value = 0
     @freeze = false
   end
