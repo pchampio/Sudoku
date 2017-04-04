@@ -57,7 +57,7 @@ class NumPadPopover < Popover
             @board_comp.board.snapshot
           end
 
-          if InGameMenu.audo_maj_candidates
+          if InGameMenu.auto_maj_candidates
             @board_comp.showPossibles
           end
         end
@@ -80,7 +80,7 @@ class NumPadPopover < Popover
       end
 
       @board_comp.highlightCurrentNum(@celluleComponent)
-      if InGameMenu.audo_maj_candidates
+      if InGameMenu.auto_maj_candidates
         @board_comp.showPossibles
       end
     end

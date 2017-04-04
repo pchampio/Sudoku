@@ -10,7 +10,7 @@ class NewGame < Gtk::Frame
     vBox = Gtk::Box.new(:vertical,10)
     hBox = Gtk::Box.new(:horizontal,10)
 
-    title = Gtk::Label.new("<span weight='ultrabold' font='16'>New Game</span>", :xalign=>0)
+    title = Gtk::Label.new("<span weight='ultrabold' font='16'>Nouvelle partie</span>", :xalign=>0)
     title.use_markup = true
     vBox.pack_start(title, :expand=>false, :fill=>false, :padding=>15)
 
@@ -32,13 +32,13 @@ class NewGame < Gtk::Frame
     }
     vBox.pack_start(btnDu, :expand=>false, :fill=>false, :padding=>2)
 
-    btnDia = Gtk::Button.new(:label=>"Diablique")
+    btnDia = Gtk::Button.new(:label=>"Diabolique")
     btnDia.signal_connect("clicked"){
       generate(:extreme)
     }
     vBox.pack_start(btnDia, :expand=>false, :fill=>false, :padding=>2)
 
-    anul = Gtk::Button.new(:label=>"Anuler")
+    anul = Gtk::Button.new(:label=>"Annuler")
     anul.signal_connect("clicked"){
       Thread.kill(@job) if @job
       self.destroy

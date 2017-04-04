@@ -44,6 +44,10 @@ window
             border-radius: 14px;
             color: transparent;
           }
+          #textView {
+            font:Times New Roman, 220;
+            background:transparent;
+          }
     EOT
     apply_style(self, css)
   end
