@@ -19,7 +19,7 @@ class Game < Gtk::Overlay
     window.titlebar = header
 
     hBox.add(boardComponent)
-    hBox.add(inGameMedu)
+    # hBox.add(inGameMedu)
 
     @backgroundColor = window.style_context.get_background_color "NORMAL"
     @backgroundColor_blur  = Gdk::RGBA.new(@backgroundColor.red, @backgroundColor.green, @backgroundColor.blue, 0.75)
