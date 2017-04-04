@@ -118,12 +118,13 @@ class InGameMenu < Gtk::Frame
     @text.create_tag("warning", "underline" => Pango::UNDERLINE_SINGLE)
     @text.create_tag("error", "underline" => Pango::UNDERLINE_ERROR)
 
-    @text.set_text "Bienvenue sur notre aide à la\n résolution d'un sukodu.\nPour toute réclamation,\nveuillez vous plaindre auprès \nd'Ewen.Merci de votre achat."
+    @text.set_text "Bienvenue sur notre aide à la\nrésolution d'un sukodu.\nPour toute réclamation,\nveuillez vous plaindre auprès \nd'Ewen. Merci de votre achat."
     textView = Gtk::TextView.new(@text)
     textView.set_editable false
     textView.cursor_visible = false
     textView.left_margin = 10
     textView.right_margin = 10
+    textView.set_size_request(-1, 150)
 
     @pan.add(boxTechnic)
    # @pan.add(buttonPen)
@@ -132,6 +133,7 @@ class InGameMenu < Gtk::Frame
     @pan.add(buttonFullPossibilities)
     @pan.add(auto_maj_candidates_hbox)
     @pan.add(wayWrite_hbox)
+    @pan.add(Gtk::Label.new(""))
     @pan.add(textView)
     self.add(@pan)
   end
