@@ -23,6 +23,6 @@ GlobalOpts.load
 @a.generate(:easy)
 
 window.add Game.new(window,@a.board)
-window.show_all
 
+window.show_all
 Gtk.main

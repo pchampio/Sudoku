@@ -12,8 +12,6 @@
 require 'gtk3'
 Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 
-##class héritant de Gtk::Frame
-#permet d'être ajoutée dans une fenêtre
 class BoardComponent < Gtk::Frame
 
   attr_reader :board # board de l'api ../class/board_class.rb
@@ -56,37 +54,16 @@ class BoardComponent < Gtk::Frame
 
             cell=CellComponent.create(@board.cellAt(y*3+j,x*3+i), self)
 
-            # style
-            cell.style_context.add_class("cell")
-            cell.style_context.add_class("cell" + cell.cell.row.to_s + cell.cell.col.to_s)
-            cell.style_context.add_class("row" + cell.cell.row.to_s)
-            cell.style_context.add_class("col" + cell.cell.col.to_s)
-
             boxView[x][y].attach(cell,i,i+1,j,j+1)
             @cellsView << cell
 
             cell.signal_connect("clicked") do
-              apply_css_color_button(cell, "background", GlobalOpts.getSelectColor)
               highlightCurrentNum cell
             end
 
             cell.signal_connect("enter") do
               if GlobalOpts.getSurlignageSurvol
-                css=<<-EOT
-                .cell{
-                  #{apply_css_convert_color("background", GlobalOpts.getBackgroundColor)}
-                }
-                .row#{cell.cell.row} {
-                  #{apply_css_convert_color("background", GlobalOpts.getSurligneColor)}
-                }
-                .col#{cell.cell.col} {
-                  #{apply_css_convert_color("background", GlobalOpts.getSurligneColor)}
-                }
-                .cell#{cell.cell.row.to_s + cell.cell.col.to_s}{
-                  #{apply_css_convert_color("background", GlobalOpts.getBackgroundColor)}
-                }
-                EOT
-                apply_style(self, css)
+                highlightRowCol cell
               end
             end
           end
@@ -97,18 +74,27 @@ class BoardComponent < Gtk::Frame
     end
   end
 
+  def highlightRowCol cellComp
+    row = cellComp.cell.row
+    col = cellComp.cell.col
+    @cellsView.each do |cell|
+      cell.change_style("background", GlobalOpts.getBackgroundColor)
+      if row == cell.cell.row or col == cell.cell.col
+        cell.change_style("background", GlobalOpts.getSurligneColor)
+      end
+    end
+  end
+
+
   def end_game
     @main_game.end_game
   end
 
   def updateBoardColor
-    css=<<-EOT
-    .cell{
-      #{apply_css_convert_color("background", GlobalOpts.getBackgroundColor)}
-      #{apply_css_convert_color("color", GlobalOpts.getChiffreColor)}
-    }
-    EOT
-    apply_style(self, css)
+    @cellsView.each do |cell|
+      cell.change_style("background", GlobalOpts.getBackgroundColor)
+      cell.change_style("color", GlobalOpts.getChiffreColor)
+    end
   end
 
   def updateBoard(board)
@@ -137,21 +123,22 @@ class BoardComponent < Gtk::Frame
   end
 
   def highlightCurrentNum(cellComp)
+    cellComp.change_style("background", GlobalOpts.getSelectColor)
     @cellsView.each do |cell|
       if  !cellComp.cell.vide? and cellComp.cell.value == cell.cell.value
         if cell!=cellComp
-          apply_css_color_button(cell, "color", GlobalOpts.getSelectColor)
+          cell.change_style("color", GlobalOpts.getSelectColor)
         end
       else
-        apply_css_color_button(cell, "color", GlobalOpts.getChiffreColor)
+        cell.change_style("color", GlobalOpts.getChiffreColor)
       end
     end
   end
 
   def hideall
     @cellsView.each do |cell|
-        apply_css_color_button(cell, "color", GlobalOpts.getBackgroundColor)
-        apply_css_color_button(cell, "background", GlobalOpts.getBackgroundColor)
+      cell.change_style("color", GlobalOpts.getBackgroundColor)
+      cell.change_style("background", GlobalOpts.getBackgroundColor)
     end
   end
 

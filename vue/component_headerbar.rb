@@ -32,14 +32,9 @@ class HeadBar < Gtk::HeaderBar
         self.title = title
         self.subtitle = subtitle
         self.signal_connect("destroy") do
-            compboard.board.setTime(time.elapse)
-            #time.elapse #recupe le elapse
+            compboard.board.setTime(@time.elapse)
             compboard.board.serialized("board_save.yml")
         end
-        #########
-        #  END  #
-        #########
-
 
         labelTime = Gtk::Label.new
         time = Timer.create labelTime
@@ -95,10 +90,6 @@ class HeadBar < Gtk::HeaderBar
         buttonOpen.add(imageOpen)
         self.pack_end(buttonOpen)
 
-        ###########
-        #  Start  #
-        ###########
-
         btnUndo = Gtk::Button.new
         imageSuivant = Gtk::Image.new(:icon_name => "edit-undo-symbolic", :size => :button)
         btnUndo.add(imageSuivant)
@@ -135,7 +126,7 @@ class HeadBar < Gtk::HeaderBar
           end
         end
 
-        boxTime = Gtk::Box.new(:horizontal,2)
+        boxTime = Gtk::Box.new(:horizontal,4)
         boxTime.add(imageTime)
         boxTime.add(labelTime)
         buttonTime.add(boxTime)

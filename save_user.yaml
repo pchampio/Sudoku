@@ -3,5 +3,5 @@ backgroundColor: "#757550507b7b"
 selectColor: "#72729f9fcfcf"
 chiffreColor: "#eeeeeeeeecec"
 surligneColor: "#adad7f7fa8a8"
-erreurAutoriser: true
+erreurAutoriser: false
 surlignageSurvol: false

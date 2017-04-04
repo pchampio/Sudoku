@@ -57,6 +57,7 @@ class NumPadPopover < Popover
             @board_comp.board.snapshot
             if @board_comp.board.complete?
               @board_comp.end_game
+              @board_comp.updateBoardColor
             end
           end
 

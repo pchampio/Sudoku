@@ -50,6 +50,17 @@ class CellComponent < Gtk::Button
     @cell = cell
   end
 
+  def change_style(target, color)
+    css=<<-EOT
+    button{
+      #{apply_css_convert_color(target, color)}
+    }
+    EOT
+    css_provider = Gtk::CssProvider.new
+    css_provider.load :data=>css
+    self.style_context.add_provider css_provider, Gtk::StyleProvider::PRIORITY_USER
+  end
+
   ######################################
   #  init/change label of cell button  #
   ######################################
@@ -82,9 +93,9 @@ class CellComponent < Gtk::Button
         @resetModeEcriture = nil
       end
       unless @cell.vide?
-        apply_css_color_button(self, "color", GlobalOpts.getSelectColor)
+        self.change_style("color", GlobalOpts.getSelectColor)
       end
-      apply_css_color_button(self, "background", GlobalOpts.getBackgroundColor)
+        self.change_style("background", GlobalOpts.getBackgroundColor)
     end
     @popover.position = pos
     @popover.add(content)
@@ -117,7 +128,7 @@ class CellComponent < Gtk::Button
     self.signal_connect("button_press_event") {
       |_widget, event, _y|
       button_press( event)
-      apply_css_color_button(self, "color", GlobalOpts.getChiffreColor)
+      self.change_style("color", GlobalOpts.getChiffreColor)
       @popover.show
       @popoverWind.update
       self.clicked #send clicked to parent

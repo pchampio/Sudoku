@@ -68,7 +68,7 @@ class Suggest
 
 
   def hiddenSingle_on_container container, cont_possibles, from
-    container.each_with_index do |cont,index_cont|
+    container.each do |cont|
 
       # Récupération de la Cell qui a une unique possiblé
       minRepeated_number = cont_possibles[cont[0]].sort.chunk{ |e| e }.map{ |_a, e| e.first if e.length == 1}.select{|e| e != nil}.first
@@ -113,7 +113,7 @@ class Suggest
   end
 
   def nakedSingle_on_container container, cont_possibles, from
-    container.each_with_index do |cont,index_cont|
+    container.each do |cont|
 
 
       # acces au données du hash cont[1] et pas a la clee [0]
@@ -150,28 +150,5 @@ class Suggest
     nakedSingle_on_container @rows, @possible_in_rows,"row"
     nakedSingle_on_container @cols, @possible_in_cols,"col"
   end
-  
-  def getSamePossibles container, cont_possibles, nb
-    @tab=[]
-    container.each_with_index do |cont,index|
-      cont[1].each do |cell|
-        @tab_cell = []
-        if (cell.possibles.length == nb)
-          @tab_cell<<cell
-      @tab_cell.each do |_cell,i|
-        @tab_cell.each do |_cell,j|
-          if(i != j && @tab_cell[i].possibles == @tab_cell[j].posibles)
-            @tab << @tab_cell[i]
-            @tab << @tab_cell[j]          
-      return @tab
-  end
-    
-
-  def nakedPair_on_container container, cont_possibles, from
-    if (@tab_cell = getSamePossibilities(container, cont_possibles, 2)).length==2
-        puts "Examine the cells R#{@tab_cell[0].row+1}C#{@tab_cell[0].col+1} and R#{@tab_cell[1].row+1}C#{@tab_cell[1].col+1}"
-        puts "They're the only cells in this #{from} to have those possibilities : #{@tab_cell[0].possibles}"
-        puts "So every other cells in this #{from} can't have those possibilities"
-  end    
 
 end

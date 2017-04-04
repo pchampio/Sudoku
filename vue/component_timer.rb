@@ -18,16 +18,18 @@ class Timer
 		new(label)
 	end
 	def initialize(label)
+
     @pause = false
 		@labelTime = label
 		@elapse = 0
 		@time= Thread.new do
 			while true do
+        @labelTime.set_markup("<b> #{getTimeFromSec} </b>")
         sleep(1)
 				@elapse += 1
         Thread.stop if @pause
 				getTimeFromSec(@elapse)
-				@labelTime.set_markup("<b>#{getTimeFromSec}</b>")
+        @labelTime.set_markup("<b> #{getTimeFromSec}</b>")
 			end
 			@time.join
 			@pause.join
