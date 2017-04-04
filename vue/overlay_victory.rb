@@ -3,7 +3,6 @@ require_relative "saveUser.rb"
 
 class OverlayVictory < Gtk::Frame
 
-<<<<<<< HEAD
 	def initialize(nbStars,nbSec,difficulte)
 		super()
 		if(nbStars>2||nbStars<0)
