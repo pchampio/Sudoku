@@ -14,10 +14,6 @@ class Game < Gtk::Overlay
     boardComponent = BoardComponent.create board
     inGameMedu = InGameMenu.create(boardComponent)
 
-    self.signal_connect("destroy") do
-      boardComponent.board.serialized("board_save.yml")
-    end
-
     # create headerbar
     header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent)
     window.titlebar = header

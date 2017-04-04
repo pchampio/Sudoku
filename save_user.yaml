@@ -4,4 +4,4 @@ selectColor: "#72729f9fcfcf"
 chiffreColor: "#2e2d34333635"
 surligneColor: "#cccc00000000"
 erreurAutoriser: true
-surlignageSurvol: true
+surlignageSurvol: false
