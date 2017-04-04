@@ -22,12 +22,14 @@ class OverlayVictory < Gtk::Frame
 		SaveUser.addEtoile(nbStars)
 
 
-		txtTime = Gtk::Label.new "Bravo "+SaveUser.getUsername+" !\n\n Vous avez réalisé cette grille en : "+nbSec.to_i.to_s+"s ! \n", :use_underline => true
+		txtTime = Gtk::Label.new "<span weight='ultrabold' font='16'>Bravo "+SaveUser.getUsername+" !</span>\n\n Vous avez réalisé cette grille en : "+nbSec.to_i.to_s+"s ! \n", :use_underline => true
+   		txtTime.use_markup = true
+
 	    boxStars = Gtk::Box.new(:horizontal,3)
 	    if(nbStars>0)
-	    	boxStars.add(Gtk::Image.new(:file => "./ressources/starfull1.png"))
+	    	boxStars.pack_start(Gtk::Image.new(:file => "./ressources/starfull1.png"),:expand=>false, :fill=>false, :padding=>15)
 		else
-			boxStars.add(Gtk::Image.new(:file => "./ressources/starempty1.png"))
+			boxStars.pack_start(Gtk::Image.new(:file => "./ressources/starempty1.png"),:expand=>false, :fill=>false, :padding=>15)
 		end
 		if(nbStars>1)
 	    	boxStars.add(Gtk::Image.new(:file => "./ressources/starfull1.png"))
@@ -35,9 +37,9 @@ class OverlayVictory < Gtk::Frame
 			boxStars.add(Gtk::Image.new(:file => "./ressources/starempty1.png"))
 		end
 		if(nbStars>2)
-	    	boxStars.add(Gtk::Image.new(:file => "./ressources/starfull1.png"))
+	    	boxStars.pack_end(Gtk::Image.new(:file => "./ressources/starfull1.png"),:expand=>false, :fill=>false, :padding=>15)
 		else
-			boxStars.add(Gtk::Image.new(:file => "./ressources/starempty1.png"))		
+			boxStars.pack_end(Gtk::Image.new(:file => "./ressources/starempty1.png"),:expand=>false, :fill=>false, :padding=>15)
 		end
 	    txtStars = Gtk::Label.new "Vous avez obtenu "+nbStars.to_i.to_s+" étoile#{'s' if nbStars>0} !\n", :use_underline => true
 	    boxVictoire = Gtk::Box.new(:vertical,4)
@@ -49,13 +51,11 @@ class OverlayVictory < Gtk::Frame
 	    
 	    
 
-	    boxVictoire.add txtTime
-	    boxVictoire.add boxStars
-	    boxVictoire.add txtStars
-	    boxVictoire.add buttEnd
-
-
-
+	    boxVictoire.pack_start(txtTime, :expand=>false, :fill=>false, :padding=>15)
+	    boxVictoire.pack_start(boxStars, :expand=>false, :fill=>false, :padding=>2)
+	    boxVictoire.pack_start(txtStars, :expand=>false, :fill=>false, :padding=>2)
+	    #boxVictoire.pack_start(buttEnd, :expand=>false, :fill=>false, :padding=>2)
+	    boxVictoire.pack_end(buttEnd, :expand=>false, :fill=>false, :padding=>15)
 	    self.add(boxVictoire)
 
 		
