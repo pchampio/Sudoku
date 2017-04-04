@@ -5,7 +5,6 @@ class NewGame < Gtk::Frame
   attr_reader :board
   def initialize()
     @board = nil
-    @board.bUseSolution(false)
     super()
     vBox = Gtk::Box.new(:vertical,10)
     hBox = Gtk::Box.new(:horizontal,10)

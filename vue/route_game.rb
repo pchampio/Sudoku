@@ -21,7 +21,6 @@ class Game < Gtk::Overlay
     # create headerbar
     header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent)
     window.titlebar = header
-window
     hBox.add(boardComponent)
     hBox.add(inGameMedu)
 
@@ -30,10 +29,10 @@ window
     @cursorWait = Gdk::Cursor.new("wait")
     @cursorDefault = Gdk::Cursor.new("default")
 
-
     init_overlay
-    addToOverlay OverlayVictory.new 2,3,:easy
-    showOverlay
+
+    # addToOverlay OverlayVictory.new 2,3,:easy
+    # showOverlay
 
     self.add(hBox)
     # -GtkSwitch-slider-width: 45px;
@@ -43,10 +42,6 @@ window
             border: none;
             border-radius: 14px;
             color: transparent;
-          }
-          #textView {
-            font:Times New Roman, 220;
-            background:transparent;
           }
     EOT
     apply_style(self, css)

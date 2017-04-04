@@ -87,7 +87,7 @@ class InGameMenu < Gtk::Frame
     #buttonCrayon.join_group(buttonPen)
     #buttonCrayon.signal_connect('clicked'){@@mode_ecriture = :candidates}
 
-    buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les candidates !", :use_underline => true)
+    buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les candidats !", :use_underline => true)
     buttonFullPossibilities.margin = 5
     buttonFullPossibilities.signal_connect('clicked'){
       @boardComp.board.hasUseSolution

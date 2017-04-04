@@ -52,7 +52,7 @@ class Option < Gtk::Frame
     cchiffHbox.pack_start(cpicker, :expand=>false, :fill=>true, :padding=>15)
 
     cSurlignHbox = Gtk::Box.new(:horizontal, 3)
-    label_surligne_color = Gtk::Label.new "Couleur de surlignage:", :use_underline => true, :xalign=>0
+    label_surligne_color = Gtk::Label.new "Couleur de surlignage :", :use_underline => true, :xalign=>0
     surlignepicker.signal_connect("color-set"){
       GlobalOpts.setSurligneColor(surlignepicker.color)
     }
@@ -75,7 +75,7 @@ class Option < Gtk::Frame
 
     #faire hbox pour avoir switch avec champs texte comme dans component in game menu
     erreurAutoriserHBox = Gtk::Box.new(:horizontal,15)
-    labelErreurAutoriser = Gtk::Label.new("Permettre l'autorisation des erreurs", :xalign=>0)
+    labelErreurAutoriser = Gtk::Label.new("Autorisation des erreurs", :xalign=>0)
     switchErreurAutoriser = Gtk::Switch.new
     # erreurAutoriserHBox.set_homogeneous("r")
 
@@ -91,7 +91,7 @@ class Option < Gtk::Frame
     erreurAutoriserHBox.pack_start(switchErreurAutoriser, :expand=>false, :fill=>true, :padding=>15)
 
     surlignageSurvolHbox = Gtk::Box.new(:horizontal,15)
-    labelSurlignageSurvol = Gtk::Label.new("Avoir un surlignage des lignes et des colonnes", :xalign=>0)
+    labelSurlignageSurvol = Gtk::Label.new("Surlignage des lignes et des colonnes", :xalign=>0)
     switchSurlignageSurvol = Gtk::Switch.new
     # surlignageSurvolHbox.set_homogeneous("r")
 
