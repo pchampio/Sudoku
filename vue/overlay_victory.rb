@@ -19,8 +19,9 @@ class OverlayVictory < Gtk::Frame
 		elsif(difficulte==:diabolik&&nbSec<40)
 			nbStars+=1
 		end 
-		SaveUser.addEtoile(nbStars)
 
+		SaveUser.addEtoile(nbStars)
+		SaveUser.setTime(SaveUser.getTime()+nbSec)
 
 		txtTime = Gtk::Label.new "<span weight='ultrabold' font='16'>Bravo "+SaveUser.getUsername+" !</span>\n\n Vous avez réalisé cette grille en : "+nbSec.to_i.to_s+"s ! \n", :use_underline => true
    		txtTime.use_markup = true
@@ -54,7 +55,6 @@ class OverlayVictory < Gtk::Frame
 	    boxVictoire.pack_start(txtTime, :expand=>false, :fill=>false, :padding=>15)
 	    boxVictoire.pack_start(boxStars, :expand=>false, :fill=>false, :padding=>2)
 	    boxVictoire.pack_start(txtStars, :expand=>false, :fill=>false, :padding=>2)
-	    #boxVictoire.pack_start(buttEnd, :expand=>false, :fill=>false, :padding=>2)
 	    boxVictoire.pack_end(buttEnd, :expand=>false, :fill=>false, :padding=>0)
 	    self.add(boxVictoire)
 
