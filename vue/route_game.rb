@@ -14,10 +14,14 @@ class Game < Gtk::Overlay
     boardComponent = BoardComponent.create board
     inGameMedu = InGameMenu.create(boardComponent)
 
+    self.signal_connect("destroy") do
+      boardComponent.board.serialized("board_save.yml")
+    end
+
     # create headerbar
     header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent)
     window.titlebar = header
-
+window
     hBox.add(boardComponent)
     hBox.add(inGameMedu)
 
@@ -28,6 +32,8 @@ class Game < Gtk::Overlay
 
 
     init_overlay
+    addToOverlay OverlayVictory.new 2,3,:easy
+    showOverlay
 
     self.add(hBox)
     # -GtkSwitch-slider-width: 45px;

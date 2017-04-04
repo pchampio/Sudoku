@@ -90,6 +90,7 @@ class InGameMenu < Gtk::Frame
     buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les candidates !", :use_underline => true)
     buttonFullPossibilities.margin = 5
     buttonFullPossibilities.signal_connect('clicked'){
+      @boardComp.board.hasUseSolution
       @boardComp.showPossibles
     }
 
@@ -108,6 +109,7 @@ class InGameMenu < Gtk::Frame
     buttTechnic.margin = 5
     buttTechnic.signal_connect('clicked'){
       set_text_view cb.active_text
+      @boardComp.board.hasUseSolution
     }
     boxTechnic.add(buttTechnic)
 

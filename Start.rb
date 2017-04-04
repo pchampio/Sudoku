@@ -13,15 +13,16 @@ window.set_resizable false
 window.set_window_position Gtk::WindowPosition::CENTER
 
 window.signal_connect 'destroy'  do
-  Gtk.main_quit
+	SaveUser.serialized
+	Gtk.main_quit
 end
 
 GlobalOpts.load
 
-a=Generator.new
-a.generate(:easy)
+@a=Generator.new
+@a.generate(:easy)
 
-window.add Game.new(window,a.board)
+window.add Game.new(window,@a.board)
 window.show_all
 
 Gtk.main
