@@ -65,19 +65,8 @@ class BoardComponent < Gtk::Frame
             @cellsView << cell
 
             cell.signal_connect("clicked") do
-              css=<<-EOF
-              .cell#{cell.cell.row.to_s + cell.cell.col.to_s}{
-                #{apply_css_convert_color("color", GlobalOpts.getChiffreColor)}
-              }
-              .cell{
-                #{apply_css_convert_color("background-color", GlobalOpts.getBackgroundColor)}
-              }
-              .cell#{cell.cell.row.to_s + cell.cell.col.to_s}{
-                #{apply_css_convert_color("background-color", GlobalOpts.getSelectColor)}
-              }
-              EOF
+              apply_css_color_button(cell, "background", GlobalOpts.getSelectColor)
               highlightCurrentNum cell
-              apply_style(self, css)
             end
 
             cell.signal_connect("enter") do
@@ -142,27 +131,22 @@ class BoardComponent < Gtk::Frame
   end
 
   def highlightCurrentNum(cellComp)
-    css=<<-EOT
-    .cell{
-      #{apply_css_convert_color("color", GlobalOpts.getChiffreColor)}
-    }
-    EOT
-    apply_style(self, css)
     @cellsView.each do |cell|
       if  !cellComp.cell.vide? and cellComp.cell.value == cell.cell.value
-        apply_css_color_button(cell, "color", GlobalOpts.getSelectColor)
+        if cell!=cellComp
+          apply_css_color_button(cell, "color", GlobalOpts.getSelectColor)
+        end
+      else
+        apply_css_color_button(cell, "color", GlobalOpts.getChiffreColor)
       end
     end
   end
 
   def hideall
-    css=<<-EOT
-    .cell{
-      #{apply_css_convert_color("color", GlobalOpts.getBackgroundColor)}
-      #{apply_css_convert_color("background", GlobalOpts.getBackgroundColor)}
-    }
-    EOT
-    apply_style(self, css)
+    @cellsView.each do |cell|
+        apply_css_color_button(cell, "color", GlobalOpts.getBackgroundColor)
+        apply_css_color_button(cell, "background", GlobalOpts.getBackgroundColor)
+    end
   end
 
   def showPossibles
