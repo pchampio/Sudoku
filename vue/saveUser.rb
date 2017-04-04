@@ -14,6 +14,8 @@ require 'gtk3'
 class SaveUser
 	attr_reader :username, :time, :nbEtoile
 	@@username = "Robert"
+	@@nbEtoile = 0
+	@@time = 0
 	def initialize()
 		@username         = @@username
 		@time             = @@time

@@ -32,7 +32,7 @@ window
 
 
     init_overlay
-    addToOverlay OverlayVictory.new 2,3,:easy
+    addToOverlay OverlayVictory.new 1,3,:easy
     showOverlay
 
     self.add(hBox)
