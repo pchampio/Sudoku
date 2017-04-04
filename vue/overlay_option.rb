@@ -82,6 +82,7 @@ class Option < Gtk::Frame
     switchErreurAutoriser.state = GlobalOpts.getErreurAutoriser
 
     switchErreurAutoriser.signal_connect('state-set') do
+      #hasMakeError
       erreurAutoriser = switchErreurAutoriser.active?
       GlobalOpts.setErreurAutoriser(erreurAutoriser)
       switchErreurAutoriser.state = erreurAutoriser
