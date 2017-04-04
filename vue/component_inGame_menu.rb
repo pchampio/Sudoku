@@ -113,17 +113,14 @@ class InGameMenu < Gtk::Frame
     }
     boxTechnic.add(buttTechnic)
 
-
-    @text = Gtk::TextBuffer.new
-    @text.create_tag("warning", "underline" => Pango::UNDERLINE_SINGLE)
-    @text.create_tag("error", "underline" => Pango::UNDERLINE_ERROR)
-
-    @text.set_text "Bienvenue sur notre aide à la\nrésolution d'un sukodu.\nPour toute réclamation,\nveuillez vous plaindre auprès \nd'Ewen. Merci de votre achat."
-    textView = Gtk::TextView.new(@text)
+    textView = Gtk::TextView.new()
+    textView.set_wrap_mode(:word_char)
+    @text = textView.buffer
+    @text.set_text "Bienvenue sur notre aide à la résolution d'un sukodu.\nPour toute réclamation, veuillez vous plaindre auprès d'Ewen. Merci de votre achat."
     textView.set_editable false
     textView.cursor_visible = false
     textView.left_margin = 10
-    textView.right_margin = 10
+    textView.right_margin = 20
     textView.set_size_request(-1, 150)
 
     @pan.add(boxTechnic)
