@@ -14,12 +14,16 @@ class Game < Gtk::Overlay
     boardComponent = BoardComponent.create board
     inGameMedu = InGameMenu.create(boardComponent)
 
+    self.signal_connect("destroy") do
+      boardComponent.board.serialized("board_save.yml")
+    end
+
     # create headerbar
     header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent)
     window.titlebar = header
-
+window
     hBox.add(boardComponent)
-    # hBox.add(inGameMedu)
+    hBox.add(inGameMedu)
 
     @backgroundColor = window.style_context.get_background_color "NORMAL"
     @backgroundColor_blur  = Gdk::RGBA.new(@backgroundColor.red, @backgroundColor.green, @backgroundColor.blue, 0.75)

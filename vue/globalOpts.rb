@@ -14,8 +14,7 @@ require 'gtk3'
 class GlobalOpts
 
   attr_reader :selectColor, :backgroundColor, :chiffreColor,
-    :surligneColor,         :erreurAutoriser, :surlignageSurvol,
-    :username
+    :surligneColor,         :erreurAutoriser, :surlignageSurvol
 
 
   def initialize()
@@ -23,7 +22,6 @@ class GlobalOpts
     @selectColor      = @@selectColor.to_s
     @chiffreColor     = @@chiffreColor.to_s
     @surligneColor    = @@surligneColor.to_s
-    @username         = @@username
     @erreurAutoriser  = @@erreurAutoriser
     @surlignageSurvol = @@surlignageSurvol
   end
@@ -60,14 +58,6 @@ class GlobalOpts
     @@surligneColor = surligneColor
   end
 
-  def self.setUsername(username)
-    @@username = username
-  end
-
-  def self.getUsername()
-    return @@username
-  end
-
   def self.setErreurAutoriser(boolean)
     @@erreurAutoriser = boolean
   end
@@ -97,9 +87,7 @@ class GlobalOpts
     self.setSelectColor(Gdk::Color.parse(obj.selectColor))
     self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))
     self.setSurligneColor(Gdk::Color.parse(obj.surligneColor))
-    self.setUsername(obj.username)
     self.setErreurAutoriser(obj.erreurAutoriser)
     self.setSurlignageSurvol(obj.surlignageSurvol)
   end
-
 end

@@ -21,7 +21,7 @@ require 'yaml'
 # - +cells+	  -> (*PRIVATE*) Tableau des valeurs des Cell
 #
 class Board
-
+  attr_reader :bUseSolution, :bMakeError
   def initialize(numbers)#:nodoc:
     # Hash
     @rows = {}
@@ -29,6 +29,10 @@ class Board
     @boxes = {}
     # Tableau
     @cells = []
+    @time = 0
+    @bUseSolution = false
+    @bMakeError = false
+
 
     # parcourir les cases du Sudoku
     9.times do |row|
@@ -432,5 +436,13 @@ class Board
       print "end redo list\n"
       self
     end
+  end
+
+  def hasUseSolution
+    @bUseSolution = true
+  end
+
+  def hasMakeError
+    @bMakeError = true
   end
 end
