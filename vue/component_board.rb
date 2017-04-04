@@ -73,16 +73,16 @@ class BoardComponent < Gtk::Frame
               if GlobalOpts.getSurlignageSurvol
                 css=<<-EOT
                 .cell{
-                  #{apply_css_convert_color("background-color", GlobalOpts.getBackgroundColor)}
+                  #{apply_css_convert_color("background", GlobalOpts.getBackgroundColor)}
                 }
                 .row#{cell.cell.row} {
-                  #{apply_css_convert_color("background-color", GlobalOpts.getSurligneColor)}
+                  #{apply_css_convert_color("background", GlobalOpts.getSurligneColor)}
                 }
                 .col#{cell.cell.col} {
-                  #{apply_css_convert_color("background-color", GlobalOpts.getSurligneColor)}
+                  #{apply_css_convert_color("background", GlobalOpts.getSurligneColor)}
                 }
                 .cell#{cell.cell.row.to_s + cell.cell.col.to_s}{
-                  #{apply_css_convert_color("background-color", GlobalOpts.getBackgroundColor)}
+                  #{apply_css_convert_color("background", GlobalOpts.getBackgroundColor)}
                 }
                 EOT
                 apply_style(self, css)
@@ -99,7 +99,7 @@ class BoardComponent < Gtk::Frame
   def updateBoardColor
     css=<<-EOT
     .cell{
-      #{apply_css_convert_color("background-color", GlobalOpts.getBackgroundColor)}
+      #{apply_css_convert_color("background", GlobalOpts.getBackgroundColor)}
       #{apply_css_convert_color("color", GlobalOpts.getChiffreColor)}
     }
     EOT
@@ -107,6 +107,7 @@ class BoardComponent < Gtk::Frame
   end
 
   def updateBoard(board)
+    updateBoardColor
     @board = board
     @board.snapshot
     @boardBoxView.children.each do |tab|
