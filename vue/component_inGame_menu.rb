@@ -37,28 +37,28 @@ class InGameMenu < Gtk::Frame
 
 
   def init_ui
-    @pan=Gtk::Box.new(:vertical,6)
+    pan=Gtk::Box.new(:vertical,6)
 
     auto_maj_candidates_hbox = Gtk::Box.new(:horizontal,5)
     auto_maj_candidates_lab = Gtk::Label.new("Candidates auto-généré")
     auto_maj_candidates_lab.margin = 5
     auto_maj_candidates_sw = Gtk::Switch.new
 
-    auto_maj_candidates_hbox.add(auto_maj_candidates_lab)
-    auto_maj_candidates_hbox.add(auto_maj_candidates_sw)
+    auto_maj_candidates_hbox.pack_start(auto_maj_candidates_lab , :expand=>true, :fill=>true, :padding=>15)
+    auto_maj_candidates_hbox.pack_start(auto_maj_candidates_sw, :expand=>true, :fill=>true, :padding=>15)
 
     wayWrite_hbox = Gtk::Box.new(:horizontal,5)
-    labelPen = Gtk::Label.new("Stylo       ")
+    labelPen = Gtk::Label.new("Stylo")
     labelPen.margin = 5
     switchWrite = Gtk::Switch.new
     switchWrite.name = "switchWrite"
     switchWrite.margin = 10
 
-    labelCrayon = Gtk::Label.new("       Crayon")
+    labelCrayon = Gtk::Label.new("Crayon")
 
-    wayWrite_hbox.add(labelPen)
-    wayWrite_hbox.add(switchWrite)
-    wayWrite_hbox.add(labelCrayon)
+    wayWrite_hbox.pack_start(labelPen , :expand=>true, :fill=>true, :padding=>15)
+    wayWrite_hbox.pack_start(switchWrite , :expand=>true, :fill=>true, :padding=>15)
+    wayWrite_hbox.pack_start(labelCrayon , :expand=>true, :fill=>true, :padding=>15)
 
     auto_maj_candidates_sw.signal_connect('state-set') do
       @@auto_maj_candidates = auto_maj_candidates_sw.active?
@@ -126,16 +126,15 @@ class InGameMenu < Gtk::Frame
     textView.right_margin = 10
     textView.set_size_request(-1, 150)
 
-    @pan.add(boxTechnic)
-   # @pan.add(buttonPen)
-   # @pan.add(buttonCrayon)
 
-    @pan.add(buttonFullPossibilities)
-    @pan.add(auto_maj_candidates_hbox)
-    @pan.add(wayWrite_hbox)
-    @pan.add(Gtk::Label.new(""))
-    @pan.add(textView)
-    self.add(@pan)
+    pan.add(buttonFullPossibilities)
+    pan.add(auto_maj_candidates_hbox)
+    pan.add(wayWrite_hbox)
+    pan.add(Gtk::Label.new(""))
+    pan.add(boxTechnic)
+    pan.add(textView)
+    # pan.pack_start(textView , :expand=>true, :fill=>true, :padding=>15) # take all available space
+    self.add(pan)
   end
 
   def set_text_view(string)

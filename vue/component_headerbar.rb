@@ -14,8 +14,9 @@ require_relative './component_timer.rb'
 
 class HeadBar < Gtk::HeaderBar
 
-    private_class_method :new
+    attr_reader :time
 
+    private_class_method :new
     def self.create(overlay, title, subtitle, compboard)
         new(overlay, title, subtitle, compboard)
     end
@@ -23,13 +24,16 @@ class HeadBar < Gtk::HeaderBar
     def initialize(overlay, title, subtitle, compboard)
         super()
 
+        @overlay = overlay
+        @compboard = compboard
+
         title, subtitle = title, subtitle
         self.show_close_button = true
         self.title = title
         self.subtitle = subtitle
         self.signal_connect("destroy") do
             compboard.board.setTime(time.elapse)
-            #time.elapse #recupe le elapse 
+            #time.elapse #recupe le elapse
             compboard.board.serialized("board_save.yml")
         end
         #########
@@ -39,6 +43,7 @@ class HeadBar < Gtk::HeaderBar
 
         labelTime = Gtk::Label.new
         time = Timer.create labelTime
+        @time = time
 
         buttonSettings = Gtk::Button.new
         iconSettings = Gio::ThemedIcon.new("emblem-system-symbolic")
@@ -66,25 +71,7 @@ class HeadBar < Gtk::HeaderBar
         imageNewGame = Gtk::Image.new(:icon => iconNewGame, :size => :button)
         btnNewGame.add(imageNewGame)
         btnNewGame.signal_connect "clicked" do
-          unless overlay.isOverlayVisible?
-            time.toggle
-
-            newgame = NewGame.new
-            overlay.cleanOverlay
-            overlay.addToOverlay newgame
-            overlay.showOverlay
-
-            newgame.signal_retour do
-              if newgame.board
-                compboard.updateBoard newgame.board
-                time.raz
-              end
-              time.toggle
-              overlay.cleanOverlay
-              overlay.hideOverlay
-              overlay.raz_cursor
-            end
-          end
+          self.new_game
         end
         self.pack_end(btnNewGame)
 
@@ -154,5 +141,27 @@ class HeadBar < Gtk::HeaderBar
         buttonTime.add(boxTime)
         self.pack_start(buttonTime)
 
+    end
+
+    def new_game
+          unless @overlay.isOverlayVisible?
+            @time.toggle
+
+            newgame = NewGame.new
+            @overlay.cleanOverlay
+            @overlay.addToOverlay newgame
+            @overlay.showOverlay
+
+            newgame.signal_retour do
+              if newgame.board
+                @compboard.updateBoard newgame.board
+                @time.raz
+              end
+              @time.toggle
+              @overlay.cleanOverlay
+              @overlay.hideOverlay
+              @overlay.raz_cursor
+            end
+          end
     end
 end

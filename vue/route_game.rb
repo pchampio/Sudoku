@@ -14,16 +14,9 @@ class Game < Gtk::Overlay
     @boardComponent = BoardComponent.create board, self
     inGameMedu = InGameMenu.create(@boardComponent)
 
-<<<<<<< HEAD
-    self.signal_connect("destroy") do
-      @boardComponent.board.serialized("board_save.yml")
-    end
-
-=======
->>>>>>> 261dfa643bc387889b704cae36e5e7c709ab1a84
     # create headerbar
-    header = HeadBar.create(self, "Sudoku","Groupe C",@boardComponent)
-    window.titlebar = header
+    @header = HeadBar.create(self, "Sudoku","Groupe C",@boardComponent)
+    window.titlebar = @header
     hBox.add(@boardComponent)
     hBox.add(inGameMedu)
 
@@ -33,29 +26,25 @@ class Game < Gtk::Overlay
     @cursorDefault = Gdk::Cursor.new("default")
 
     init_overlay
-<<<<<<< HEAD
-=======
-    # addToOverlay OverlayVictory.new 2,314,:easy
-    # showOverlay
->>>>>>> 261dfa643bc387889b704cae36e5e7c709ab1a84
 
     self.add(hBox)
-    # -GtkSwitch-slider-width: 45px;
-    css=<<-EOT
-          #switchWrite {
-            transition: all 200ms ease-in;
-            border: none;
-            border-radius: 14px;
-            color: transparent;
-          }
-    EOT
-    apply_style(self, css)
   end
 
   def end_game
     cleanOverlay
-    addToOverlay OverlayVictory.new 2,3,@boardComponent.board.difficulty
+    @header.time.toggle
+    victory_ovly = OverlayVictory.new(
+      2, @header.time.elapse, @boardComponent.board.difficulty
+    )
+    addToOverlay victory_ovly
     showOverlay
+
+    victory_ovly.signal_retour do
+      @header.time.toggle
+      cleanOverlay
+      hideOverlay
+      @header.new_game
+    end
   end
 
   def init_overlay
