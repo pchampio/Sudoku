@@ -27,10 +27,15 @@ class HeadBar < Gtk::HeaderBar
         self.show_close_button = true
         self.title = title
         self.subtitle = subtitle
-
+        self.signal_connect("destroy") do
+            compboard.board.setTime(time.elapse)
+            #time.elapse #recupe le elapse 
+            compboard.board.serialized("board_save.yml")
+        end
         #########
         #  END  #
         #########
+
 
         labelTime = Gtk::Label.new
         time = Timer.create labelTime
