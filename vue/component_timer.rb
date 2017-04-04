@@ -12,7 +12,7 @@
 require 'thread'
 
 class Timer
-
+	attr_reader :elapse
 	private_class_method :new
 	def self.create(label)
 		new(label)
