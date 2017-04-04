@@ -158,12 +158,12 @@ class Suggest
         @tab_cell = []
         if (cell.possibles.length == nb)
           @tab_cell<<cell
-      for i in range @tab_cell.length
-        for j in range @tab_cell.length
+      @tab_cell.each do |_cell,i|
+        @tab_cell.each do |_cell,j|
           if(i != j && @tab_cell[i].possibles == @tab_cell[j].posibles)
             @tab << @tab_cell[i]
             @tab << @tab_cell[j]          
-      @tab_cell
+      return @tab
   end
     
 
@@ -171,6 +171,7 @@ class Suggest
     if (@tab_cell = getSamePossibilities(container, cont_possibles, 2)).length==2
         puts "Examine the cells R#{@tab_cell[0].row+1}C#{@tab_cell[0].col+1} and R#{@tab_cell[1].row+1}C#{@tab_cell[1].col+1}"
         puts "They're the only cells in this #{from} to have those possibilities : #{@tab_cell[0].possibles}"
+        puts "So every other cells in this #{from} can't have those possibilities"
   end    
 
 end
