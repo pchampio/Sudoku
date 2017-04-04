@@ -117,6 +117,7 @@ class CellComponent < Gtk::Button
     self.signal_connect("button_press_event") {
       |_widget, event, _y|
       button_press( event)
+      apply_css_color_button(self, "color", GlobalOpts.getChiffreColor)
       @popover.show
       @popoverWind.update
       self.clicked #send clicked to parent

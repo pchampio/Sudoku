@@ -57,7 +57,7 @@ class HeadBar < Gtk::HeaderBar
         self.pack_end(buttonSettings)
 
         btnNewGame = Gtk::Button.new
-        iconNewGame = Gio::ThemedIcon.new("appointment-new-symbolic")
+        iconNewGame = Gio::ThemedIcon.new("document-new-symbolic")
         imageNewGame = Gtk::Image.new(:icon => iconNewGame, :size => :button)
         btnNewGame.add(imageNewGame)
         btnNewGame.signal_connect "clicked" do
@@ -126,7 +126,7 @@ class HeadBar < Gtk::HeaderBar
         self.pack_start(btnRedo)
 
         buttonTime = Gtk::Button.new
-        iconTime = Gio::ThemedIcon.new("alarm-symbolic.symbolic")
+        iconTime = Gio::ThemedIcon.new("document-open-recent-symbolic")
         imageTime = Gtk::Image.new(:icon => iconTime, :size => :button)
         buttonTime.signal_connect("clicked") do
           time.toggle

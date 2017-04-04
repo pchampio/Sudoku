@@ -55,6 +55,9 @@ class NumPadPopover < Popover
             @celluleComponent.hidePopover
             @board_comp.highlightCurrentNum(@celluleComponent)
             @board_comp.board.snapshot
+            if @board_comp.board.complete?
+              @board_comp.end_game
+            end
           end
 
           if InGameMenu.auto_maj_candidates

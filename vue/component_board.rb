@@ -19,13 +19,14 @@ class BoardComponent < Gtk::Frame
   attr_reader :board # board de l'api ../class/board_class.rb
 
   private_class_method :new
-  def self.create(board)
-    new(board)
+  def self.create(board, main_game)
+    new(board, main_game)
   end
 
-  def initialize(board)
+  def initialize(board, main_game)
     super()
 
+    @main_game = main_game
     @boardBoxView=Gtk::Table.new(3,3,true)
 
     initBoard(board)
@@ -94,6 +95,10 @@ class BoardComponent < Gtk::Frame
 
       end
     end
+  end
+
+  def end_game
+    @main_game.end_game
   end
 
   def updateBoardColor

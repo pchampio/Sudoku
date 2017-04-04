@@ -5,206 +5,193 @@ rows:
     box: 0
     col: 0
     row: 0
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 3
+    freeze: true
   - &10 !ruby/object:Cell
     box: 0
     col: 1
     row: 0
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 7
+    freeze: true
   - &19 !ruby/object:Cell
     box: 0
     col: 2
     row: 0
     possibles: []
-    value: 7
+    value: 1
     freeze: true
   - &28 !ruby/object:Cell
     box: 1
     col: 3
     row: 0
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 2
+    freeze: true
   - &37 !ruby/object:Cell
     box: 1
     col: 4
     row: 0
     possibles: []
-    value: 5
+    value: 4
     freeze: true
   - &46 !ruby/object:Cell
     box: 1
     col: 5
     row: 0
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 9
+    freeze: true
   - &55 !ruby/object:Cell
     box: 2
     col: 6
     row: 0
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 6
+    freeze: true
   - &64 !ruby/object:Cell
     box: 2
     col: 7
     row: 0
     possibles: []
-    value: 9
+    value: 8
     freeze: true
   - &73 !ruby/object:Cell
     box: 2
     col: 8
     row: 0
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 5
+    freeze: true
   1:
   - &2 !ruby/object:Cell
     box: 0
     col: 0
     row: 1
     possibles: []
-    value: 5
+    value: 9
     freeze: true
   - &11 !ruby/object:Cell
     box: 0
     col: 1
     row: 1
     possibles:
-    - 0
-    value: 0
+    - 8
+    value: 8
     freeze: false
   - &20 !ruby/object:Cell
     box: 0
     col: 2
     row: 1
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 5
+    freeze: true
   - &29 !ruby/object:Cell
     box: 1
     col: 3
     row: 1
     possibles: []
-    value: 2
+    value: 6
     freeze: true
   - &38 !ruby/object:Cell
     box: 1
     col: 4
     row: 1
     possibles: []
-    value: 6
+    value: 1
     freeze: true
   - &47 !ruby/object:Cell
     box: 1
     col: 5
     row: 1
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 7
+    freeze: true
   - &56 !ruby/object:Cell
     box: 2
     col: 6
     row: 1
     possibles: []
-    value: 8
+    value: 3
     freeze: true
   - &65 !ruby/object:Cell
     box: 2
     col: 7
     row: 1
     possibles: []
-    value: 3
+    value: 4
     freeze: true
   - &74 !ruby/object:Cell
     box: 2
     col: 8
     row: 1
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 2
+    freeze: true
   2:
   - &3 !ruby/object:Cell
     box: 0
     col: 0
     row: 2
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 6
+    freeze: true
   - &12 !ruby/object:Cell
     box: 0
     col: 1
     row: 2
     possibles: []
-    value: 3
+    value: 4
     freeze: true
   - &21 !ruby/object:Cell
     box: 0
     col: 2
     row: 2
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 2
+    freeze: true
   - &30 !ruby/object:Cell
     box: 1
     col: 3
     row: 2
     possibles: []
-    value: 8
+    value: 5
     freeze: true
   - &39 !ruby/object:Cell
     box: 1
     col: 4
     row: 2
     possibles: []
-    value: 1
+    value: 3
     freeze: true
   - &48 !ruby/object:Cell
     box: 1
     col: 5
     row: 2
     possibles: []
-    value: 9
+    value: 8
     freeze: true
   - &57 !ruby/object:Cell
     box: 2
     col: 6
     row: 2
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 1
+    freeze: true
   - &66 !ruby/object:Cell
     box: 2
     col: 7
     row: 2
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 7
+    freeze: true
   - &75 !ruby/object:Cell
     box: 2
     col: 8
     row: 2
     possibles: []
-    value: 6
+    value: 9
     freeze: true
   3:
   - &4 !ruby/object:Cell
@@ -212,38 +199,36 @@ rows:
     col: 0
     row: 3
     possibles: []
-    value: 3
+    value: 5
     freeze: true
   - &13 !ruby/object:Cell
     box: 3
     col: 1
     row: 3
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 3
+    freeze: true
   - &22 !ruby/object:Cell
     box: 3
     col: 2
     row: 3
     possibles: []
-    value: 5
+    value: 4
     freeze: true
   - &31 !ruby/object:Cell
     box: 4
     col: 3
     row: 3
     possibles: []
-    value: 6
+    value: 8
     freeze: true
   - &40 !ruby/object:Cell
     box: 4
     col: 4
     row: 3
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 6
+    freeze: true
   - &49 !ruby/object:Cell
     box: 4
     col: 5
@@ -256,59 +241,58 @@ rows:
     col: 6
     row: 3
     possibles: []
-    value: 1
+    value: 9
     freeze: true
   - &67 !ruby/object:Cell
     box: 5
     col: 7
     row: 3
     possibles: []
-    value: 7
+    value: 1
     freeze: true
   - &76 !ruby/object:Cell
     box: 5
     col: 8
     row: 3
-    possibles: []
-    value: 9
-    freeze: true
+    possibles:
+    - 7
+    value: 7
+    freeze: false
   4:
   - &5 !ruby/object:Cell
     box: 3
     col: 0
     row: 4
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 1
+    freeze: true
   - &14 !ruby/object:Cell
     box: 3
     col: 1
     row: 4
     possibles: []
-    value: 7
+    value: 9
     freeze: true
   - &23 !ruby/object:Cell
     box: 3
     col: 2
     row: 4
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 6
+    freeze: true
   - &32 !ruby/object:Cell
     box: 4
     col: 3
     row: 4
     possibles: []
-    value: 9
+    value: 3
     freeze: true
   - &41 !ruby/object:Cell
     box: 4
     col: 4
     row: 4
     possibles: []
-    value: 8
+    value: 7
     freeze: true
   - &50 !ruby/object:Cell
     box: 4
@@ -322,22 +306,21 @@ rows:
     col: 6
     row: 4
     possibles: []
-    value: 3
+    value: 4
     freeze: true
   - &68 !ruby/object:Cell
     box: 5
     col: 7
     row: 4
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 2
+    freeze: true
   - &77 !ruby/object:Cell
     box: 5
     col: 8
     row: 4
     possibles: []
-    value: 2
+    value: 8
     freeze: true
   5:
   - &6 !ruby/object:Cell
@@ -345,135 +328,127 @@ rows:
     col: 0
     row: 5
     possibles: []
-    value: 4
+    value: 7
     freeze: true
   - &15 !ruby/object:Cell
     box: 3
     col: 1
     row: 5
     possibles: []
-    value: 9
+    value: 2
     freeze: true
   - &24 !ruby/object:Cell
     box: 3
     col: 2
     row: 5
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 8
+    freeze: true
   - &33 !ruby/object:Cell
     box: 4
     col: 3
     row: 5
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 1
+    freeze: true
   - &42 !ruby/object:Cell
     box: 4
     col: 4
     row: 5
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 9
+    freeze: true
   - &51 !ruby/object:Cell
     box: 4
     col: 5
     row: 5
     possibles: []
-    value: 1
+    value: 4
     freeze: true
   - &60 !ruby/object:Cell
     box: 5
     col: 6
     row: 5
     possibles: []
-    value: 6
+    value: 5
     freeze: true
   - &69 !ruby/object:Cell
     box: 5
     col: 7
     row: 5
     possibles: []
-    value: 8
+    value: 6
     freeze: true
   - &78 !ruby/object:Cell
     box: 5
     col: 8
     row: 5
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 3
+    freeze: true
   6:
   - &7 !ruby/object:Cell
     box: 6
     col: 0
     row: 6
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 2
+    freeze: true
   - &16 !ruby/object:Cell
     box: 6
     col: 1
     row: 6
     possibles: []
-    value: 5
+    value: 6
     freeze: true
   - &25 !ruby/object:Cell
     box: 6
     col: 2
     row: 6
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 7
+    freeze: true
   - &34 !ruby/object:Cell
     box: 7
     col: 3
     row: 6
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 9
+    freeze: true
   - &43 !ruby/object:Cell
     box: 7
     col: 4
     row: 6
     possibles: []
-    value: 9
+    value: 5
     freeze: true
   - &52 !ruby/object:Cell
     box: 7
     col: 5
     row: 6
     possibles: []
-    value: 6
+    value: 1
     freeze: true
   - &61 !ruby/object:Cell
     box: 8
     col: 6
     row: 6
     possibles: []
-    value: 4
+    value: 8
     freeze: true
   - &70 !ruby/object:Cell
     box: 8
     col: 7
     row: 6
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 3
+    freeze: true
   - &79 !ruby/object:Cell
     box: 8
     col: 8
     row: 6
     possibles: []
-    value: 8
+    value: 4
     freeze: true
   7:
   - &8 !ruby/object:Cell
@@ -481,136 +456,128 @@ rows:
     col: 0
     row: 7
     possibles: []
-    value: 9
+    value: 8
     freeze: true
   - &17 !ruby/object:Cell
     box: 6
     col: 1
     row: 7
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 1
+    freeze: true
   - &26 !ruby/object:Cell
     box: 6
     col: 2
     row: 7
     possibles: []
-    value: 1
+    value: 9
     freeze: true
   - &35 !ruby/object:Cell
     box: 7
     col: 3
     row: 7
     possibles: []
-    value: 7
+    value: 4
     freeze: true
   - &44 !ruby/object:Cell
     box: 7
     col: 4
     row: 7
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 2
+    freeze: true
   - &53 !ruby/object:Cell
     box: 7
     col: 5
     row: 7
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 3
+    freeze: true
   - &62 !ruby/object:Cell
     box: 8
     col: 6
     row: 7
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 7
+    freeze: true
   - &71 !ruby/object:Cell
     box: 8
     col: 7
     row: 7
     possibles: []
-    value: 6
+    value: 5
     freeze: true
   - &80 !ruby/object:Cell
     box: 8
     col: 8
     row: 7
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 6
+    freeze: true
   8:
   - &9 !ruby/object:Cell
     box: 6
     col: 0
     row: 8
     possibles: []
-    value: 6
+    value: 4
     freeze: true
   - &18 !ruby/object:Cell
     box: 6
     col: 1
     row: 8
     possibles: []
-    value: 2
+    value: 5
     freeze: true
   - &27 !ruby/object:Cell
     box: 6
     col: 2
     row: 8
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 3
+    freeze: true
   - &36 !ruby/object:Cell
     box: 7
     col: 3
     row: 8
     possibles: []
-    value: 5
+    value: 7
     freeze: true
   - &45 !ruby/object:Cell
     box: 7
     col: 4
     row: 8
     possibles: []
-    value: 3
+    value: 8
     freeze: true
   - &54 !ruby/object:Cell
     box: 7
     col: 5
     row: 8
     possibles: []
-    value: 4
+    value: 6
     freeze: true
   - &63 !ruby/object:Cell
     box: 8
     col: 6
     row: 8
     possibles: []
-    value: 9
+    value: 2
     freeze: true
   - &72 !ruby/object:Cell
     box: 8
     col: 7
     row: 8
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 9
+    freeze: true
   - &81 !ruby/object:Cell
     box: 8
     col: 8
     row: 8
-    possibles:
-    - 0
-    value: 0
-    freeze: false
+    possibles: []
+    value: 1
+    freeze: true
 columns:
   0:
   - *1
@@ -876,5 +843,6 @@ cells:
 - *72
 - *81
 time: 0
-bUseSolution: false
+bUseSolution: true
 bMakeError: false
+difficulty: :extreme

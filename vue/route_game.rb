@@ -11,17 +11,17 @@ class Game < Gtk::Overlay
     @window = window
 
     hBox = Gtk::Box.new(:horizontal,2)
-    boardComponent = BoardComponent.create board
-    inGameMedu = InGameMenu.create(boardComponent)
+    @boardComponent = BoardComponent.create board, self
+    inGameMedu = InGameMenu.create(@boardComponent)
 
     self.signal_connect("destroy") do
-      boardComponent.board.serialized("board_save.yml")
+      @boardComponent.board.serialized("board_save.yml")
     end
 
     # create headerbar
-    header = HeadBar.create(self, "Sudoku","Groupe C",boardComponent)
+    header = HeadBar.create(self, "Sudoku","Groupe C",@boardComponent)
     window.titlebar = header
-    hBox.add(boardComponent)
+    hBox.add(@boardComponent)
     hBox.add(inGameMedu)
 
     @backgroundColor = window.style_context.get_background_color "NORMAL"
@@ -30,8 +30,6 @@ class Game < Gtk::Overlay
     @cursorDefault = Gdk::Cursor.new("default")
 
     init_overlay
-    # addToOverlay OverlayVictory.new 2,3,:easy
-    # showOverlay
 
     self.add(hBox)
     # -GtkSwitch-slider-width: 45px;
@@ -44,6 +42,12 @@ class Game < Gtk::Overlay
           }
     EOT
     apply_style(self, css)
+  end
+
+  def end_game
+    cleanOverlay
+    addToOverlay OverlayVictory.new 2,3,@boardComponent.board.difficulty
+    showOverlay
   end
 
   def init_overlay

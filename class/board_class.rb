@@ -22,6 +22,7 @@ require 'yaml'
 #
 class Board
   attr_reader :bUseSolution, :bMakeError
+  attr_accessor :difficulty
   def initialize(numbers)#:nodoc:
     # Hash
     @rows = {}
