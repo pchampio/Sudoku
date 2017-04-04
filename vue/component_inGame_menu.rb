@@ -87,6 +87,7 @@ class InGameMenu < Gtk::Frame
 
     buttonFullPossibilities = Gtk::Button.new(:label=>"Ajouter tous les candidates !", :use_underline => true)
     buttonFullPossibilities.signal_connect('clicked'){
+      @boardComp.board.hasUseSolution
       @boardComp.showPossibles
     }
 
@@ -101,7 +102,10 @@ class InGameMenu < Gtk::Frame
     cb.append_text "Technique du serpent"
 
     buttTechnic=Gtk::Button.new(:label => "valider",:use_underline => true);
-    buttTechnic.signal_connect('clicked'){puts cb.active_text}
+    buttTechnic.signal_connect('clicked'){
+      puts cb.active_text
+      @boardComp.board.hasUseSolution
+    }
     boxTechnic.add(buttTechnic)
 
 

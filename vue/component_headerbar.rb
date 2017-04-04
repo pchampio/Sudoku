@@ -88,6 +88,7 @@ class HeadBar < Gtk::HeaderBar
         imageSave = Gtk::Image.new(:icon => iconSave, :size => :button)
         buttonSave.signal_connect("clicked") do
             compboard.board.serialized("board_save.yml")
+            SaveUser.serialized
         end
         buttonSave.add(imageSave)
         self.pack_end(buttonSave)

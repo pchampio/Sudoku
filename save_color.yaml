@@ -1,8 +1,8 @@
 --- !ruby/object:GlobalOpts
-backgroundColor: "#757550507b7b"
-selectColor: "#72729f9fcfcf"
-chiffreColor: "#f3f3f3f3f3f3"
-surligneColor: "#cccc00000000"
+backgroundColor: "#a4a400000000"
+selectColor: "#8f8f59590202"
+chiffreColor: "#000000000000"
+surligneColor: "#52bb5a7333db"
 username: test
 erreurAutoriser: true
-surlignageSurvol: false
+surlignageSurvol: true
