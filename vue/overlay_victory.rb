@@ -55,7 +55,7 @@ class OverlayVictory < Gtk::Frame
 	    boxVictoire.pack_start(boxStars, :expand=>false, :fill=>false, :padding=>2)
 	    boxVictoire.pack_start(txtStars, :expand=>false, :fill=>false, :padding=>2)
 	    #boxVictoire.pack_start(buttEnd, :expand=>false, :fill=>false, :padding=>2)
-	    boxVictoire.pack_end(buttEnd, :expand=>false, :fill=>false, :padding=>15)
+	    boxVictoire.pack_end(buttEnd, :expand=>false, :fill=>false, :padding=>0)
 	    self.add(boxVictoire)
 
 		
