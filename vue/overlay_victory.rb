@@ -1,4 +1,5 @@
 require 'gtk3'
+require_relative "saveUser.rb"
 
 class OverlayVictory < Gtk::Frame
 
@@ -8,9 +9,20 @@ class OverlayVictory < Gtk::Frame
 
 		end
 
+		#calcul des étoiles en fonction du temps
+		if(difficulte==:easy&&nbSec<10)
+			nbStars+=1
+		elsif(difficulte==:normal&&nbSec<20)
+			nbStars+=1
+		elsif (difficulte==:difficile&&nbSec<30)
+			nbStars+=1
+		elsif(difficulte==:diabolik&&nbSec<40)
+			nbStars+=1
+		end 
+		SaveUser.addEtoile(nbStars)
 
 
-		txtTime = Gtk::Label.new "Bravo "+SaveUser.getUserName+"!\n\n Vous avez réalisé cette grille en : "+nbSec.to_i.to_s+"s ! \n", :use_underline => true
+		txtTime = Gtk::Label.new "Bravo "+SaveUser.getUsername+" !\n\n Vous avez réalisé cette grille en : "+nbSec.to_i.to_s+"s ! \n", :use_underline => true
 	    boxStars = Gtk::Box.new(:horizontal,3)
 	    if(nbStars>0)
 	    	boxStars.add(Gtk::Image.new(:file => "./ressources/starfull1.png"))
@@ -27,16 +39,14 @@ class OverlayVictory < Gtk::Frame
 		else
 			boxStars.add(Gtk::Image.new(:file => "./ressources/starempty1.png"))		
 		end
-	    txtStars = Gtk::Label.new "Vous avez obtenu "+nbStars.to_i.to_s+" étoiles !\n", :use_underline => true
+	    txtStars = Gtk::Label.new "Vous avez obtenu "+nbStars.to_i.to_s+" étoile#{'s' if nbStars>0} !\n", :use_underline => true
 	    boxVictoire = Gtk::Box.new(:vertical,4)
 	    
 	    buttEnd = Gtk::Button.new(:label=>"Continuer")
 	    buttEnd.signal_connect("clicked"){
 	    	self.continue()
 	    }
-	    color= Gdk::RGBA.new(100, 42886, 46590, 65535)
-	    txtTime.override_color(:normal, color)
-	    txtStars.override_color(:normal,color)
+	    
 	    
 
 	    boxVictoire.add txtTime
@@ -44,11 +54,11 @@ class OverlayVictory < Gtk::Frame
 	    boxVictoire.add txtStars
 	    boxVictoire.add buttEnd
 
-	    #boxVictoire.pack_start(boxStars, :expand=>true, :fill=>true, :padding=>15)
-    	#boxVictoire.pack_start(txtTime, :expand=>false, :fill=>true, :padding=>15)
-    	#boxVictoire.pack_start(txtStars, :expand=>false, :fill=>true, :padding=>15)
+
 
 	    self.add(boxVictoire)
+
+		
 	end
 
 	def continue()
