@@ -30,7 +30,6 @@ class Game < Gtk::Overlay
     @cursorDefault = Gdk::Cursor.new("default")
 
     init_overlay
-
     # addToOverlay OverlayVictory.new 2,3,:easy
     # showOverlay
 
