@@ -28,6 +28,8 @@ class Game < Gtk::Overlay
 
 
     init_overlay
+    addToOverlay OverlayVictory.new 2,3,:easy
+    showOverlay
 
     self.add(hBox)
     # -GtkSwitch-slider-width: 45px;
