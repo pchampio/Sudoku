@@ -19,10 +19,10 @@ end
 
 GlobalOpts.load
 
-@a=Generator.new
-@a.generate(:easy)
+gen=Generator.new
+gen.generate(:easy)
 
-window.add Game.new(window,@a.board)
+window.add Game.new(window,gen.board)
 
 window.show_all
 Gtk.main
