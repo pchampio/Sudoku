@@ -1,8 +1,13 @@
 require 'gtk3'
 require_relative 'saveUser.rb'
+<<<<<<< HEAD
 require_relative 'component_timer.rb'
 class Accuil < Gtk::Frame
 	
+=======
+
+class Accueil < Gtk::Frame
+
 	def initialize
 		super()
 		username = Gtk::Label.new "<span weight='ultrabold' font='16'> "+SaveUser.getUsername+"</span>"
@@ -22,6 +27,7 @@ class Accuil < Gtk::Frame
 		vbox.pack_start buttonContinuer, :expand=>false, :fill=>false, :padding=>0
 		buttonContinuer.signal_connect 'clicked' do
 
+
 		end
 		vbox.halign = :CENTER
 		vbox.valign = :CENTER
@@ -35,3 +41,12 @@ class Accuil < Gtk::Frame
 end
 
 
+=======
+  def signal_retour
+    @retour.signal_connect("clicked") do
+      yield
+    end
+  end
+
+end
+>>>>>>> 568a0ac1e8f4a3be863ac45766a225ca54a93541
