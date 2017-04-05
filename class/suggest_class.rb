@@ -106,17 +106,17 @@ class Suggest
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.include?(minRepeated_number)
 
-          @text_info << "Examine the digit #{minRepeated_number}."
+          @text_info << "Essayez de remplir la grille avec le nombre #{minRepeated_number}."
           @number_highlight << nil
           @box_highlight << nil
           @show_popup << nil
 
-          @text_info << "Where in block #{cell.box+1} can you put a #{minRepeated_number}?"
+          @text_info << "Dans quelle case du bloc #{cell.box+1} pouvez-vous mettre le nombre #{minRepeated_number} ?"
           @number_highlight << minRepeated_number
           @box_highlight << cell.box
           @show_popup << nil
 
-          @text_info << "Only R#{cell.row+1}C#{cell.col+1} can be #{minRepeated_number}."
+          @text_info << "Dans le bloc #{cell.box+1}, à la ligne #{cell.row+1}, sur la colonne #{cell.col+1}, il ne peut y avoir que le nombre #{minRepeated_number}."
           @number_highlight << minRepeated_number
           @box_highlight << cell.box
           @show_popup << [cell.row, cell.col]
@@ -125,6 +125,7 @@ class Suggest
         end
       end
     end
+    @text_info << "Cette technique ne permet pas actuellement de révéler de nouvelle case..."
     return false
   end
 
