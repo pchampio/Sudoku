@@ -97,7 +97,7 @@ class Suggest
   def hiddenSingle_on_container container, cont_possibles
     container.each do |cont|
 
-      # Récupération de la Cell qui a une unique possiblé
+      # Récupération de la Cell qui a une unique possibilité
       minRepeated_number = cont_possibles[cont[0]].sort.chunk{ |e| e }.map{ |_a, e| e.first if e.length == 1}.select{|e| e != nil}.first
 
       # acces au données du hash cont[1] et pas a la clee [0]

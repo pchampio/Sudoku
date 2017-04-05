@@ -26,6 +26,19 @@ class Game < Gtk::Overlay
     @cursorDefault = Gdk::Cursor.new("default")
 
     init_overlay
+    accueil = Accueil.new
+    addToOverlay accueil
+    showOverlay
+    @header.time.raz
+    @header.time.toggle
+
+    accueil.signal_retour do
+      @header.time.raz
+      @header.time.toggle
+      cleanOverlay
+      hideOverlay
+      @header.new_game
+    end
 
     self.add(hBox)
   end
