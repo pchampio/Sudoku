@@ -94,6 +94,8 @@ class CellComponent < Gtk::Button
         @resetModeEcriture = nil
       end
       @board_comp.updateBoardColor
+      @board_comp.highlightCurrentNum self
+
       unless @cell.vide?
         self.change_style("color", GlobalOpts.getSelectColor)
       end

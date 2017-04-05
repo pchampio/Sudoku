@@ -12,6 +12,17 @@
 #:nodoc:
 require_relative './board_class.rb'
 
+# add shuffle Hash class
+class Hash
+  def shuffle
+    Hash[self.to_a.sample(self.length)]
+  end
+
+  def shuffle!
+    self.replace(self.shuffle)
+  end
+end
+
 class Suggest
 
   attr_reader :board#:nodoc:
@@ -95,28 +106,28 @@ class Suggest
 
 
   def hiddenSingle_on_container container, cont_possibles
-    container.each do |cont|
+    container.shuffle.each do |cont|
 
       # Récupération de la Cell qui a une unique possibilité
       minRepeated_number = cont_possibles[cont[0]].sort.chunk{ |e| e }.map{ |_a, e| e.first if e.length == 1}.select{|e| e != nil}.first
 
       # acces au données du hash cont[1] et pas a la clee [0]
-      cont[1].each do |cell|
+      cont[1].shuffle.each do |cell|
         # Si une Cell n'a qu'une possibilité
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.include?(minRepeated_number)
 
-          @text_info << "Essayez de remplir la \ngrille avec le \nnombre #{minRepeated_number}."
+          @text_info << "Etape 1/3\n\nEssayez de remplir la \ngrille avec le \nnombre #{minRepeated_number}."
           @number_highlight << nil
           @box_highlight << nil
           @show_popup << nil
 
-          @text_info << "Dans quelle case du bloc #{cell.box+1} \npouvez-vous mettre le \nnombre #{minRepeated_number} ?"
+          @text_info << "Etape 2/3\n\nDans quelle case du bloc #{cell.box+1} \npouvez-vous mettre le \nnombre #{minRepeated_number} ?"
           @number_highlight << minRepeated_number
           @box_highlight << cell.box
           @show_popup << nil
 
-          @text_info << "Dans le bloc #{cell.box+1}, à la ligne #{cell.row+1},\nsur la colonne #{cell.col+1}, il ne peut y\navoir que le nombre #{minRepeated_number}."
+          @text_info << "Etape 3/3\n\nDans le bloc #{cell.box+1}, à la ligne #{cell.row+1},\nsur la colonne #{cell.col+1}, il ne peut y\navoir que le nombre #{minRepeated_number}."
           @number_highlight << minRepeated_number
           @box_highlight << cell.box
           @show_popup << [cell.row, cell.col]
@@ -136,24 +147,24 @@ class Suggest
   end
 
   def nakedSingle_on_container container
-    container.each do |cont|
+    container.shuffle.each do |cont|
       # acces au données du hash cont[1] et pas a la clee [0]
-      cont[1].each do |cell|
+      cont[1].shuffle.each do |cell|
         # Si une Cell n'a qu'une possibilité
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.length == 1
 
-          @text_info << "Essayez de remplir la \ngrille avec le nombre #{cell.possibles.first}."
+          @text_info << "Etape 1/3\n\nEssayez de remplir la \ngrille avec le nombre #{cell.possibles.first}."
           @number_highlight << nil
           @box_highlight << nil
           @show_popup << nil
 
-          @text_info << "Dans quelle case du bloc #{cell.box+1} \npouvez-vous mettre le \nnombre #{cell.possibles.first} ?"
+          @text_info << "Etape 2/3\n\nDans quelle case du bloc #{cell.box+1} \npouvez-vous mettre le \nnombre #{cell.possibles.first} ?"
           @number_highlight << cell.possibles.first
           @box_highlight << cell.box
           @show_popup << nil
 
-          @text_info << "Dans le bloc #{cell.box+1}, à la ligne #{cell.row+1},\nsur la colonne #{cell.col+1}, il ne peut y avoir\nque le nombre #{cell.possibles.first}."
+          @text_info << "Etape 3/3\n\nDans le bloc #{cell.box+1}, à la ligne #{cell.row+1},\nsur la colonne #{cell.col+1}, il ne peut y avoir\nque le nombre #{cell.possibles.first}."
           @number_highlight << cell.possibles.first
           @box_highlight << cell.box
           @show_popup << [cell.row, cell.col]
@@ -162,7 +173,7 @@ class Suggest
         end
       end
     end
-    @text_info << "Cette technique ne permet pas actuellement de remplir de nouvelle case..."
+    @text_info << "Cette technique ne permet \npas actuellement de révéler de \nnouvelle case..."
     return false
   end
 
