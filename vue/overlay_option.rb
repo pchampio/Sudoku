@@ -86,6 +86,7 @@ class Option < Gtk::Frame
       SaveUser.setUsername(@entry_username.text)
       GlobalOpts.serialized
     }
+    @menuButton.style_context.add_class('suggested-action')
 
     #faire hbox pour avoir switch avec champs texte comme dans component in game menu
     erreurAutoriserHBox = Gtk::Box.new(:horizontal,15)
@@ -124,7 +125,6 @@ class Option < Gtk::Frame
     title = Gtk::Label.new("<span weight='ultrabold' font='16'>Options</span>", :xalign=>0)
     title.use_markup = true
 
-    # vBox.add @entry_username
     vBox.pack_start(title, :expand=>false, :fill=>false, :padding=>15)
     vBox.pack_start(bgHBox, :expand=>false, :fill=>false, :padding=>2)
     vBox.pack_start(scHBox, :expand=>false, :fill=>false, :padding=>2)
@@ -133,9 +133,11 @@ class Option < Gtk::Frame
     vBox.pack_start(erreurAutoriserHBox, :expand=>false, :fill=>false, :padding=>2)
     vBox.pack_start(surlignageSurvolHbox, :expand=>false, :fill=>false, :padding=>2)
     vBox.pack_start(usernameHbox, :expand=>false, :fill=>false, :padding=>0)
-    vBox.pack_start(@menuButton, :expand=>true, :fill=>true, :padding=>0)
+    vBox.pack_start(@menuButton, :expand=>false, :fill=>false, :padding=>15)
 
-    self.add vBox
+    hBox = Gtk::Box.new(:horizontal, 10)
+    hBox.pack_start(vBox, :expand=>false, :fill=>false, :padding=>15)
+    self.add hBox
   end
 
   def signal_retour

@@ -6,16 +6,18 @@ class OverlayVictory < Gtk::Frame
   def initialize(nbStars,nbSec,difficulte)
     super()
 
-    #calcul des étoiles en fonction du temps
-    if(difficulte==:easy&&nbSec<10)
+    #calcul des étoiles en fonction du tempsw
+    if(difficulte==:easy&&nbSec<60)
       nbStars+=1
-    elsif(difficulte==:normal&&nbSec<20)
+
+    elsif(difficulte==:normal&&nbSec<w)
       nbStars+=1
     elsif (difficulte==:difficile&&nbSec<30)
       nbStars+=1
     elsif(difficulte==:diabolik&&nbSec<40)
       nbStars+=1
     end
+
 
     img_starempty = File.dirname(__FILE__) + "/../ressources/starempty1.png"
     img_starfull = File.dirname(__FILE__) + "/../ressources/starfull1.png"
@@ -35,15 +37,21 @@ class OverlayVictory < Gtk::Frame
       boxStars.pack_start(Gtk::Image.new(:file => img_starempty),:expand=>false, :fill=>false, :padding=>15)
     end
     txtStars = Gtk::Label.new "Vous avez obtenu #{nbStars} étoile#{'s' if nbStars>1} !\n", :use_underline => true
-    boxVictoire = Gtk::Box.new(:vertical,4)
+    boxVictoire = Gtk::Box.new(:vertical,5)
+
+    txtToutesEtoiles = Gtk::Label.new "Pour obtenir toutes les étoiles vous devez\nréussir le sudoku sans utiliser d'aide,\nle faire sans erreur et le tout dans un\ntemps imparti. #{'Courage !' if nbStars<3}"
 
     @buttEnd = Gtk::Button.new(:label=>"Continuer")
-
+    @buttEnd.style_context.add_class('suggested-action')
     boxVictoire.pack_start(txtTime, :expand=>false, :fill=>false, :padding=>15)
     boxVictoire.pack_start(boxStars, :expand=>false, :fill=>false, :padding=>2)
     boxVictoire.pack_start(txtStars, :expand=>false, :fill=>false, :padding=>2)
-    boxVictoire.pack_end(@buttEnd, :expand=>false, :fill=>false, :padding=>0)
-    self.add(boxVictoire)
+    boxVictoire.pack_start(txtToutesEtoiles, :expand=>false, :fill=>false, :padding=>15)
+    boxVictoire.pack_end(@buttEnd, :expand=>false, :fill=>false, :padding=>15)
+
+    hBox = Gtk::Box.new(:horizontal, 10)
+    hBox.pack_start(boxVictoire, :expand=>false, :fill=>false, :padding=>15)
+    self.add hBox
 
 
   end
