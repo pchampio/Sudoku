@@ -27,7 +27,6 @@ class Timer
         sleep(1)
 				@elapse += 1
         Thread.stop if @pause
-				getTimeFromSec(@elapse)
         @labelTime.set_markup("<b> #{getTimeFromSec}</b>")
 			end
 			@time.join
@@ -42,7 +41,11 @@ class Timer
     return getTimeFromSec
 	end
 
-	def self.getTimeFromSec(time=@elapse)
+  def getTimeFromSec(time=@elapse)
+    return Timer.getTimeFromSec(time)
+  end
+
+	def self.getTimeFromSec(time)
 		@minute = format('%02d', time/60)
 		@sec = format('%02d', time%60)
 		@timeFin  = "#{@minute}:#{@sec}"
