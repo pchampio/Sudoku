@@ -60,16 +60,17 @@ class Option < Gtk::Frame
     cSurlignHbox.pack_start(label_surligne_color, :expand=>true, :fill=>true, :padding=>15)
     cSurlignHbox.pack_start(surlignepicker, :expand=>false, :fill=>true, :padding=>15)
 
-    # entry_username = Gtk::Entry.new
-    # entry_username.set_max_length(15)
-    # entry_username.set_texte('logname')
-    # GlobalOpts.setUsername('logname')
-    # entry_username.signal_connect("entry"){
-    # GlobalOpts.setUsername("test")
-    # }
+    entrybuffUsername = Gtk::EntryBuffer.new(SaveUser.getUsername)
+    @entry_username = Gtk::Entry.new entrybuffUsername
+    @entry_username.set_max_length(15)
+    labelUsername = Gtk::Label.new("Nom du joueur ", :use_underline=>true, :xalign=>0)
+    usernameHbox = Gtk::Box.new(:horizontal, 3)
+    usernameHbox.pack_start(labelUsername, :expand=>true, :padding=>15)
+    usernameHbox.pack_start(@entry_username, :expand=>false, :padding=>15)
 
     @menuButton=Gtk::Button.new(:label=>"Retour")
     @menuButton.signal_connect("clicked"){
+      SaveUser.setUsername(@entry_username.text)
       GlobalOpts.serialized
     }
 
@@ -105,10 +106,10 @@ class Option < Gtk::Frame
     surlignageSurvolHbox.pack_start(labelSurlignageSurvol, :expand=>true, :fill=>true, :padding=>15)
     surlignageSurvolHbox.pack_start(switchSurlignageSurvol, :expand=>false, :fill=>true, :padding=>15)
 
-    title = Gtk::Label.new("<span weight='ultrabold' font='16'>Option</span>", :xalign=>0)
+    title = Gtk::Label.new("<span weight='ultrabold' font='16'>Options</span>", :xalign=>0)
     title.use_markup = true
 
-    # vBox.add entry_username
+    # vBox.add @entry_username
     vBox.pack_start(title, :expand=>false, :fill=>false, :padding=>15)
     vBox.pack_start(bgHBox, :expand=>false, :fill=>false, :padding=>2)
     vBox.pack_start(scHBox, :expand=>false, :fill=>false, :padding=>2)
@@ -116,6 +117,7 @@ class Option < Gtk::Frame
     vBox.pack_start(cSurlignHbox, :expand=>false, :fill=>false, :padding=>2)
     vBox.pack_start(erreurAutoriserHBox, :expand=>false, :fill=>false, :padding=>2)
     vBox.pack_start(surlignageSurvolHbox, :expand=>false, :fill=>false, :padding=>2)
+    vBox.pack_start(usernameHbox, :expand=>false, :fill=>false, :padding=>0)
     vBox.pack_start(@menuButton, :expand=>true, :fill=>true, :padding=>0)
 
     self.add vBox

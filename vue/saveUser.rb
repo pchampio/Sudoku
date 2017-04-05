@@ -10,10 +10,12 @@
 #
 
 require 'gtk3'
+require 'etc'
+
 
 class SaveUser
 	attr_reader :username, :time, :nbEtoile
-	@@username = "Robert"
+	@@username = Etc.getlogin
 	@@nbEtoile = 0
 	@@time = 0
 	def initialize()
@@ -51,7 +53,7 @@ class SaveUser
 	end
 
 	def self.serialized
-		obj = GlobalOpts.new
+		obj = SaveUser.new
 		File.open(File.dirname(__FILE__) +"/../save_user.yaml", "w+") do |f|
 			YAML.dump(obj, f)
 		end

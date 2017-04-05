@@ -22,6 +22,7 @@ class Timer
     @pause = false
 		@labelTime = label
 		@elapse = 0
+		#récupérer le temps dans la board et après enlever puis remettre le timer? pb avec affichage timer et méthode
 		@time= Thread.new do
 			while true do
         @labelTime.set_markup("<b> #{getTimeFromSec} </b>")
