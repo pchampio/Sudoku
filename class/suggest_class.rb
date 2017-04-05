@@ -132,7 +132,8 @@ class Suggest
   def hiddenSingle
     bool = hiddenSingle_on_container @boxes, @possible_in_boxes
     bool = hiddenSingle_on_container @rows, @possible_in_rows unless bool
-    hiddenSingle_on_container @cols, @possible_in_cols unless bool
+    bool = hiddenSingle_on_container @cols, @possible_in_cols unless bool
+    @text_info << "Cette technique ne permet pas actuellement de révéler de nouvelle case..." unless bool
   end
 
   def nakedSingle_on_container container
@@ -169,7 +170,8 @@ class Suggest
   def nakedSingle
     bool = nakedSingle_on_container @boxes
     bool = nakedSingle_on_container @rows unless bool
-    nakedSingle_on_container @cols unless bool
+    bool = nakedSingle_on_container @cols unless bool
+    @text_info << "Cette technique ne permet pas actuellement de révéler de nouvelle case..." unless bool
   end
 
 end
