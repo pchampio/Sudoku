@@ -29,6 +29,13 @@ class Suggest
 
   # initialisation des conteneurs des valeurs possibles
   private def create_candidate
+
+    # info
+    @text_info = []
+    @box_highlight = []
+    @number_highlight = []
+    @show_popup = []
+
     # les possibles valeurs sur les boxes
     @boxes = {}
     @rows = {}
@@ -66,8 +73,28 @@ class Suggest
     end
   end
 
+  def aide_text
+    @text_info.shift if not @text_info.empty?
+  end
 
-  def hiddenSingle_on_container container, cont_possibles, from
+  def aide_box
+    @box_highlight.shift if not @box_highlight.empty?
+  end
+
+  def aide_nombre
+    @number_highlight.shift if not @number_highlight.empty?
+  end
+
+  def aide_popup
+    @show_popup.shift if not @show_popup.empty?
+  end
+
+	def hasNextAide
+    !@text_info.empty?
+	end
+
+
+  def hiddenSingle_on_container container, cont_possibles
     container.each do |cont|
 
       # Récupération de la Cell qui a une unique possiblé
@@ -78,77 +105,69 @@ class Suggest
         # Si une Cell n'a qu'une possibilité
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.include?(minRepeated_number)
-          puts from
-          puts "Examine the digit #{minRepeated_number}."
-          puts "Where in block #{cell.box+1} can you put a #{minRepeated_number}?"
-          puts "Only R#{cell.row+1}C#{cell.col+1} can be #{minRepeated_number}."
 
+          @text_info << "Examine the digit #{minRepeated_number}."
+          @number_highlight << nil
+          @box_highlight << nil
+          @show_popup << nil
 
-          puts "board avant"
-          print @board
-          @board.cellAt(cell.row,cell.col).value= minRepeated_number
-          puts "board apres ajout"
-          print @board
-          @board.cellAt(cell.row,cell.col).value= 0
-          puts "nombres de repetition"
-          require "pp"
-          PP.pp cont_possibles[cont[0]].sort.chunk{ |e| e }.map{ |_a, e| "#{e.length} fois le #{e.first}"}
-          puts "Valeurs possible dans la case"
-          print cell.possibles
-          puts
-          puts "\n--------------------"
-          puts "--------------------"
-          puts
+          @text_info << "Where in block #{cell.box+1} can you put a #{minRepeated_number}?"
+          @number_highlight << minRepeated_number
+          @box_highlight << cell.box
+          @show_popup << nil
 
+          @text_info << "Only R#{cell.row+1}C#{cell.col+1} can be #{minRepeated_number}."
+          @number_highlight << minRepeated_number
+          @box_highlight << cell.box
+          @show_popup << [cell.row, cell.col]
 
+          return true
         end
       end
     end
+    return false
   end
 
   def hiddenSingle
-    hiddenSingle_on_container @boxes, @possible_in_boxes,"boxe"
-    hiddenSingle_on_container @rows, @possible_in_rows,"row"
-    hiddenSingle_on_container @cols, @possible_in_cols,"col"
+    bool = hiddenSingle_on_container @boxes, @possible_in_boxes
+    bool = hiddenSingle_on_container @rows, @possible_in_rows unless bool
+    hiddenSingle_on_container @cols, @possible_in_cols unless bool
   end
 
-  def nakedSingle_on_container container, cont_possibles, from
+  def nakedSingle_on_container container
     container.each do |cont|
-
-
       # acces au données du hash cont[1] et pas a la clee [0]
       cont[1].each do |cell|
         # Si une Cell n'a qu'une possibilité
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.length == 1
-          puts from
-          puts "Examine the digit #{cell.possibles.first}."
-          puts "Where in block #{cell.box+1} can you put a #{cell.possibles.first}?"
-          puts "Only R#{cell.row+1}C#{cell.col+1} can be #{cell.possibles.first}."
 
+          @text_info << "Examine the digit #{cell.possibles.first}."
+          @number_highlight << nil
+          @box_highlight << nil
+          @show_popup << nil
 
-          puts "board avant"
-          print @board
-          @board.cellAt(cell.row,cell.col).value= cell.possibles.first
-          puts "board apres ajout"
-          print @board
-          @board.cellAt(cell.row,cell.col).value= 0
-          puts "Valeurs possible dans la case"
-          print cell.possibles
-          puts
-          puts "\n--------------------"
-          puts "--------------------"
-          puts
+          @text_info << "Where in block #{cell.box+1} can you put a #{cell.possibles.first}?"
+          @number_highlight << cell.possibles.first
+          @box_highlight << cell.box
+          @show_popup << nil
 
+          @text_info << "Only R#{cell.row+1}C#{cell.col+1} can be #{cell.possibles.first}."
+          @number_highlight << cell.possibles.first
+          @box_highlight << cell.box
+          @show_popup << [cell.row, cell.col]
 
+          return true
         end
       end
     end
+    return false
   end
+
   def nakedSingle
-    nakedSingle_on_container @boxes, @possible_in_boxes,"boxe"
-    nakedSingle_on_container @rows, @possible_in_rows,"row"
-    nakedSingle_on_container @cols, @possible_in_cols,"col"
+    bool = nakedSingle_on_container @boxes
+    bool = nakedSingle_on_container @rows unless bool
+    nakedSingle_on_container @cols unless bool
   end
 
 end

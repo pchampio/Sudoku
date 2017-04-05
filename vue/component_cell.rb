@@ -34,6 +34,7 @@ class CellComponent < Gtk::Button
     set_size_request(54, 54)
 
     init_ui(cell, board_comp)
+    @board_comp = board_comp
 
 
   end
@@ -92,10 +93,10 @@ class CellComponent < Gtk::Button
         InGameMenu.mode_ecriture = @resetModeEcriture
         @resetModeEcriture = nil
       end
+      @board_comp.updateBoardColor
       unless @cell.vide?
         self.change_style("color", GlobalOpts.getSelectColor)
       end
-        self.change_style("background", GlobalOpts.getBackgroundColor)
     end
     @popover.position = pos
     @popover.add(content)
@@ -129,8 +130,8 @@ class CellComponent < Gtk::Button
       |_widget, event, _y|
       button_press( event)
       self.change_style("color", GlobalOpts.getChiffreColor)
-      @popover.show
       @popoverWind.update
+      @popover.show
       self.clicked #send clicked to parent
     }
   end
@@ -140,6 +141,7 @@ class CellComponent < Gtk::Button
   end
 
   def showPopover
+    @popoverWind.update
     @popover.visible = true
   end
 

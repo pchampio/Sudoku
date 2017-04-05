@@ -1,7 +1,8 @@
 require 'gtk3'
 
-Dir[File.dirname(__FILE__) + '../class/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/../class/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
+
 
 
 class InGameMenu < Gtk::Frame
@@ -96,27 +97,56 @@ class InGameMenu < Gtk::Frame
 
     boxTechnic = Gtk::Box.new(:horizontal,2)
     cb = Gtk::ComboBoxText.new
-    cb.margin = 5
-    boxTechnic.add(cb)
+    # cb.margin = 5
     cb.append_text ""
-    cb.append_text "Technique de l'aigle"
-    cb.append_text "Technique du dauphin"
-    cb.append_text "Technique du tigre"
-    cb.append_text "Techique de la panthère"
-    cb.append_text "Technique du serpent"
+    cb.append_text "hiddenSingle"
+    cb.append_text "nakedSingle"
 
-    buttTechnic=Gtk::Button.new(:label => "valider",:use_underline => true);
-    buttTechnic.margin = 5
+    buttTechnic=Gtk::Button.new(:use_underline => true);
+    labelTech = Gtk::Label.new "Aide "
+    buttTechnic.add(labelTech)
+
+    cb.signal_connect "changed" do
+        labelTech.set_markup "Aide "
+        @boardComp.updateBoardColor
+    end
+    @oldActiveText = "t"
     buttTechnic.signal_connect('clicked'){
-      set_text_view cb.active_text
-      @boardComp.board.hasUseSolution
+
+      if @suggest and @suggest.hasNextAide and cb.active_text == @oldActiveText
+        set_text_view @suggest.aide_text
+        @boardComp.highlightNumber @suggest.aide_nombre
+        @boardComp.highlightBox @suggest.aide_box
+        @boardComp.showPopupAt @suggest.aide_popup
+      else
+        @suggest = Suggest.creer(@boardComp.board)
+        @boardComp.updateBoardColor
+
+        @suggest.hiddenSingle if cb.active_text == "hiddenSingle"
+        @suggest.nakedSingle if cb.active_text == "nakedSingle"
+
+        @oldActiveText = cb.active_text
+        if @suggest.hasNextAide
+          labelTech.set_markup "Suite"
+          set_text_view @suggest.aide_text
+          @boardComp.highlightNumber @suggest.aide_nombre
+          @boardComp.highlightBox @suggest.aide_box
+          @boardComp.showPopupAt @suggest.aide_popup
+          @boardComp.board.hasUseSolution
+        end
+      end
+      unless @suggest.hasNextAide
+        labelTech.set_markup "Aide "
+      end
+
     }
-    boxTechnic.add(buttTechnic)
+    boxTechnic.pack_start(cb , :expand=>true, :fill=>true, :padding=>5)
+    boxTechnic.pack_start(buttTechnic , :expand=>true, :fill=>true, :padding=>5)
 
     textView = Gtk::TextView.new()
     textView.set_wrap_mode(:word_char)
     @text = textView.buffer
-    @text.set_text "Bienvenue sur notre aide à la résolution d'un sukodu.\nPour toute réclamation, veuillez vous plaindre auprès d'Ewen. Merci de votre achat."
+    @text.set_text "Bienvenue sur notre aide à la résolution d'un sukodu"
     textView.set_editable false
     textView.cursor_visible = false
     textView.left_margin = 10
@@ -130,6 +160,7 @@ class InGameMenu < Gtk::Frame
     pan.add(Gtk::Label.new(""))
     pan.add(boxTechnic)
     pan.add(textView)
+
     # pan.pack_start(textView , :expand=>true, :fill=>true, :padding=>15) # take all available space
     self.add(pan)
   end

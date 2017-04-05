@@ -58,6 +58,7 @@ class BoardComponent < Gtk::Frame
             @cellsView << cell
 
             cell.signal_connect("clicked") do
+              cell.change_style("background", GlobalOpts.getSelectColor)
               highlightCurrentNum cell
             end
 
@@ -81,6 +82,37 @@ class BoardComponent < Gtk::Frame
       cell.change_style("background", GlobalOpts.getBackgroundColor)
       if row == cell.cell.row or col == cell.cell.col
         cell.change_style("background", GlobalOpts.getSurligneColor)
+      end
+    end
+  end
+
+  def highlightNumber number
+    return if not number
+    @cellsView.each do |cell|
+      if cell.cell.value == number
+        cell.change_style("color", GlobalOpts.getSelectColor)
+      else
+        cell.change_style("color", GlobalOpts.getChiffreColor)
+      end
+    end
+  end
+
+  def highlightBox box_num
+    return if not box_num
+    @cellsView.each do |cell|
+      if cell.cell.box == box_num
+        cell.change_style("background", GlobalOpts.getSurligneColor)
+      else
+        cell.change_style("background", GlobalOpts.getBackgroundColor)
+      end
+    end
+  end
+
+  def showPopupAt coord
+    return if not coord
+    @cellsView.each do |cell|
+      if cell.cell.row == coord[0] and cell.cell.col == coord[1]
+        cell.showPopover
       end
     end
   end
@@ -123,7 +155,6 @@ class BoardComponent < Gtk::Frame
   end
 
   def highlightCurrentNum(cellComp)
-    cellComp.change_style("background", GlobalOpts.getSelectColor)
     @cellsView.each do |cell|
       if  !cellComp.cell.vide? and cellComp.cell.value == cell.cell.value
         if cell!=cellComp
