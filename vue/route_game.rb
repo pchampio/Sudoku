@@ -7,7 +7,7 @@ class Game < Gtk::Overlay
 
   def initialize(window, board)
     super()
-
+    SaveUser.load
     @window = window
 
     hBox = Gtk::Box.new(:horizontal,2)
