@@ -21,14 +21,16 @@ class Accueil < Gtk::Frame
 		vbox.pack_start hbox1,:expand=>false, :fill=>false, :padding=>15
 
 		hbox2= Gtk::Box.new :horizontal,1
-		hbox2.pack_start Gtk::Label.new 'Vous avez joué '+Timer.getTimeAccueil(SaveUser.getTime)+".",:expand=>false, :fill=>false, :padding=>15
+		hbox2.pack_start Gtk::Label.new('Vous avez joué '+Timer.getTimeAccueil(SaveUser.getTime)+"."),:expand=>false, :fill=>false, :padding=>15
 		vbox.pack_start hbox2,:expand=>false, :fill=>false, :padding=>15
 
 		@retour = Gtk::Button.new(:label=>"continuer")
 		vbox.pack_start @retour, :expand=>false, :fill=>false, :padding=>0
 
-		#vbox.halign = :CENTER
-		#vbox.valign = :CENTER
+		hbox0.halign = :CENTER
+		hbox1.halign = :CENTER
+		hbox2.halign = :CENTER
+
 		self.add(vbox)
 	end
 
