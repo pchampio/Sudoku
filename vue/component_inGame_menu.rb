@@ -111,15 +111,22 @@ class InGameMenu < Gtk::Frame
         @boardComp.updateBoardColor
     end
     @oldActiveText = "t"
+    board_old = @boardComp.board.copie
     buttTechnic.signal_connect('clicked'){
 
-      if @suggest and @suggest.hasNextAide and cb.active_text == @oldActiveText
+      if @suggest and
+        @suggest.hasNextAide and
+        cb.active_text == @oldActiveText and
+        board_old == @boardComp.board
+      then
+
         set_text_view @suggest.aide_text
         @boardComp.highlightNumber @suggest.aide_nombre
         @boardComp.highlightBox @suggest.aide_box
         @boardComp.showPopupAt @suggest.aide_popup
       else
         @suggest = Suggest.creer(@boardComp.board)
+        board_old = @boardComp.board.copie
         @boardComp.updateBoardColor
 
         @suggest.hiddenSingle if cb.active_text == "hiddenSingle"
