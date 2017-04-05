@@ -1,12 +1,9 @@
 require 'gtk3'
 require_relative 'saveUser.rb'
-<<<<<<< HEAD
 require_relative 'component_timer.rb'
-class Accuil < Gtk::Frame
-	
-=======
 
-class Accueil < Gtk::Frame
+class Accuil < Gtk::Frame
+
 
 	def initialize
 		super()
@@ -41,7 +38,7 @@ class Accueil < Gtk::Frame
 end
 
 
-=======
+
   def signal_retour
     @retour.signal_connect("clicked") do
       yield
@@ -49,4 +46,4 @@ end
   end
 
 end
->>>>>>> 568a0ac1e8f4a3be863ac45766a225ca54a93541
+
