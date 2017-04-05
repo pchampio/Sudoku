@@ -39,7 +39,7 @@ class OverlayVictory < Gtk::Frame
     txtStars = Gtk::Label.new "Vous avez obtenu #{nbStars} étoile#{'s' if nbStars>1} !\n", :use_underline => true
     boxVictoire = Gtk::Box.new(:vertical,5)
 
-    txtToutesEtoiles = Gtk::Label.new "Pour obtenir toutes les étoiles vous devez\nréussir le sudoku sans utiliser d'aide,\nle faire sans erreur et le tout dans un\ntemps imparti. #{'Courage !' if nbStars<3}"
+    txtToutesEtoiles = Gtk::Label.new "Pour obtenir toutes les étoiles vous devez\nréussir le sudoku sans utiliser d'aide,\nle faire sans erreur et le tout dans un\ntemps imparti lié à la difficulté ! \n#{'Courage !' if nbStars<3}"
 
     @buttEnd = Gtk::Button.new(:label=>"Continuer")
     @buttEnd.style_context.add_class('suggested-action')
