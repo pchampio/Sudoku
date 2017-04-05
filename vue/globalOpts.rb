@@ -16,6 +16,13 @@ class GlobalOpts
   attr_reader :selectColor, :backgroundColor, :chiffreColor,
     :surligneColor,         :erreurAutoriser, :surlignageSurvol
 
+  @@backgroundColor="#757550507b7b"
+  @@selectColor="#72729f9fcfcf"
+  @@chiffreColor="#eeeeeeeeecec"
+  @@surligneColor="#adad7f7fa8a8"
+  @@erreurAutoriser=true
+  @@surlignageSurvol=false
+
 
   def initialize()
     @backgroundColor  = @@backgroundColor.to_s
@@ -82,7 +89,11 @@ class GlobalOpts
   end
 
   def self.load
-    obj = YAML.load_file(File.dirname(__FILE__) +"/../save_color.yaml")
+    if File.file? File.dirname(__FILE__) +"/../save_color.yaml"
+      obj = YAML.load_file(File.dirname(__FILE__) +"/../save_color.yaml")
+    else
+      obj = GlobalOpts.new
+    end
     self.setBackgroundColor(Gdk::Color.parse(obj.backgroundColor))
     self.setSelectColor(Gdk::Color.parse(obj.selectColor))
     self.setChiffreColor(Gdk::Color.parse(obj.chiffreColor))
