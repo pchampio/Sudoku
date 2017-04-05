@@ -54,8 +54,9 @@ class Timer
 
 	def self.getTimeAccueil(time)
 		@heure = format('%2d', time/3600)
-		@min = format('%2d', time%3600)
-		@timeFin  = "#{@heure} heure#{s if(@heure.to_i>0)} et #{@min} minute#{s if(@min.to_i>0)}"
+		@min = format('%2d', time/60)
+		#@timeFin  = "#{@heure} heure#{s if(@heure.to_i>0)} et #{@min} minute#{s if(@min.to_i>0)}"
+		@timeFin  = "#{@heure} heure et #{@min} minute"
 		return @timeFin
 	end
 
