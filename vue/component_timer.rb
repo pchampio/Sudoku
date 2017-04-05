@@ -12,7 +12,7 @@
 require 'thread'
 
 class Timer
-	attr_reader :elapse
+   attr_accessor :elapse
 	private_class_method :new
 	def self.create(label)
 		new(label)
@@ -22,10 +22,8 @@ class Timer
     @pause = false
 		@labelTime = label
 		@elapse = 0
-		#récupérer le temps dans la board et après enlever puis remettre le timer? pb avec affichage timer et méthode
 		@time= Thread.new do
 			while true do
-        @labelTime.set_markup("<b> #{getTimeFromSec} </b>")
         sleep(1)
 				@elapse += 1
         Thread.stop if @pause
@@ -34,6 +32,7 @@ class Timer
 			end
 			@time.join
 			@pause.join
+      @elapse.join
 		end
     return @time
 	end

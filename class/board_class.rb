@@ -21,8 +21,8 @@ require 'yaml'
 # - +cells+	  -> (*PRIVATE*) Tableau des valeurs des Cell
 #
 class Board
-  attr_accessor :difficulty
-  attr_reader :bUseSolution, :bMakeError, :time
+  attr_accessor :difficulty, :time
+  attr_reader :bUseSolution, :bMakeError
   def initialize(numbers)#:nodoc:
     # Hash
     @rows = {}
@@ -445,9 +445,5 @@ class Board
 
   def hasMakeError
     @bMakeError = true
-  end
-
-  def setTime(val)
-    @time = val
   end
 end
