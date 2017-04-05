@@ -59,7 +59,8 @@ class Generator
  "
 
   @@difficulties = {
-    :easy => [35,0],
+    # :easy => [35,0],
+    :easy => [2,0],
     :medium => [81,7],
     :hard => [81,13],
     :extreme => [81, 81]

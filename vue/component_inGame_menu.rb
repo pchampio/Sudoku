@@ -65,6 +65,7 @@ class InGameMenu < Gtk::Frame
       @@auto_maj_candidates = auto_maj_candidates_sw.active?
       if @@auto_maj_candidates
         @boardComp.showPossibles
+        @boardComp.board.hasUseSolution
       else
         @boardComp.hidePossibles
       end

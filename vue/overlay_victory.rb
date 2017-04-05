@@ -28,12 +28,11 @@ class OverlayVictory < Gtk::Frame
     txtTime.use_markup = true
 
     boxStars = Gtk::Box.new(:horizontal,3)
-    3.times do |v|
-      if(nbStars == v)
-        boxStars.pack_start(Gtk::Image.new(:file => img_starempty),:expand=>false, :fill=>false, :padding=>15)
-      else
-        boxStars.pack_start(Gtk::Image.new(:file => img_starfull),:expand=>false, :fill=>false, :padding=>15)
-      end
+    nbStars.times do
+      boxStars.pack_start(Gtk::Image.new(:file => img_starfull),:expand=>false, :fill=>false, :padding=>15)
+    end
+    (3-nbStars).times do
+      boxStars.pack_start(Gtk::Image.new(:file => img_starempty),:expand=>false, :fill=>false, :padding=>15)
     end
     txtStars = Gtk::Label.new "Vous avez obtenu #{nbStars} étoile#{'s' if nbStars>1} !\n", :use_underline => true
     boxVictoire = Gtk::Box.new(:vertical,4)

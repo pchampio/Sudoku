@@ -46,8 +46,11 @@ class Game < Gtk::Overlay
   def end_game
     cleanOverlay
     @header.time.toggle
+    nbEtoile = 0
+    nbEtoile += 1 if not @boardComponent.board.bUseSolution
+    nbEtoile += 1 if not @boardComponent.board.bMakeError
     victory_ovly = OverlayVictory.new(
-      2, @header.time.elapse, @boardComponent.board.difficulty
+      nbEtoile, @header.time.elapse, @boardComponent.board.difficulty
     )
     addToOverlay victory_ovly
     showOverlay

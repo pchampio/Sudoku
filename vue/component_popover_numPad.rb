@@ -51,6 +51,9 @@ class NumPadPopover < Popover
           if InGameMenu.mode_ecriture == :candidates
             @celluleComponent.possiblesAddDel(val)
           else
+            unless @board_comp.board.possibles(@celluleComponent.cell).include? val
+              @board_comp.board.hasMakeError
+            end
             @celluleComponent.set_value(val)
             @celluleComponent.hidePopover
             @board_comp.highlightCurrentNum(@celluleComponent)
