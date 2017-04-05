@@ -52,6 +52,13 @@ class Timer
 		return @timeFin
 	end
 
+	def self.getTimeAccueil(time)
+		@minute = format('%2d', time/60)
+		@sec = format('%2d', time%60)
+		@timeFin  = "#{@minute} minutes et #{@sec} secondes"
+		return @timeFin
+	end
+
 	def toggle
     @pause = !@pause
     if @time.status =='sleep'

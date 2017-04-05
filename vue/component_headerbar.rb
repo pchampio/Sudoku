@@ -116,6 +116,14 @@ class HeadBar < Gtk::HeaderBar
           time.toggle
           if time.running
             overlay.cleanOverlay
+            pause = Pause.new
+            overlay.addToOverlay pause
+            overlay.showOverlay
+            pause.signal_retour do
+              time.toggle
+              overlay.hideOverlay
+              compboard.updateBoardColor
+            end
             # label = Gtk::Label.new("<span weight='ultrabold' font='40'>Pause</span>")
             # label.use_markup = true
             # overlay.addToOverlay label
