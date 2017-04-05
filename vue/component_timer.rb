@@ -42,7 +42,7 @@ class Timer
     return getTimeFromSec
 	end
 
-	def getTimeFromSec(time=@elapse)
+	def self.getTimeFromSec(time=@elapse)
 		@minute = format('%02d', time/60)
 		@sec = format('%02d', time%60)
 		@timeFin  = "#{@minute}:#{@sec}"
