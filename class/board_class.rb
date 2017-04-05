@@ -157,7 +157,7 @@ class Board
   #   - Array of Cell
   def sameCellsValue(cellArg)
     @cells.inject([]) do |result, cell|
-      result << cell if cell == cellArg
+      result << cell if cell.value == cellArg.value
       result
     end
   end
@@ -403,7 +403,7 @@ class Board
       @@newbrach = false
     end
     @@images_undo << Marshal.dump(self)
-    self
+    return @@images_undo.length
   end
 
   # get last undo

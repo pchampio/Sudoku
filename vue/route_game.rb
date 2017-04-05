@@ -5,6 +5,7 @@ require_relative "../class/generator_class.rb"
 
 class Game < Gtk::Overlay
 
+  attr_reader :header
   def initialize(window, board)
     super()
     SaveUser.load

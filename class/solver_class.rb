@@ -125,9 +125,7 @@ class Solver
       # Pour toutes les Cells
       @boxes.each_with_index do |boxe,numBoxe|
 
-        # Récupération de la Cell la plus moins répéter dans la boxe
-        minRepeated_number = @unknownInBoxes[numBoxe].min_by{ |v| @unknownInBoxes[numBoxe].count(v)}
-        minRepeated_count = @unknownInBoxes[numBoxe].count(minRepeated_number)
+        minRepeated_number = @unknownInBoxes[numBoxe].sort.chunk{ |e| e }.map{ |_a, e| e.first if e.length == 1}.select{|e| e != nil}.first
 
         boxe[1].each do |cell|
           # Si une Cell n'a qu'une possibilité alors on peut affecter la valeur à la planche
@@ -136,7 +134,7 @@ class Solver
             changement = true
           end
           # Si la Cell la moins répéter ne l'est qu'une fois alors c'est la seule possibilité
-          if minRepeated_count == 1 and cell.value.include?(minRepeated_number)
+          if cell.value.include?(minRepeated_number)
             @board.cellAt(cell.row, cell.col).value = minRepeated_number
             changement = true
           end
