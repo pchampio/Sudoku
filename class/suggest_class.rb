@@ -106,17 +106,17 @@ class Suggest
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.include?(minRepeated_number)
 
-          @text_info << "Essayez de remplir la grille avec le nombre #{minRepeated_number}."
+          @text_info << "Essayez de remplir la \ngrille avec le \nnombre #{minRepeated_number}."
           @number_highlight << nil
           @box_highlight << nil
           @show_popup << nil
 
-          @text_info << "Dans quelle case du bloc #{cell.box+1} pouvez-vous mettre le nombre #{minRepeated_number} ?"
+          @text_info << "Dans quelle case du bloc #{cell.box+1} \npouvez-vous mettre le \nnombre #{minRepeated_number} ?"
           @number_highlight << minRepeated_number
           @box_highlight << cell.box
           @show_popup << nil
 
-          @text_info << "Dans le bloc #{cell.box+1}, à la ligne #{cell.row+1}, sur la colonne #{cell.col+1}, il ne peut y avoir que le nombre #{minRepeated_number}."
+          @text_info << "Dans le bloc #{cell.box+1}, à la ligne #{cell.row+1},\nsur la colonne #{cell.col+1}, il ne peut y\navoir que le nombre #{minRepeated_number}."
           @number_highlight << minRepeated_number
           @box_highlight << cell.box
           @show_popup << [cell.row, cell.col]
@@ -125,7 +125,6 @@ class Suggest
         end
       end
     end
-    @text_info << "Cette technique ne permet pas actuellement de remplir de nouvelle case..."
     return false
   end
 
@@ -133,7 +132,7 @@ class Suggest
     bool = hiddenSingle_on_container @boxes, @possible_in_boxes
     bool = hiddenSingle_on_container @rows, @possible_in_rows unless bool
     bool = hiddenSingle_on_container @cols, @possible_in_cols unless bool
-    @text_info << "Cette technique ne permet pas actuellement de révéler de nouvelle case..." unless bool
+    @text_info << "Cette technique ne permet \npas actuellement de révéler de \nnouvelle case..." unless bool
   end
 
   def nakedSingle_on_container container
@@ -144,17 +143,17 @@ class Suggest
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.length == 1
 
-          @text_info << "Essayez de remplir la grille avec le nombre #{cell.possibles.first}."
+          @text_info << "Essayez de remplir la \ngrille avec le nombre #{cell.possibles.first}."
           @number_highlight << nil
           @box_highlight << nil
           @show_popup << nil
 
-          @text_info << "Dans quelle case du bloc #{cell.box+1} pouvez-vous mettre le nombre #{cell.possibles.first} ?"
+          @text_info << "Dans quelle case du bloc #{cell.box+1} \npouvez-vous mettre le \nnombre #{cell.possibles.first} ?"
           @number_highlight << cell.possibles.first
           @box_highlight << cell.box
           @show_popup << nil
 
-          @text_info << "Dans le bloc #{cell.box+1}, à la ligne #{cell.row+1}, sur la colonne #{cell.col+1}, il ne peut y avoir que le nombre #{cell.possibles.first}."
+          @text_info << "Dans le bloc #{cell.box+1}, à la ligne #{cell.row+1},\nsur la colonne #{cell.col+1}, il ne peut y avoir\nque le nombre #{cell.possibles.first}."
           @number_highlight << cell.possibles.first
           @box_highlight << cell.box
           @show_popup << [cell.row, cell.col]
