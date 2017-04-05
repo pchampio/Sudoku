@@ -22,6 +22,7 @@ class OverlayVictory < Gtk::Frame
 
     SaveUser.addEtoile(nbStars)
     SaveUser.setTime(SaveUser.getTime()+nbSec)
+    SaveUser.serialized
 
     txtTime = Gtk::Label.new "<span weight='ultrabold' font='16'>Bravo "+SaveUser.getUsername+" !</span>\n\n Vous avez réalisé cette grille en : "+nbSec.to_i.to_s+"s ! \n", :use_underline => true
     txtTime.use_markup = true
