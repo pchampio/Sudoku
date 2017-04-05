@@ -34,6 +34,7 @@ class HeadBar < Gtk::HeaderBar
         self.signal_connect("destroy") do
             compboard.board.time = @time.elapse
             compboard.board.serialized("save_board.yaml")
+            SaveUser.serialized
         end
 
         labelTime = Gtk::Label.new
@@ -70,15 +71,15 @@ class HeadBar < Gtk::HeaderBar
         end
         self.pack_end(btnNewGame)
 
-        buttonSave = Gtk::Button.new
-        iconSave = Gio::ThemedIcon.new("document-save-symbolic")
-        imageSave = Gtk::Image.new(:icon => iconSave, :size => :button)
-        buttonSave.signal_connect("clicked") do
-            compboard.board.serialized("save_board.yaml")
-            SaveUser.serialized
-        end
-        buttonSave.add(imageSave)
-        self.pack_end(buttonSave)
+        # buttonSave = Gtk::Button.new
+        # iconSave = Gio::ThemedIcon.new("document-save-symbolic")
+        # imageSave = Gtk::Image.new(:icon => iconSave, :size => :button)
+        # buttonSave.signal_connect("clicked") do
+        #     compboard.board.serialized("save_board.yaml")
+        #     SaveUser.serialized
+        # end
+        # buttonSave.add(imageSave)
+        # self.pack_end(buttonSave)
 
         buttonOpen = Gtk::Button.new
         iconOpen = Gio::ThemedIcon.new("document-open-symbolic")
