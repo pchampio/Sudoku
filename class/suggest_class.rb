@@ -199,32 +199,37 @@ class Suggest
       cellOfMethod = []
       cont[1].each do |cell|
         if cell.possibles.include? jumeaux
-          if cellOfMethod.empty?
-            cellOfMethod << cell
-          else
-            if cellOfMethod.first.box == cell.box and \
-            (cellOfMethod.first.row == cell.row or cellOfMethod.first.col == cell.col)
-            then
-              cellOfMethod << cell
-            end
+          cellOfMethod << cell
+        end
+      end
+      break if cellOfMethod.length < 2
+
+      boxe = nil
+      cellOfMethod.each do |cell|
+        cellOfMethod.each do |v|
+          if cell.box == v.box
+            boxe = cell.box
           end
         end
       end
 
-      break if cellOfMethod.length == 1
+      cellOfMethod.each do |cell|
+        if cell.box != boxe
+          cellOfMethod.remove cell
+        end
+      end
+
+      puts
+      print boxe,"\n"
+
       cellOfMethod.each do |cellofmethod|
         print cellofmethod,"\n"
       end
 
-      from = :row if cellOfMethod.first.row == cellOfMethod.last.row
-      from = :col if cellOfMethod.first.col == cellOfMethod.last.col
-
-      print from,"\n"
-
       @board.each_with_coord do |cell, i, j, box|
-        if cell.box != cellOfMethod.first.box
-          if from == :row and cell.row == cellOfMethod.first.row and cell.possibles.include? jumeaux
-            print cell,"\n possible -", jumeaux
+        if cell.box != boxe
+          if cell.row == cellOfMethod.first.row and cell.possibles.include? jumeaux
+            print cell," possible - ", jumeaux,"\n"
           end
         end
 
@@ -233,25 +238,25 @@ class Suggest
       # print triples,"\n"
       # cellOfMethod = []
       # cont[1].each do |cell|
-        # if cell.possibles.include? triples
-          # if cellOfMethod.empty?
-            # cellOfMethod << cell
-          # else
-            # if cellOfMethod.first.box == cell.box and \
-            # (cellOfMethod.first.row == cell.row or cellOfMethod.first.col == cell.col)
-            # then
-              # cellOfMethod << cell
-            # end
-          # end
-        # end
+      # if cell.possibles.include? triples
+      # if cellOfMethod.empty?
+      # cellOfMethod << cell
+      # else
+      # if cellOfMethod.first.box == cell.box and \
+      # (cellOfMethod.first.row == cell.row or cellOfMethod.first.col == cell.col)
+      # then
+      # cellOfMethod << cell
+      # end
+      # end
+      # end
       # end
 
       # cellOfMethod.each do |cellofmethod|
-        # print cellofmethod,"\n"
+      # print cellofmethod,"\n"
       # end
 
 
-      return false
+      # return false
 
     end
     return false
