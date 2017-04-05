@@ -125,7 +125,7 @@ class Suggest
         end
       end
     end
-    @text_info << "Cette technique ne permet pas actuellement de révéler de nouvelle case..."
+    @text_info << "Cette technique ne permet pas actuellement de remplir de nouvelle case..."
     return false
   end
 
@@ -143,17 +143,17 @@ class Suggest
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
         if cell.possibles.length == 1
 
-          @text_info << "Examine the digit #{cell.possibles.first}."
+          @text_info << "Essayez de remplir la grille avec le nombre #{cell.possibles.first}."
           @number_highlight << nil
           @box_highlight << nil
           @show_popup << nil
 
-          @text_info << "Where in block #{cell.box+1} can you put a #{cell.possibles.first}?"
+          @text_info << "Dans quelle case du bloc #{cell.box+1} pouvez-vous mettre le nombre #{cell.possibles.first} ?"
           @number_highlight << cell.possibles.first
           @box_highlight << cell.box
           @show_popup << nil
 
-          @text_info << "Only R#{cell.row+1}C#{cell.col+1} can be #{cell.possibles.first}."
+          @text_info << "Dans le bloc #{cell.box+1}, à la ligne #{cell.row+1}, sur la colonne #{cell.col+1}, il ne peut y avoir que le nombre #{cell.possibles.first}."
           @number_highlight << cell.possibles.first
           @box_highlight << cell.box
           @show_popup << [cell.row, cell.col]
@@ -162,6 +162,7 @@ class Suggest
         end
       end
     end
+    @text_info << "Cette technique ne permet pas actuellement de remplir de nouvelle case..."
     return false
   end
 
