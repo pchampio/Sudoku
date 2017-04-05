@@ -18,6 +18,14 @@ class Option < Gtk::Frame
     super()
     vBox = Gtk::Box.new(:vertical,10)
 
+    separator = Gtk::Label.new "", :use_underline => true, :xalign=>0
+    separator1 = Gtk::Label.new "", :use_underline => true, :xalign=>0
+    separator2 = Gtk::Label.new "", :use_underline => true, :xalign=>0
+    separator3 = Gtk::Label.new "", :use_underline => true, :xalign=>0
+    separator4 = Gtk::Label.new "", :use_underline => true, :xalign=>0
+    separator5 = Gtk::Label.new "", :use_underline => true, :xalign=>0
+    separator6 = Gtk::Label.new "", :use_underline => true, :xalign=>0
+
     scpicker = Gtk::ColorButton.new(GlobalOpts.getSelectColor)
     bgpicker = Gtk::ColorButton.new(GlobalOpts.getBackgroundColor)
     cpicker = Gtk::ColorButton.new(GlobalOpts.getChiffreColor)
@@ -29,7 +37,8 @@ class Option < Gtk::Frame
       GlobalOpts.setBackgroundColor(bgpicker.color)
     }
 
-    bgHBox.pack_start(label_background, :expand=>true, :fill=>true, :padding=>15)
+    bgHBox.pack_start(label_background, :expand=>false, :fill=>true, :padding=>15)
+    bgHBox.pack_start(separator, :expand=>true, :fill=>true, :padding=>0)
     bgHBox.pack_start(bgpicker, :expand=>false, :fill=>true, :padding=>15)
 
 
@@ -39,7 +48,8 @@ class Option < Gtk::Frame
       GlobalOpts.setSelectColor(scpicker.color)
     }
 
-    scHBox.pack_start(label_selected_cell, :expand=>true, :fill=>true, :padding=>15)
+    scHBox.pack_start(label_selected_cell, :expand=>false, :fill=>true, :padding=>15)
+    scHBox.pack_start(separator1, :expand=>true, :fill=>true, :padding=>0)
     scHBox.pack_start(scpicker, :expand=>false, :fill=>true, :padding=>15)
 
 
@@ -48,7 +58,8 @@ class Option < Gtk::Frame
     cpicker.signal_connect("color-set"){
       GlobalOpts.setChiffreColor(cpicker.color)
     }
-    cchiffHbox.pack_start(label_num_color, :expand=>true, :fill=>true, :padding=>15)
+    cchiffHbox.pack_start(label_num_color, :expand=>false, :fill=>true, :padding=>15)
+    cchiffHbox.pack_start(separator2, :expand=>true, :fill=>true, :padding=>0)
     cchiffHbox.pack_start(cpicker, :expand=>false, :fill=>true, :padding=>15)
 
     cSurlignHbox = Gtk::Box.new(:horizontal, 3)
@@ -57,7 +68,8 @@ class Option < Gtk::Frame
       GlobalOpts.setSurligneColor(surlignepicker.color)
     }
 
-    cSurlignHbox.pack_start(label_surligne_color, :expand=>true, :fill=>true, :padding=>15)
+    cSurlignHbox.pack_start(label_surligne_color, :expand=>false, :fill=>true, :padding=>15)
+    cSurlignHbox.pack_start(separator3, :expand=>true, :fill=>true, :padding=>0)
     cSurlignHbox.pack_start(surlignepicker, :expand=>false, :fill=>true, :padding=>15)
 
     entrybuffUsername = Gtk::EntryBuffer.new(SaveUser.getUsername)
@@ -65,7 +77,8 @@ class Option < Gtk::Frame
     @entry_username.set_max_length(15)
     labelUsername = Gtk::Label.new("Nom du joueur ", :use_underline=>true, :xalign=>0)
     usernameHbox = Gtk::Box.new(:horizontal, 3)
-    usernameHbox.pack_start(labelUsername, :expand=>true, :padding=>15)
+    usernameHbox.pack_start(labelUsername, :expand=>false, :padding=>15)
+    usernameHbox.pack_start(separator4, :expand=>true, :fill=>true, :padding=>0)
     usernameHbox.pack_start(@entry_username, :expand=>false, :padding=>15)
 
     @menuButton=Gtk::Button.new(:label=>"Retour")
@@ -88,7 +101,8 @@ class Option < Gtk::Frame
       GlobalOpts.setErreurAutoriser(erreurAutoriser)
       switchErreurAutoriser.state = erreurAutoriser
     end
-    erreurAutoriserHBox.pack_start(labelErreurAutoriser, :expand=>true, :fill=>true, :padding=>15)
+    erreurAutoriserHBox.pack_start(labelErreurAutoriser, :expand=>false, :fill=>true, :padding=>15)
+    erreurAutoriserHBox.pack_start(separator5, :expand=>true, :fill=>true, :padding=>0)
     erreurAutoriserHBox.pack_start(switchErreurAutoriser, :expand=>false, :fill=>true, :padding=>15)
 
     surlignageSurvolHbox = Gtk::Box.new(:horizontal,15)
@@ -103,7 +117,8 @@ class Option < Gtk::Frame
       GlobalOpts.setSurlignageSurvol(surlignageSurvol)
       switchSurlignageSurvol.state = surlignageSurvol
     end
-    surlignageSurvolHbox.pack_start(labelSurlignageSurvol, :expand=>true, :fill=>true, :padding=>15)
+    surlignageSurvolHbox.pack_start(labelSurlignageSurvol, :expand=>false, :fill=>true, :padding=>15)
+    surlignageSurvolHbox.pack_start(separator6, :expand=>true, :fill=>true, :padding=>0)
     surlignageSurvolHbox.pack_start(switchSurlignageSurvol, :expand=>false, :fill=>true, :padding=>15)
 
     title = Gtk::Label.new("<span weight='ultrabold' font='16'>Options</span>", :xalign=>0)

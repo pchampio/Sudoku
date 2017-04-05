@@ -221,7 +221,7 @@ class Generator
     Generator.reduireBrut!(@board,difficulty[1])
     @board.difficulty = level
     @board.freeze
-    print @board,"\n Nb cases: ", @board.usedCells.length,"\n Lvl: ", level,"\n"
+    print "\n Nb cases: ", @board.usedCells.length,"\n Lvl: ", level,"\n"
     return @board
   end
 

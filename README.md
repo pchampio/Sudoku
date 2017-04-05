@@ -50,3 +50,7 @@ google-chrome-stable ./coverage/index.html
 rdoc
 google-chrome-stable ./doc/index.html
 ```
+## Gtk3
+
+[Doc_Gtk3](https://lazka.github.io/pgi-docs/Gtk-3.0/classes.html)
+[gtk-demo](https://github.com/ruby-gnome2/ruby-gnome2/tree/master/gtk3/sample/gtk-demo)

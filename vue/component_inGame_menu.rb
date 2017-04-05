@@ -98,10 +98,9 @@ class InGameMenu < Gtk::Frame
 
     boxTechnic = Gtk::Box.new(:horizontal,2)
     cb = Gtk::ComboBoxText.new
-    # cb.margin = 5
-    cb.append_text ""
-    cb.append_text "hiddenSingle"
-    cb.append_text "nakedSingle"
+    cb.append "1", "Candidat unique"
+    cb.append "2", "Un seul candidat"
+    cb.append "3", "Jumeaux et triplés"
 
     buttTechnic=Gtk::Button.new(:use_underline => true);
     labelTech = Gtk::Label.new "Aide "
@@ -130,8 +129,9 @@ class InGameMenu < Gtk::Frame
         board_old = @boardComp.board.copie
         @boardComp.updateBoardColor
 
-        @suggest.hiddenSingle if cb.active_text == "hiddenSingle"
-        @suggest.nakedSingle if cb.active_text == "nakedSingle"
+        @suggest.hiddenSingle if cb.active_id.to_i == 1
+        @suggest.nakedSingle if cb.active_id.to_i == 2
+        @suggest.JumeauxEtTriples if cb.active_id.to_i == 3
 
         @oldActiveText = cb.active_text
         if @suggest.hasNextAide

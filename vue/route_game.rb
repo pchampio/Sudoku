@@ -38,6 +38,7 @@ class Game < Gtk::Overlay
       @header.time.toggle
       cleanOverlay
       hideOverlay
+      @header.new_game
     end
 
     self.add(hBox)

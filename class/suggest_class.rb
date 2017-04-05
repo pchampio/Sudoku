@@ -29,6 +29,13 @@ class Suggest
 
   def initialize(board)
     @board = board
+
+    # info
+    @text_info = []
+    @box_highlight = []
+    @number_highlight = []
+    @show_popup = []
+
     create_candidate
   end
 
@@ -40,12 +47,6 @@ class Suggest
 
   # initialisation des conteneurs des valeurs possibles
   private def create_candidate
-
-    # info
-    @text_info = []
-    @box_highlight = []
-    @number_highlight = []
-    @show_popup = []
 
     # les possibles valeurs sur les boxes
     @boxes = {}
@@ -69,7 +70,11 @@ class Suggest
 
       possibles = []
       if @board.cellAt(i,j).vide?
-        possibles = @board.possibles(cell)
+        if cell.possibles.empty? or cell.possibles == [0]
+          possibles = @board.possibles(cell)
+        else
+          possibles = cell.possibles - [0]
+        end
         (@possible_in_boxes[box] += possibles)
         (@possible_in_rows[i] += possibles)
         (@possible_in_cols[j] += possibles)
@@ -109,26 +114,26 @@ class Suggest
     container.shuffle.each do |cont|
 
       # Récupération de la Cell qui a une unique possibilité
-      minRepeated_number = cont_possibles[cont[0]].sort.chunk{ |e| e }.map{ |_a, e| e.first if e.length == 1}.select{|e| e != nil}.first
+      uniq_candi = cont_possibles[cont[0]].sort.chunk{ |e| e }.map{ |_a, e| e.first if e.length == 1}.select{|e| e != nil}.first
 
       # acces au données du hash cont[1] et pas a la clee [0]
       cont[1].shuffle.each do |cell|
         # Si une Cell n'a qu'une possibilité
         # Si le chiffre le moins répéter ne l'est qu'une fois alors c'est la seule possibilité
-        if cell.possibles.include?(minRepeated_number)
+        if cell.possibles.include?(uniq_candi)
 
-          @text_info << "Etape 1/3\n\nEssayez de remplir la \ngrille avec le \nnombre #{minRepeated_number}."
+          @text_info << "Etape 1/3\n\nEssayez de remplir la \ngrille avec le \nnombre #{uniq_candi}."
           @number_highlight << nil
           @box_highlight << nil
           @show_popup << nil
 
-          @text_info << "Etape 2/3\n\nDans quelle case du bloc #{cell.box+1} \npouvez-vous mettre le \nnombre #{minRepeated_number} ?"
-          @number_highlight << minRepeated_number
+          @text_info << "Etape 2/3\n\nDans quelle case du bloc #{cell.box+1} \npouvez-vous mettre le \nnombre #{uniq_candi} ?"
+          @number_highlight << uniq_candi
           @box_highlight << cell.box
           @show_popup << nil
 
-          @text_info << "Etape 3/3\n\nDans le bloc #{cell.box+1}, à la ligne #{cell.row+1},\nsur la colonne #{cell.col+1}, il ne peut y\navoir que le nombre #{minRepeated_number}."
-          @number_highlight << minRepeated_number
+          @text_info << "Etape 3/3\n\nDans le bloc #{cell.box+1}, à la ligne #{cell.row+1},\nsur la colonne #{cell.col+1}, il ne peut y\navoir que le nombre #{uniq_candi}."
+          @number_highlight << uniq_candi
           @box_highlight << cell.box
           @show_popup << [cell.row, cell.col]
 
@@ -173,7 +178,6 @@ class Suggest
         end
       end
     end
-    @text_info << "Cette technique ne permet \npas actuellement de révéler de \nnouvelle case..."
     return false
   end
 
@@ -181,7 +185,83 @@ class Suggest
     bool = nakedSingle_on_container @boxes
     bool = nakedSingle_on_container @rows unless bool
     bool = nakedSingle_on_container @cols unless bool
-    @text_info << "Cette technique ne permet pas actuellement de révéler de nouvelle case..." unless bool
+    @text_info << "Cette technique ne permet \npas actuellement de révéler de \nnouvelle case..." unless bool
   end
+
+  def jumeauxEtTriples_on_container container, cont_possibles
+    container.each do |cont|
+
+      # Récupération de la Cell qui a une unique possibilité
+      jumeaux = cont_possibles[cont[0]].sort.chunk{ |e| e }.map{ |_a, e| e.first if e.length >= 2}.select{|e| e != nil}.first
+
+      print jumeaux,"\n"
+
+      cellOfMethod = []
+      cont[1].each do |cell|
+        if cell.possibles.include? jumeaux
+          if cellOfMethod.empty?
+            cellOfMethod << cell
+          else
+            if cellOfMethod.first.box == cell.box and \
+            (cellOfMethod.first.row == cell.row or cellOfMethod.first.col == cell.col)
+            then
+              cellOfMethod << cell
+            end
+          end
+        end
+      end
+
+      break if cellOfMethod.length == 1
+      cellOfMethod.each do |cellofmethod|
+        print cellofmethod,"\n"
+      end
+
+      from = :row if cellOfMethod.first.row == cellOfMethod.last.row
+      from = :col if cellOfMethod.first.col == cellOfMethod.last.col
+
+      print from,"\n"
+
+      @board.each_with_coord do |cell, i, j, box|
+        if cell.box != cellOfMethod.first.box
+          if from == :row and cell.row == cellOfMethod.first.row and cell.possibles.include? jumeaux
+            print cell,"\n possible -", jumeaux
+          end
+        end
+
+      end
+
+      # print triples,"\n"
+      # cellOfMethod = []
+      # cont[1].each do |cell|
+        # if cell.possibles.include? triples
+          # if cellOfMethod.empty?
+            # cellOfMethod << cell
+          # else
+            # if cellOfMethod.first.box == cell.box and \
+            # (cellOfMethod.first.row == cell.row or cellOfMethod.first.col == cell.col)
+            # then
+              # cellOfMethod << cell
+            # end
+          # end
+        # end
+      # end
+
+      # cellOfMethod.each do |cellofmethod|
+        # print cellofmethod,"\n"
+      # end
+
+
+      return false
+
+    end
+    return false
+  end
+
+  def JumeauxEtTriples
+    bool = jumeauxEtTriples_on_container @rows, @possible_in_rows
+    bool = jumeauxEtTriples_on_container @cols, @possible_in_cols unless bool
+    @text_info << "Cette technique ne permet \npas actuellement de révéler de \nnouvelle case..." unless bool
+  end
+
 
 end

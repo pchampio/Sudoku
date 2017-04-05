@@ -62,7 +62,7 @@ class NumPadPopover < Popover
             nb_undo = @board_comp.board.snapshot
             if nb_undo % 4 == 0
               @board_comp.board.time = @board_comp.main_game.header.time.elapse
-              @board_comp.board.serialized("save_board.yaml")
+              @board_comp.board.serialized(File.dirname(__FILE__) + "/../save_board.yaml")
             end
 
             if @board_comp.board.complete?
