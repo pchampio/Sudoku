@@ -101,6 +101,7 @@ class InGameMenu < Gtk::Frame
     cb.append "1", "Candidat unique"
     cb.append "2", "Un seul candidat"
     cb.append "3", "Jumeaux et triplés"
+    cb.active_id = "1"
 
     buttTechnic=Gtk::Button.new(:use_underline => true);
     labelTech = Gtk::Label.new "Aide "
