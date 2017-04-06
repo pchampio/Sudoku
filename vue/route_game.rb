@@ -39,9 +39,6 @@ class Game < Gtk::Overlay
       cleanOverlay
       hideOverlay
       @header.new_game("coucou")
-      @header.signal_retour do
-        print "cpuc"
-      end
     end
 
     self.add(hBox)
@@ -63,7 +60,7 @@ class Game < Gtk::Overlay
       @header.time.toggle
       cleanOverlay
       hideOverlay
-      @header.new_game
+      @header.new_game "newnew"
     end
   end
 

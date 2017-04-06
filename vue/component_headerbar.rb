@@ -159,7 +159,7 @@ class HeadBar < Gtk::HeaderBar
             newgame.signal_retour do
               if newgame.board
                 @compboard.updateBoard newgame.board
-                @time.raz
+                @time.elapse = newgame.board.time
               end
               @time.toggle
               @overlay.cleanOverlay

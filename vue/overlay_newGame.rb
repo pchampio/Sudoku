@@ -49,14 +49,11 @@ class NewGame < Gtk::Frame
       }
       charge.style_context.add_class('destructive-action')
     else
-      charge = Gtk::Button.new(:label=>"Charger")
-      iconOpen = Gio::ThemedIcon.new("document-open-symbolic")
-      imageOpen = Gtk::Image.new(:icon => iconOpen, :size => :button)
+      charge = Gtk::Button.new(:label=>"Charger la dernière partie")
       charge.signal_connect("clicked") do
         @board = Board.unserialized(File.dirname(__FILE__) + "/../save_board.yaml")
         self.destroy
       end
-      charge.add(imageOpen)
       charge.style_context.add_class('suggested-action')
     end
 
