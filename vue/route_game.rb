@@ -30,12 +30,8 @@ class Game < Gtk::Overlay
     accueil = PA.create("acceuil")
     addToOverlay accueil
     showOverlay
-    @header.time.raz
-    @header.time.toggle
 
     accueil.signal_retour do
-      @header.time.raz
-      @header.time.toggle
       cleanOverlay
       hideOverlay
       @header.new_game("coucou")
