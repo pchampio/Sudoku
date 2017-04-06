@@ -67,7 +67,7 @@ class HeadBar < Gtk::HeaderBar
         imageNewGame = Gtk::Image.new(:icon => iconNewGame, :size => :button)
         btnNewGame.add(imageNewGame)
         btnNewGame.signal_connect "clicked" do
-          self.new_game
+          self.new_game("newnew")
         end
         self.pack_end(btnNewGame)
 
@@ -117,8 +117,7 @@ class HeadBar < Gtk::HeaderBar
           time.toggle
           if time.running
             overlay.cleanOverlay
-            #pause = Pause.new
-            pause = PA.new("pause")
+            pause = PA.create("pause")
             overlay.addToOverlay pause
             overlay.showOverlay
             pause.signal_retour do
@@ -145,11 +144,14 @@ class HeadBar < Gtk::HeaderBar
 
     end
 
-    def new_game
+    def new_game(param)
           unless @overlay.isOverlayVisible?
             @time.toggle
-
-            newgame = NewGame.new
+            if param == "newnew"
+                newgame = NewGame.create param
+            else
+                newgame = NewGame.create param
+            end
             @overlay.cleanOverlay
             @overlay.addToOverlay newgame
             @overlay.showOverlay

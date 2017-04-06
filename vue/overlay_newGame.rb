@@ -3,7 +3,12 @@ require 'thread'
 
 class NewGame < Gtk::Frame
   attr_reader :board
-  def initialize()
+  private_class_method :new
+  def self.create(param)
+    new(param)
+  end
+
+  def initialize(param)
     @board = nil
     super()
     vBox = Gtk::Box.new(:vertical,10)
@@ -36,17 +41,27 @@ class NewGame < Gtk::Frame
       generate(:extreme)
     }
     vBox.pack_start(btnDia, :expand=>false, :fill=>false, :padding=>2)
+    if param == "newnew"
+      charge = Gtk::Button.new(:label=>"Annuler")
+      charge.signal_connect("clicked"){
+        Thread.kill(@job) if @job
+        self.destroy
+      }
+      charge.style_context.add_class('destructive-action')
+    else
+      charge = Gtk::Button.new(:label=>"Charger")
+      iconOpen = Gio::ThemedIcon.new("document-open-symbolic")
+      imageOpen = Gtk::Image.new(:icon => iconOpen, :size => :button)
+      charge.signal_connect("clicked") do
+        @board = Board.unserialized(File.dirname(__FILE__) + "/../save_board.yaml")
+        self.destroy
+      end
+      charge.add(imageOpen)
+      charge.style_context.add_class('suggested-action')
+    end
 
-    anul = Gtk::Button.new(:label=>"Annuler")
-    anul.signal_connect("clicked"){
-      Thread.kill(@job) if @job
-      self.destroy
-    }
-    anul.style_context.add_class('destructive-action')
-    # suggested-action
 
-
-    vBox.pack_start(anul, :expand=>false, :fill=>false, :padding=>15)
+    vBox.pack_start(charge, :expand=>false, :fill=>false, :padding=>15)
     hBox.pack_start(vBox, :expand=>false, :fill=>false, :padding=>15)
 
     self.add hBox

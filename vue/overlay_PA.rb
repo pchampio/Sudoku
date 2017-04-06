@@ -3,10 +3,10 @@ require_relative 'saveUser.rb'
 require_relative 'component_timer.rb'
 
 class PA < Gtk::Frame
-	#private_class_method :new
+	private_class_method :new
 
-	def new(type)
-		initialize(type)
+	def self.create(type)
+		new(type)
 	end
 
 	def initialize(type)
@@ -38,7 +38,7 @@ class PA < Gtk::Frame
 		vbox.pack_start hbox2, :expand=>false, :fill=>false, :padding=>15
 
 
-		@retour = Gtk::Button.new(:label=>"continuer")
+		@retour = Gtk::Button.new(:label=>"Continuer")
 		vbox.pack_start @retour, :expand=>false, :fill=>false, :padding=>15
 		@retour.style_context.add_class('suggested-action')
 

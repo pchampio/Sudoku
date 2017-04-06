@@ -62,8 +62,9 @@ class Generator
     :easy => [35,0],
     :medium => [81,7],
     :hard => [81,13],
-    :extreme => [81, 81]
+    :extreme => [81, 81],
     # :extreme => [1, 0]
+    :full => [0,0]
   }
 
   # Creation d'une planche de base valide egal a @@planche_base

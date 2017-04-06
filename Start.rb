@@ -20,7 +20,7 @@ end
 GlobalOpts.load
 
 gen=Generator.new
-gen.generate(:easy)
+gen.generate(:full)
 
 window.add Game.new(window,gen.board)
 

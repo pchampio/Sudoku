@@ -27,8 +27,7 @@ class Game < Gtk::Overlay
     @cursorDefault = Gdk::Cursor.new("default")
 
     init_overlay
-    #accueil = Accueil.new
-    accueil = PA.new("acceuil")
+    accueil = PA.create("acceuil")
     addToOverlay accueil
     showOverlay
     @header.time.raz
@@ -39,7 +38,10 @@ class Game < Gtk::Overlay
       @header.time.toggle
       cleanOverlay
       hideOverlay
-      @header.new_game
+      @header.new_game("coucou")
+      @header.signal_retour do
+        print "cpuc"
+      end
     end
 
     self.add(hBox)
