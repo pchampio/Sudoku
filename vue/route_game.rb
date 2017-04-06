@@ -8,7 +8,6 @@ class Game < Gtk::Overlay
   attr_reader :header
   def initialize(window, board)
     super()
-    SaveUser.load
     @window = window
 
     hBox = Gtk::Box.new(:horizontal,2)

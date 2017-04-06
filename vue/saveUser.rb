@@ -18,7 +18,6 @@ class SaveUser
 	@@username = Etc.getlogin
 	@@nbEtoile = 0
 	@@time = 0
-	@@premierLancement = true
 	def initialize()
 		@username         = @@username
 		@time             = @@time
@@ -42,10 +41,6 @@ class SaveUser
 		return @@nbEtoile
 	end
 
-	def self.getLancement()
-		return @@premierLancement
-	end
-
 	def self.setNbEtoile(nbEtoile)
 		@@nbEtoile = nbEtoile
 	end
@@ -56,14 +51,6 @@ class SaveUser
 
 	def self.getUsername()
 		return @@username
-	end
-
-	def self.use()
-		@@premierLancement = false
-	end
-
-	def self.setLancement(bool)
-		@@premierLancement = bool
 	end
 
 	def self.serialized
@@ -78,6 +65,5 @@ class SaveUser
 		self.setUsername(obj.username)
 		self.setTime(obj.time)
 		self.setNbEtoile(obj.nbEtoile)
-		self.setLancement(obj.premierLancement)
 	end
 end

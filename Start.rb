@@ -17,7 +17,9 @@ window.signal_connect 'destroy'  do
 	Gtk.main_quit
 end
 
+
 GlobalOpts.load
+SaveUser.load
 
 gen=Generator.new
 gen.generate(:full)
