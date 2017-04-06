@@ -41,7 +41,7 @@ class InGameMenu < Gtk::Frame
     pan=Gtk::Box.new(:vertical,6)
 
     auto_maj_candidates_hbox = Gtk::Box.new(:horizontal,5)
-    auto_maj_candidates_lab = Gtk::Label.new("Candidates auto-généré")
+    auto_maj_candidates_lab = Gtk::Label.new("Candidats auto-générés")
     auto_maj_candidates_lab.margin = 5
     auto_maj_candidates_sw = Gtk::Switch.new
 
