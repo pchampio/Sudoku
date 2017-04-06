@@ -147,11 +147,7 @@ class HeadBar < Gtk::HeaderBar
     def new_game(param)
           unless @overlay.isOverlayVisible?
             @time.toggle
-            if param == "newnew"
-                newgame = NewGame.create param
-            else
-                newgame = NewGame.create param
-            end
+            newgame = NewGame.create param
             @overlay.cleanOverlay
             @overlay.addToOverlay newgame
             @overlay.showOverlay
