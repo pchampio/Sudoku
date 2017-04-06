@@ -117,7 +117,8 @@ class HeadBar < Gtk::HeaderBar
           time.toggle
           if time.running
             overlay.cleanOverlay
-            pause = Pause.new
+            #pause = Pause.new
+            pause = PA.new("pause")
             overlay.addToOverlay pause
             overlay.showOverlay
             pause.signal_retour do

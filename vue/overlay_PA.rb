@@ -2,14 +2,22 @@ require 'gtk3'
 require_relative 'saveUser.rb'
 require_relative 'component_timer.rb'
 
-class Pause < Gtk::Frame
+class PA < Gtk::Frame
+	#private_class_method :new
 
+	def new(type)
+		initialize(type)
+	end
 
-	def initialize
+	def initialize(type)
 		img_starfull = File.dirname(__FILE__) + "/../ressources/starfull1little.png"
 
 		super()
-		username = Gtk::Label.new "<span weight='ultrabold' font='16'>Pause</span>"
+		if type =="acceuil"
+			username = Gtk::Label.new "<span weight='ultrabold' font='16'> Bienvenue\n "+SaveUser.getUsername+" !</span>"
+		else
+			username = Gtk::Label.new "<span weight='ultrabold' font='16'>Pause</span>"
+		end
 		username.use_markup = true
 
 		vbox = Gtk::Box.new :vertical, 5

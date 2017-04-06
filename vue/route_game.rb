@@ -27,7 +27,8 @@ class Game < Gtk::Overlay
     @cursorDefault = Gdk::Cursor.new("default")
 
     init_overlay
-    accueil = Accueil.new
+    #accueil = Accueil.new
+    accueil = PA.new("acceuil")
     addToOverlay accueil
     showOverlay
     @header.time.raz
