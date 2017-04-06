@@ -45,8 +45,9 @@ class PA < Gtk::Frame
 		vbox.halign = :CENTER
 		vbox.valign = :CENTER
 		hBox = Gtk::Box.new(:horizontal, 10)
-	    hBox.pack_start(vbox, :expand=>false, :fill=>false, :padding=>15)
-	    self.add hBox
+    hBox.pack_start(vbox, :expand=>false, :fill=>false, :padding=>15)
+    self.add hBox
+
 	end
 
   def signal_retour
