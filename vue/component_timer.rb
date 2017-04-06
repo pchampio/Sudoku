@@ -27,7 +27,7 @@ class Timer
         sleep(1)
 				@elapse += 1
         Thread.stop if @pause
-        @labelTime.set_markup("<b> #{getTimeFromSec}</b>")
+        @labelTime.set_markup("<b> #{getTimeFromSec unless @elapse == 0}</b>")
 			end
 			@time.join
 			@pause.join
