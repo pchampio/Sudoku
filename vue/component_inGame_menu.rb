@@ -100,7 +100,6 @@ class InGameMenu < Gtk::Frame
     cb = Gtk::ComboBoxText.new
     cb.append "1", "Candidat unique"
     cb.append "2", "Un seul candidat"
-    # cb.append "3", "Jumeaux et triplés"
     cb.active_id = "1"
 
     buttTechnic=Gtk::Button.new(:use_underline => true);
@@ -132,7 +131,6 @@ class InGameMenu < Gtk::Frame
 
         @suggest.hiddenSingle if cb.active_id.to_i == 1
         @suggest.nakedSingle if cb.active_id.to_i == 2
-        @suggest.JumeauxEtTriples if cb.active_id.to_i == 3
 
         @oldActiveText = cb.active_text
         if @suggest.hasNextAide
