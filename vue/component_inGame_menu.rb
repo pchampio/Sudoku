@@ -98,15 +98,9 @@ class InGameMenu < Gtk::Frame
 
     boxTechnic = Gtk::Box.new(:horizontal,2)
     cb = Gtk::ComboBoxText.new
-<<<<<<< HEAD
-    cb.append "1", "Candidat unique"
-    cb.append "2", "Un seul candidat"
-=======
     cb.append "1", "Chiffre Caché"
     cb.append "2", "Paires isolées"
     #cb.append "3", "Jumeaux et triplés"
-
->>>>>>> a4042ca495056de62ffc316b67ac3fd4fb781cfd
     cb.active_id = "1"
 
     buttTechnic=Gtk::Button.new(:use_underline => true);

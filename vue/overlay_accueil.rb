@@ -6,10 +6,9 @@ class Accueil < Gtk::Frame
 
 
 	def initialize
-		img_starfull = File.dirname(__FILE__) + "/../ressources/starfull1.png"
+		img_starfull = File.dirname(__FILE__) + "/../ressources/starfull1little.png"
 
 		super()
-		separator = Gtk::Label.new "", :use_underline => true, :xalign=>0
 		username = Gtk::Label.new "<span weight='ultrabold' font='16'> Bienvenue "+SaveUser.getUsername+" !</span>"
 		username.use_markup = true
 
@@ -21,8 +20,9 @@ class Accueil < Gtk::Frame
 
 		hbox1=Gtk::Box.new :horizontal,3
 		#hbox1.pack_start Gtk::Label.new('Vous avez : '+ SaveUser.getNbEtoile.to_s+" ☆"),:expand=>false, :fill=>false, :padding=>15
-		hbox1.pack_start Gtk::Label.new('Vous avez : '+ SaveUser.getNbEtoile.to_s),:expand=>false, :fill=>false, :padding=>15
-		hbox1.pack_start Gtk::Image.new(:file => img_starfull),:expand=>false, :fill=>false, :padding=>15
+    hbox1.pack_start Gtk::Label.new(""),:expand=>false, :fill=>false, :padding=>5
+		hbox1.pack_start Gtk::Label.new('Vous avez : '+ SaveUser.getNbEtoile.to_s),:expand=>false, :fill=>false, :padding=>3
+		hbox1.pack_start Gtk::Image.new(:file => img_starfull),:expand=>false, :fill=>false, :padding=>3
 		vbox.pack_start hbox1,:expand=>false, :fill=>false, :padding=>15
 
 		hbox2= Gtk::Box.new :horizontal,1
