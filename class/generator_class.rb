@@ -63,7 +63,7 @@ class Generator
     :medium => [81,7],
     :hard => [81,13],
     :extreme => [81, 81]
-    # :extreme => [2, 0]
+    # :extreme => [1, 0]
   }
 
   # Creation d'une planche de base valide egal a @@planche_base

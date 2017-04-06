@@ -6,6 +6,8 @@ class Pause < Gtk::Frame
 
 
 	def initialize
+		img_starfull = File.dirname(__FILE__) + "/../ressources/starfull1.png"
+		
 		super()
 		username = Gtk::Label.new "<span weight='ultrabold' font='16'>Pause</span>"
 		username.use_markup = true
@@ -16,9 +18,11 @@ class Pause < Gtk::Frame
 		hbox.pack_start username, :expand=>false, :fill=>false, :padding=>15
 		vbox.pack_start hbox,:expand=>false, :fill=>false, :padding=>15
 		
-		hbox1 = Gtk::Box.new(:horizontal, 2)
-		hbox1.pack_start Gtk::Label.new('Vous avez : '+ SaveUser.getNbEtoile.to_s+" ☆"),:expand=>false, :fill=>false, :padding=>15
-		vbox.pack_start hbox1, :expand=>false, :fill=>false, :padding=>15
+		hbox1=Gtk::Box.new :horizontal,2
+		#hbox1.pack_start Gtk::Label.new('Vous avez : '+ SaveUser.getNbEtoile.to_s+" ☆"),:expand=>false, :fill=>false, :padding=>15
+		hbox1.pack_start Gtk::Label.new('Vous avez : '+ SaveUser.getNbEtoile.to_s),:expand=>false, :fill=>false, :padding=>15
+		hbox1.pack_start Gtk::Image.new(:file => img_starfull),:expand=>false, :fill=>false, :padding=>15
+		vbox.pack_start hbox1,:expand=>false, :fill=>false, :padding=>15
 
 		hbox2 = Gtk::Box.new(:horizontal, 2)
 		hbox2.pack_start Gtk::Label.new('Vous avez joué '+Timer.getTimeAccueil(SaveUser.getTime)+"."), :expand=>false, :fill=>false, :padding=>15
@@ -26,11 +30,14 @@ class Pause < Gtk::Frame
 
 
 		@retour = Gtk::Button.new(:label=>"continuer")
-		vbox.pack_start @retour, :expand=>false, :fill=>false, :padding=>0
+		vbox.pack_start @retour, :expand=>false, :fill=>false, :padding=>15
+		@retour.style_context.add_class('suggested-action')
 
 		vbox.halign = :CENTER
 		vbox.valign = :CENTER
-		self.add(vbox)
+		hBox = Gtk::Box.new(:horizontal, 10)
+	    hBox.pack_start(vbox, :expand=>false, :fill=>false, :padding=>15)
+	    self.add hBox
 	end
 
   def signal_retour
