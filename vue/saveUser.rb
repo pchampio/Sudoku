@@ -14,7 +14,7 @@ require 'etc'
 
 
 class SaveUser
-	attr_reader :username, :time, :nbEtoile, :premierLancement
+	attr_reader :username, :time, :nbEtoile
 	@@username = Etc.getlogin
 	@@nbEtoile = 0
 	@@time = 0
@@ -22,7 +22,6 @@ class SaveUser
 		@username         = @@username
 		@time             = @@time
 		@nbEtoile         = @@nbEtoile
-		@premierLancement = @@premierLancement
 	end
 
 	def self.setTime(time)
@@ -61,7 +60,11 @@ class SaveUser
 	end
 
 	def self.load
-		obj = YAML.load_file(File.dirname(__FILE__) +"/../save_user.yaml")
+		if File.file? File.dirname(__FILE__) +"/../save_user.yaml"
+	      obj = YAML.load_file File.dirname(__FILE__) +"/../save_user.yaml"
+	    else
+	      obj = SaveUser.new
+	    end
 		self.setUsername(obj.username)
 		self.setTime(obj.time)
 		self.setNbEtoile(obj.nbEtoile)
