@@ -1,4 +1,5 @@
 require 'gtk3'
+require 'thread'
 
 Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 require_relative "../class/generator_class.rb"
@@ -30,6 +31,16 @@ class Game < Gtk::Overlay
     addToOverlay accueil
     showOverlay
     @header.time.toggle
+
+    # animation de debut
+    Thread.new do
+      while @boardComponent.board.difficulty == :full
+        @boardComponent.cellsView.shuffle.first.change_style("color", GlobalOpts.getBackgroundColor)
+        sleep 0.75
+      end
+      @boardComponent.join
+    end
+
 
     accueil.signal_retour do
       @header.time.toggle
