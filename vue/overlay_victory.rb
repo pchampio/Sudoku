@@ -1,5 +1,6 @@
 require 'gtk3'
-require_relative "saveUser.rb"
+require_relative "./saveUser.rb"
+require_relative "./overlay.rb"
 
 class OverlayVictory < Overlay
 
