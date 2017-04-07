@@ -35,7 +35,7 @@ class Game < Gtk::Overlay
     # animation de debut
     Thread.new do
       while @boardComponent.board.difficulty == :full
-        @boardComponent.cellsView.shuffle.first.change_style("color", GlobalOpts.getBackgroundColor)
+        @boardComponent.animate
         sleep 0.75
       end
       @boardComponent.join

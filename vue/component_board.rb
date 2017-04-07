@@ -14,7 +14,7 @@ Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 
 class BoardComponent < Gtk::Frame
 
-  attr_reader :main_game,:board, :cellsView # board de l'api ../class/board_class.rb
+  attr_reader :main_game,:board # board de l'api ../class/board_class.rb
 
   private_class_method :new
   def self.create(board, main_game)
@@ -117,6 +117,9 @@ class BoardComponent < Gtk::Frame
     end
   end
 
+  def animate
+    @cellsView.shuffle.first.change_style("color", GlobalOpts.getBackgroundColor)
+  end
 
   def end_game
     @main_game.end_game
