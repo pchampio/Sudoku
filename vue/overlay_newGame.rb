@@ -22,6 +22,22 @@ class NewGame < Overlay
     title.use_markup = true
     vBox.pack_start(title, :expand=>false, :fill=>false, :padding=>15)
 
+    if callFrom == :headerbar
+      charge = Gtk::Button.new(:label=>"Annuler")
+      charge.signal_connect("clicked"){
+        Thread.kill(@job) if @job
+        self.destroy
+      }
+      charge.style_context.add_class('destructive-action')
+    else
+      charge = Gtk::Button.new(:label=>"Charger la dernière partie")
+      charge.signal_connect("clicked") do
+        @board = Board.unserialized(File.dirname(__FILE__) + "/../save_board.yaml")
+        self.destroy
+      end
+      charge.style_context.add_class('suggested-action')
+    end
+
     btnEz = Gtk::Button.new(:label=>"Facile")
     btnEz.signal_connect("clicked"){
       generate(:easy)
@@ -42,27 +58,20 @@ class NewGame < Overlay
 
     btnDia = Gtk::Button.new(:label=>"Diabolique")
     btnDia.signal_connect("clicked"){
+      vBox.remove(charge)
+      charge.set_label("Annuler")
+      charge.signal_connect('clicked') do
+        Thread.kill(@job) if @job
+        self.destroy
+      end
+      charge.style_context.add_class('destructive-action')
+      vBox.pack_start(charge)
+      self.show_all
       generate(:extreme)
     }
     vBox.pack_start(btnDia, :expand=>false, :fill=>false, :padding=>2)
 
     vBox.pack_start(Gtk::Label.new(""), :expand=>false, :fill=>false, :padding=>1) if callFrom == :end_game
-
-    if callFrom == :headerbar
-      charge = Gtk::Button.new(:label=>"Annuler")
-      charge.signal_connect("clicked"){
-        Thread.kill(@job) if @job
-        self.destroy
-      }
-      charge.style_context.add_class('destructive-action')
-    else
-      charge = Gtk::Button.new(:label=>"Charger la dernière partie")
-      charge.signal_connect("clicked") do
-        @board = Board.unserialized(File.dirname(__FILE__) + "/../save_board.yaml")
-        self.destroy
-      end
-      charge.style_context.add_class('suggested-action')
-    end
 
     vBox.pack_start(charge, :expand=>false, :fill=>false, :padding=>15) unless callFrom == :end_game
     hBox.pack_start(vBox, :expand=>false, :fill=>false, :padding=>15)
