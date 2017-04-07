@@ -32,8 +32,10 @@ class HeadBar < Gtk::HeaderBar
         self.title = title
         self.subtitle = subtitle
         self.signal_connect("destroy") do
+          unless compboard.board.complete?
             compboard.board.time = @time.elapse
             compboard.board.serialized(File.dirname(__FILE__) + "/../save_board.yaml")
+          end
             SaveUser.serialized
         end
 
@@ -49,12 +51,13 @@ class HeadBar < Gtk::HeaderBar
           unless overlay.isOverlayVisible?
             time.toggle
             overlay.cleanOverlay
-            option = Option.new
+            option = Option.create
             overlay.addToOverlay option
             overlay.showOverlay
 
             option.signal_retour do
               time.toggle
+              overlay.cleanOverlay
               overlay.hideOverlay
               compboard.updateBoardColor
             end
@@ -67,7 +70,7 @@ class HeadBar < Gtk::HeaderBar
         imageNewGame = Gtk::Image.new(:icon => iconNewGame, :size => :button)
         btnNewGame.add(imageNewGame)
         btnNewGame.signal_connect "clicked" do
-          self.new_game("newnew")
+          self.new_game
         end
         self.pack_end(btnNewGame)
 
@@ -113,26 +116,30 @@ class HeadBar < Gtk::HeaderBar
         buttonTime = Gtk::Button.new
         iconTime = Gio::ThemedIcon.new("document-open-recent-symbolic")
         imageTime = Gtk::Image.new(:icon => iconTime, :size => :button)
+
         buttonTime.signal_connect("clicked") do
-          time.toggle
-          if time.running
-            overlay.cleanOverlay
-            pause = PA.create("pause")
-            overlay.addToOverlay pause
-            overlay.showOverlay
-            pause.signal_retour do
-              time.toggle
-              overlay.hideOverlay
+          unless compboard.board.complete?
+
+            time.toggle
+            if time.running
+              overlay.cleanOverlay
+              pause = Pause.create("<span weight='ultrabold' font='16'>Pause</span>")
+              overlay.addToOverlay pause
+              overlay.showOverlay
+              compboard.hideall
+
+              pause.signal_retour do
+                time.toggle
+                overlay.cleanOverlay
+                overlay.hideOverlay
+                compboard.updateBoardColor
+              end
+
+            else
               compboard.updateBoardColor
+              overlay.hideOverlay
             end
-            # label = Gtk::Label.new("<span weight='ultrabold' font='40'>Pause</span>")
-            # label.use_markup = true
-            # overlay.addToOverlay label
-            overlay.showOverlay
-            compboard.hideall
-          else
-            compboard.updateBoardColor
-            overlay.hideOverlay
+
           end
         end
 
@@ -144,10 +151,10 @@ class HeadBar < Gtk::HeaderBar
 
     end
 
-    def new_game(param)
+    def new_game(callFrom=:headerbar)
           unless @overlay.isOverlayVisible?
             @time.toggle
-            newgame = NewGame.create param
+            newgame = NewGame.create callFrom
             @overlay.cleanOverlay
             @overlay.addToOverlay newgame
             @overlay.showOverlay

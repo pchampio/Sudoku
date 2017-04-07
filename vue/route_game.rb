@@ -5,7 +5,7 @@ require_relative "../class/generator_class.rb"
 
 class Game < Gtk::Overlay
 
-  attr_reader :header
+  attr_reader :header, :boardComponent
   def initialize(window, board)
     super()
     @window = window
@@ -26,7 +26,7 @@ class Game < Gtk::Overlay
     @cursorDefault = Gdk::Cursor.new("default")
 
     init_overlay
-    accueil = PA.create("acceuil")
+    accueil = Pause.create("<span weight='ultrabold' font='16'> Bienvenue\n "+SaveUser.getUsername+" !</span>")
     addToOverlay accueil
     showOverlay
     @header.time.toggle
@@ -36,8 +36,18 @@ class Game < Gtk::Overlay
       @header.time.raz
       cleanOverlay
       hideOverlay
-      @header.new_game("coucou")
+      @header.new_game(:accueil)
     end
+
+    css=<<-EOT
+          #overlay {
+            background-color: #{@backgroundColor_blur};
+          }
+          #menu {
+            background-color: #{@backgroundColor};
+          }
+    EOT
+    apply_style(self, css)
 
     self.add(hBox)
   end
@@ -48,7 +58,7 @@ class Game < Gtk::Overlay
     nbEtoile = 0
     nbEtoile += 1 if not @boardComponent.board.bUseSolution
     nbEtoile += 1 if not @boardComponent.board.bMakeError
-    victory_ovly = OverlayVictory.new(
+    victory_ovly = OverlayVictory.create(
       nbEtoile, @header.time.elapse, @boardComponent.board.difficulty
     )
     addToOverlay victory_ovly
@@ -58,7 +68,7 @@ class Game < Gtk::Overlay
       @header.time.toggle
       cleanOverlay
       hideOverlay
-      @header.new_game "newnew"
+      @header.new_game(:end_game)
     end
   end
 
@@ -85,15 +95,6 @@ class Game < Gtk::Overlay
       self.add_overlay(@frame)
       self.set_overlay_pass_through(@frame, false)
       self.show_all
-      css=<<-EOT
-          #overlay {
-            background-color: #{@backgroundColor_blur};
-          }
-          #menu {
-            background-color: #{@backgroundColor};
-          }
-      EOT
-      apply_style(self, css)
     end
   end
 

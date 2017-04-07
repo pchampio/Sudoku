@@ -56,7 +56,7 @@ class Timer
 		@heure = format('%02d', time/3600)
 		time = time%3600
 		@min = format('%02d', time/60)
-		@timeFin  = "#{@heure}h #{@min}"
+		@timeFin  = "#{@heure}h#{@min}"
 		#@timeFin  = "#{@heure} heure et #{@min} minute"
 		return @timeFin
 	end

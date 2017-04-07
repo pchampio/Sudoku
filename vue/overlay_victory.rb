@@ -1,7 +1,11 @@
 require 'gtk3'
 require_relative "saveUser.rb"
 
-class OverlayVictory < Gtk::Frame
+class OverlayVictory < Overlay
+
+  def self.create(nbStars,nbSec,difficulte)
+    new(nbStars,nbSec,difficulte)
+  end
 
   def initialize(nbStars,nbSec,difficulte)
     super()
@@ -41,26 +45,22 @@ class OverlayVictory < Gtk::Frame
 
     txtToutesEtoiles = Gtk::Label.new "Pour obtenir toutes les étoiles vous devez\nréussir le sudoku sans utiliser d'aide,\nle faire sans erreur et le tout dans un\ntemps imparti lié à la difficulté ! \n#{'Courage !' if nbStars<3}"
 
-    @buttEnd = Gtk::Button.new(:label=>"Continuer")
-    @buttEnd.style_context.add_class('suggested-action')
+    buttEnd = Gtk::Button.new(:label=>"Continuer")
+    buttEnd.signal_connect "clicked" do
+      self.destroy
+    end
+    buttEnd.style_context.add_class('suggested-action')
+
     boxVictoire.pack_start(txtTime, :expand=>false, :fill=>false, :padding=>15)
     boxVictoire.pack_start(boxStars, :expand=>false, :fill=>false, :padding=>2)
     boxVictoire.pack_start(txtStars, :expand=>false, :fill=>false, :padding=>2)
     boxVictoire.pack_start(txtToutesEtoiles, :expand=>false, :fill=>false, :padding=>15)
-    boxVictoire.pack_end(@buttEnd, :expand=>false, :fill=>false, :padding=>15)
+    boxVictoire.pack_end(buttEnd, :expand=>false, :fill=>false, :padding=>15)
 
     hBox = Gtk::Box.new(:horizontal, 10)
     hBox.pack_start(boxVictoire, :expand=>false, :fill=>false, :padding=>15)
     self.add hBox
 
-
-  end
-
-  def signal_retour
-    @buttEnd.signal_connect "clicked" do
-      yield
-    end
   end
 
 end
-

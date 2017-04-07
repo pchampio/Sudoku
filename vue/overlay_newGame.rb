@@ -1,14 +1,18 @@
 require 'gtk3'
 require 'thread'
 
-class NewGame < Gtk::Frame
+Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
+
+class NewGame < Overlay
+
   attr_reader :board
   private_class_method :new
-  def self.create(param)
-    new(param)
+
+  def self.create(callFrom)
+    new(callFrom)
   end
 
-  def initialize(param)
+  def initialize(callFrom)
     @board = nil
     super()
     vBox = Gtk::Box.new(:vertical,10)
@@ -41,7 +45,10 @@ class NewGame < Gtk::Frame
       generate(:extreme)
     }
     vBox.pack_start(btnDia, :expand=>false, :fill=>false, :padding=>2)
-    if param == "newnew"
+
+    vBox.pack_start(Gtk::Label.new(""), :expand=>false, :fill=>false, :padding=>1) if callFrom == :end_game
+
+    if callFrom == :headerbar
       charge = Gtk::Button.new(:label=>"Annuler")
       charge.signal_connect("clicked"){
         Thread.kill(@job) if @job
@@ -57,18 +64,11 @@ class NewGame < Gtk::Frame
       charge.style_context.add_class('suggested-action')
     end
 
-
-    vBox.pack_start(charge, :expand=>false, :fill=>false, :padding=>15)
+    vBox.pack_start(charge, :expand=>false, :fill=>false, :padding=>15) unless callFrom == :end_game
     hBox.pack_start(vBox, :expand=>false, :fill=>false, :padding=>15)
 
     self.add hBox
 
-  end
-
-  def signal_retour
-    self.signal_connect("destroy") do
-      yield
-    end
   end
 
   def generate(lvl)

@@ -36,7 +36,7 @@ class BoardComponent < Gtk::Frame
 
   def initBoard(board)
     @board=board
-    @board.snapshot
+    @board.snapshot unless @board.complete?
 
     # container of all CellComponent
     @cellsView = []

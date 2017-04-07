@@ -11,8 +11,13 @@
 
 require 'gtk3'
 require_relative './globalOpts.rb'
+require_relative './overlay.rb'
 
-class Option < Gtk::Frame
+class Option < Overlay
+
+	def self.create
+		new
+	end
 
   def initialize()#:nodoc:
     super()
@@ -73,20 +78,23 @@ class Option < Gtk::Frame
     cSurlignHbox.pack_start(surlignepicker, :expand=>false, :fill=>true, :padding=>15)
 
     entrybuffUsername = Gtk::EntryBuffer.new(SaveUser.getUsername)
-    @entry_username = Gtk::Entry.new entrybuffUsername
-    @entry_username.set_max_length(15)
+    entry_username = Gtk::Entry.new entrybuffUsername
+    entry_username.set_max_length(15)
     labelUsername = Gtk::Label.new("Nom du joueur ", :use_underline=>true, :xalign=>0)
     usernameHbox = Gtk::Box.new(:horizontal, 3)
     usernameHbox.pack_start(labelUsername, :expand=>false, :padding=>15)
     usernameHbox.pack_start(separator4, :expand=>true, :fill=>true, :padding=>0)
-    usernameHbox.pack_start(@entry_username, :expand=>false, :padding=>15)
+    usernameHbox.pack_start(entry_username, :expand=>false, :padding=>15)
 
-    @menuButton=Gtk::Button.new(:label=>"Retour")
-    @menuButton.signal_connect("clicked"){
-      SaveUser.setUsername(@entry_username.text)
+    menuButton=Gtk::Button.new(:label=>"Retour")
+    menuButton.signal_connect("clicked"){
+      SaveUser.setUsername(entry_username.text)
       GlobalOpts.serialized
     }
-    @menuButton.style_context.add_class('suggested-action')
+    menuButton.style_context.add_class('suggested-action')
+    menuButton.signal_connect "clicked" do
+      self.destroy
+    end
 
     #faire hbox pour avoir switch avec champs texte comme dans component in game menu
     erreurAutoriserHBox = Gtk::Box.new(:horizontal,15)
@@ -133,16 +141,11 @@ class Option < Gtk::Frame
     vBox.pack_start(erreurAutoriserHBox, :expand=>false, :fill=>false, :padding=>2)
     vBox.pack_start(surlignageSurvolHbox, :expand=>false, :fill=>false, :padding=>2)
     vBox.pack_start(usernameHbox, :expand=>false, :fill=>false, :padding=>0)
-    vBox.pack_start(@menuButton, :expand=>false, :fill=>false, :padding=>15)
+    vBox.pack_start(menuButton, :expand=>false, :fill=>false, :padding=>15)
 
     hBox = Gtk::Box.new(:horizontal, 10)
     hBox.pack_start(vBox, :expand=>false, :fill=>false, :padding=>15)
     self.add hBox
   end
 
-  def signal_retour
-    @menuButton.signal_connect("clicked") do
-      yield
-    end
-  end
 end
