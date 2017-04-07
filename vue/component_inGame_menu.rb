@@ -161,13 +161,44 @@ class InGameMenu < Gtk::Frame
     textView.right_margin = 20
     textView.set_size_request(-1, 150)
 
+    vBoxHypothese = Gtk::Box.new(:vertical, 2)
 
-    pan.add(buttonFullPossibilities)
-    pan.add(auto_maj_candidates_hbox)
-    pan.add(wayWrite_hbox)
-    pan.add(Gtk::Label.new(""))
-    pan.add(boxTechnic)
-    pan.add(textView)
+    buttonHypothese = Gtk::Button.new(:label=>"Activer le mode hypothèse", :use_underline => true)
+    buttonHypothese.margin = 5
+    buttonHypothese.signal_connect('clicked') do
+      @boardComp.board.serialized("save_hypo.yaml")
+      pan.remove(buttonHypothese)
+      pan.pack_start(vBoxHypothese)
+      self.show_all
+    end
+
+    buttonValid = Gtk::Button.new(:label=>"Valider les hyptohèses", :use_underline => true)
+    buttonValid.margin = 5
+    buttonValid.signal_connect('clicked') do
+      puts "tu cliques sur valide"
+      pan.remove(vBoxHypothese)
+      pan.pack_start(buttonHypothese)
+      self.show_all
+    end
+
+    buttonAnnul = Gtk::Button.new(:label=>"Annuler les hypothèses", :use_underline=>true)
+    buttonAnnul.margin = 5
+    buttonAnnul.signal_connect('clicked') do
+      puts "tu me clique dessus ANNUL"
+      pan.remove(vBoxHypothese)
+      pan.pack_start(buttonHypothese)
+      self.show_all
+    end
+
+    vBoxHypothese.pack_start(buttonValid)
+    vBoxHypothese.pack_start(buttonAnnul)
+
+    pan.pack_start(buttonFullPossibilities)
+    pan.pack_start(auto_maj_candidates_hbox)
+    pan.pack_start(wayWrite_hbox)
+    pan.pack_start(buttonHypothese)
+    pan.pack_end(textView)
+    pan.pack_end(boxTechnic)
 
     # pan.pack_start(textView , :expand=>true, :fill=>true, :padding=>15) # take all available space
     self.add(pan)
