@@ -117,7 +117,7 @@ class BoardComponent < Gtk::Frame
     end
   end
 
-  def animate
+  def hideRnd
     @cellsView.shuffle.first.change_style("color", GlobalOpts.getBackgroundColor)
   end
 
