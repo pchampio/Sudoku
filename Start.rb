@@ -20,6 +20,7 @@ gen.generate(:full)
 game = Game.new(window,gen.board)
 
 window.add game
+window.set_icon_from_file(File.dirname(__FILE__) + "/ressources/icon.png")
 
 window.signal_connect 'destroy'  do
   game.hideOverlay
