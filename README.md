@@ -10,6 +10,8 @@
 
 L3 SPI Réalisation d'une interface à "aides visuelles" à la résolution  d'un Sudoku 
 
+![GitHub Logo](screen.png)  
+
 ### Recommandé: Rvm Installation
 ```
 curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
