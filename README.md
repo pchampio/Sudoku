@@ -10,8 +10,6 @@
 
 L3 SPI Réalisation d'une interface à "aides visuelles" à la résolution  d'un Sudoku 
 
-![GitHub Logo](screen.png)  
-
 <p align="center">
   <a href="https://raw.githubusercontent.com/Drakirus/Sudoku/master/screen.png">
     <img alt="ScreenShot~ prompt" src="https://raw.githubusercontent.com/Drakirus/Sudoku/master/screen.png">
