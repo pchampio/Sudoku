@@ -2,11 +2,11 @@
 
 
 <p align="center">
-[![Code Climate](https://codeclimate.com/github/Drakirus/Sudoku/badges/gpa.svg)](https://codeclimate.com/github/Drakirus/Sudoku)
-[![Issue Count](https://codeclimate.com/github/Drakirus/Sudoku/badges/issue_count.svg)](https://codeclimate.com/github/Drakirus/Sudoku)
-[![Inline docs](http://inch-ci.org/github/Drakirus/Sudoku.svg?branch=master)](http://inch-ci.org/github/Drakirus/Sudoku)
-[![Test Coverage](https://codeclimate.com/github/Drakirus/Sudoku/badges/coverage.svg)](https://codeclimate.com/github/Drakirus/Sudoku/coverage)
-[![Build Status](https://travis-ci.org/Drakirus/Sudoku.svg)](https://travis-ci.org/Drakirus/Sudoku)
+<a href="https://codeclimate.com/github/Drakirus/Sudoku"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/gpa.svg" alt="Code Climate"></a><br>
+<a href="https://codeclimate.com/github/Drakirus/Sudoku"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/issue_count.svg" alt="Issue Count"></a><br>
+<a href="http://inch-ci.org/github/Drakirus/Sudoku"><img src="http://inch-ci.org/github/Drakirus/Sudoku.svg?branch=master" alt="Inline docs"></a><br>
+<a href="https://codeclimate.com/github/Drakirus/Sudoku/coverage"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/coverage.svg" alt="Test Coverage"></a><br>
+<a href="https://travis-ci.org/Drakirus/Sudoku"><img src="https://travis-ci.org/Drakirus/Sudoku.svg" alt="Build Status"></a>
 </p>
 
 L3 SPI Réalisation d'une interface à "aides visuelles" à la résolution  d'un Sudoku 
