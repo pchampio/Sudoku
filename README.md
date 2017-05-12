@@ -2,10 +2,10 @@
 
 
 <p align="center">
-<a href="https://codeclimate.com/github/Drakirus/Sudoku"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/gpa.svg" alt="Code Climate"></a><br>
-<a href="https://codeclimate.com/github/Drakirus/Sudoku"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/issue_count.svg" alt="Issue Count"></a><br>
-<a href="http://inch-ci.org/github/Drakirus/Sudoku"><img src="http://inch-ci.org/github/Drakirus/Sudoku.svg?branch=master" alt="Inline docs"></a><br>
-<a href="https://codeclimate.com/github/Drakirus/Sudoku/coverage"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/coverage.svg" alt="Test Coverage"></a><br>
+<a href="https://codeclimate.com/github/Drakirus/Sudoku"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/gpa.svg" alt="Code Climate"></a>
+<a href="https://codeclimate.com/github/Drakirus/Sudoku"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/issue_count.svg" alt="Issue Count"></a>
+<a href="http://inch-ci.org/github/Drakirus/Sudoku"><img src="http://inch-ci.org/github/Drakirus/Sudoku.svg?branch=master" alt="Inline docs"></a>
+<a href="https://codeclimate.com/github/Drakirus/Sudoku/coverage"><img src="https://codeclimate.com/github/Drakirus/Sudoku/badges/coverage.svg" alt="Test Coverage"></a>
 <a href="https://travis-ci.org/Drakirus/Sudoku"><img src="https://travis-ci.org/Drakirus/Sudoku.svg" alt="Build Status"></a>
 </p>
 
