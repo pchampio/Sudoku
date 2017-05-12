@@ -1,12 +1,13 @@
 # Sudoku
 
 
+<p align="center">
 [![Code Climate](https://codeclimate.com/github/Drakirus/Sudoku/badges/gpa.svg)](https://codeclimate.com/github/Drakirus/Sudoku)
 [![Issue Count](https://codeclimate.com/github/Drakirus/Sudoku/badges/issue_count.svg)](https://codeclimate.com/github/Drakirus/Sudoku)
 [![Inline docs](http://inch-ci.org/github/Drakirus/Sudoku.svg?branch=master)](http://inch-ci.org/github/Drakirus/Sudoku)
 [![Test Coverage](https://codeclimate.com/github/Drakirus/Sudoku/badges/coverage.svg)](https://codeclimate.com/github/Drakirus/Sudoku/coverage)
 [![Build Status](https://travis-ci.org/Drakirus/Sudoku.svg)](https://travis-ci.org/Drakirus/Sudoku)
-
+</p>
 
 L3 SPI Réalisation d'une interface à "aides visuelles" à la résolution  d'un Sudoku 
 
